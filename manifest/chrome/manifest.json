@@ -1,31 +1,35 @@
 {
 
-    "description": "Peek at the execution of a transaction before signing it",
-    "manifest_version": 3,
-    "name": "zephyr",
-    "version": "0.1.0",
-    "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/p33k",
-    "icons": {
-      "48": "icons/index.png"
-    },
-  
-    "permissions": [
-      "activeTab",
-      "webRequest"
-    ],
-    "host_permissions": [
-        "*://localhost/*"
-    ],
-    "content_scripts": [
-      {
-        "matches":["<all_urls>"],
-        "js": [
-          "./content_scripts/inject.js"
-        ]
-      }
-    ],
-    "background": {
-      "scripts": ["./background/background-script.js"]
+  "description": "Peek at the execution of a transaction before signing it",
+  "manifest_version": 3,
+  "name": "zephyr",
+  "version": "0.1.3",
+  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/p33k",
+  "icons": {
+    "48": "icons/index.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "webRequest"
+  ],
+  "host_permissions": [
+      "*://localhost/*"
+  ],
+  "content_scripts": [
+    {
+      "matches":["<all_urls>"],
+      "js": [
+        "content_scripts/inject.js"
+      ]
     }
-  }
+  ],
   
+  "web_accessible_resources": [{
+    "resources": ["inpage.js"],
+    "matches": ["http://*/*", "https://*/*"]
+  }],
+  "background": {
+    "service_worker": "background-script.js"
+  }
+}

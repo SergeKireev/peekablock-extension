@@ -20,6 +20,7 @@
             }
           }).catch(console.error)
           const responseBody = await response.json()
+          console.log("GOT RESPONSE", JSON.stringify(responseBody))
           const event = new CustomEvent('transfer-metadata', {
             detail: responseBody
           });

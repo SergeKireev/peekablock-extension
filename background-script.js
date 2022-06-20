@@ -3,12 +3,19 @@ const NOTIFICATION_HEIGHT = 620;
 const NOTIFICATION_WIDTH = 360;
 const MIN_TOP = 10
 
+let _browser = undefined
+try {
+    _browser = browser ? browser : chrome
+} catch {
+    _browser = chrome
+}
+
 function createWindow(windowOpts) {
-    return browser.windows.create(windowOpts)
+    return _browser.windows.create(windowOpts)
 }
 
 function updateWindowDimensions(windowId, left) {
-    return browser.windows.update(windowId, { left: left, top: 0 }).catch(e => {
+    return _browser.windows.update(windowId, { left: left, top: 0 }).catch(e => {
         console.error(e)
     })
 }
@@ -16,12 +23,13 @@ function updateWindowDimensions(windowId, left) {
 async function notify(message) {
     console.log("background script received message", message);
 
-    const lastFocused = await browser.windows.getLastFocused()
+    const lastFocused = await _browser.windows.getLastFocused()
     top = lastFocused.top;
     left = lastFocused.left + (lastFocused.width - 3 * NOTIFICATION_WIDTH);
 
     const urlEncodedQueryS = encodeURI(JSON.stringify(message));
-    var popupURL = browser.extension.getURL(`popup/zephyr.html?qs=${urlEncodedQueryS}`);
+    //TODO: Check compatibility with firefox
+    var popupURL = _browser.runtime.getURL(`popup/zephyr.html?qs=${urlEncodedQueryS}`);
 
     const popupWindow = await createWindow({
         url: popupURL,
@@ -40,4 +48,4 @@ async function notify(message) {
 /*
 Assign `notify()` as a listener to messages from the content script.
 */
-browser.runtime.onMessage.addListener(notify);
+_browser.runtime.onMessage.addListener(notify);

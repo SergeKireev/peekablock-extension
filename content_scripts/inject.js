@@ -1,13 +1,17 @@
+const b = typeof browser !== 'undefined' ? browser : chrome
+
 function notifyExtension(e) {
   console.log("NOTIFYING", e.detail)
-  browser.runtime.sendMessage(e.detail);
+  b.runtime.sendMessage(e.detail);
 }
+
 ;(function() {
-    const b = typeof browser !== 'undefined' ? browser : chrome
-    console.log("TYPE OF BROWSER", typeof browser)
-    const script = document.createElement('script')
-    script.src = b.runtime.getURL('./content_scripts/script.js')
-    document.documentElement.appendChild(script)
-    window.addEventListener("transfer-metadata", notifyExtension);
+    const container = document.head || document.documentElement;
+    const scriptTag = document.createElement('script');
+    scriptTag.setAttribute('async', 'false');
+    // Inline scripts do not work in MV3 due to more strict security policy
+    scriptTag.setAttribute('src', b.runtime.getURL('inpage.js'));
+    container.insertBefore(scriptTag, container.children[0]);
+    window.addEventListener("transfer-metadata", notifyExtension)
+    container.removeChild(scriptTag);
 })()
-console.log("LOADING")
