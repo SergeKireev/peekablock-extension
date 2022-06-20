@@ -1,0 +1,18 @@
+html, body {
+  width: 99%;
+}
+
+.event {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.outbound {
+  background-color: #FA5F5F;
+}
+
+.inbound {
+  background-color: #9EFB9E;
+}
