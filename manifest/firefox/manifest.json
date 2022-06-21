@@ -11,9 +11,7 @@
 
   "permissions": [
     "activeTab",
-    "webRequest"
-  ],
-  "host_permissions": [
+    "webRequest",
     "*://localhost/*"
   ],
   "content_scripts": [

@@ -1,18 +1,149 @@
 html, body {
-  width: 99%;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFFAA;
+}
+
+.container {
+  padding: 10px;
+  margin-top: -8px;
+  margin-left: -8px;
+  width: 720px;
+  height: 99%;
+}
+
+.error_container {
+  background-color: #FFBCBC;
+  text-align: center;
+  color: #000000dd;
+  padding: 10px;
+  font-weight: normal;
+  border-radius: 5px;
+  font-size: 0.8em;
+  box-shadow: 2px 2px 5px #A0A0A0cc;
+  margin-top: 10px;
+}
+
+.error_icon {
+  margin-right: 10px;
+  font-size: 15px;  
+}
+
+.header_container {
+  background-color: #8F82C2;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #A0A0A0cc;
+  padding-top: 10px;
+}
+
+.header_title {
+  font-weight: lighter;
+  font-family: 'Poppins';
+  color: white;
+  font-size: 0.8em;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: #00000044;
+  padding: 5px;
+}
+
+.header {
+  font-weight: lighter;
+  font-family: 'Poppins';
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_addressItem {
+  margin: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_arrow {
+  margin: 10px;
+  flex: 0.5;
+}
+
+.header_accountIcon {
+  margin: 5px;
+}
+
+.header_accountAddress {
+  margin-left: 10px;
 }
 
 .event {
-  margin: 3% auto;
+  margin-bottom: 10px;
   padding: 4px;
+  font-weight: lighter;
+  font-family: 'Poppins';
+  font-size: 0.8em;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #A0A0A0cc;
+  min-height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #0000009f;
+}
+
+.event_pill {
+  font-weight: lighter;
+  font-family: 'Poppins';
+  color: white;
+  font-size: 0.8em;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: #00000044;
   text-align: center;
-  font-size: 1em;
+  width: 50px;
+  padding: 5px;
+}
+
+.event_description {
+  margin-left: 20px;
+}
+
+.event_middle_amount {
+  font-weight: bold;
+  font-family: 'Poppins';
+  font-size: 0.9em;
+}
+
+.event_middle_arrow {
+  margin-top: 7px;
+  margin-bottom: -7px;
+}
+
+.event_col {
+  margin-left: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event_middle {
+  min-width: 350px;
+}
+
+.title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: 'Poppins';
+  font-size: 0.9em;
 }
 
 .outbound {
-  background-color: #FA5F5F;
+  background-color: #FFBCBC;
 }
 
 .inbound {
-  background-color: #9EFB9E;
+  background-color: #96FFB6;
 }

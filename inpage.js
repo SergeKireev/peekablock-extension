@@ -2,16 +2,10 @@
   // your main code here
   const callRequest = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
-      console.log("Found metamasks window.ethereum, replacing with console.log")
+      console.log("Found metamasks window.ethereum, proxying it through zephyr")
       const prev = window.ethereum.request
       window.ethereum.request = async (x) => {
-        const activeAccount = window.ethereum.selectedAddress
         if (x.method === 'eth_sendTransaction') {
-          const payload = {
-            activeAccount: activeAccount,
-            params: x.params[0]
-          }
-          console.log("PAYLOAD", payload, x)
           const response = await fetch(`http://localhost:3000`, {
             method: 'POST',
             body: JSON.stringify(x.params[0]),
