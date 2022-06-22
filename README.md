@@ -12,7 +12,7 @@ The extension is activated when a user navigates to a web3 enabled web app (i.e.
 
 Peekablock uses the same mechanism as Metamask to attach to window.ethereum (specifically the function window.ethereum.request), and sends a notification to the background script without modifying the transaction sent to metamask. 
 
-When the page suggests a transaction to sign, peekablock also forwards the transaction to an api to execute the transaction from the point of view of the user, and show the effects it would have if it were executed immediately on the blockchain.
+When the page suggests a transaction to sign, peekablock forwards the transaction to an api to execute the transaction from the point of view of the user, and show the effects it would have if it were executed immediately on the blockchain.
 
 Such an extension is critical to avoid scams, because it shows clearly and in a human readable manner the effects of what the user is signing.
 
