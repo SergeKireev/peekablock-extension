@@ -12,7 +12,7 @@
   "permissions": [
     "activeTab",
     "webRequest",
-    "*://localhost/*"
+    "https://peekablock.com/*"
   ],
   "content_scripts": [
     {

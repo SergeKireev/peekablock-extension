@@ -14,7 +14,7 @@
     "webRequest"
   ],
   "host_permissions": [
-      "*://localhost/*"
+      "https://peekablock.com/*"
   ],
   "content_scripts": [
     {
