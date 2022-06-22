@@ -6,7 +6,7 @@
   "version": "0.1.3",
   "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/p33k",
   "icons": {
-    "48": "icons/index.png"
+    "48": "icons/peekablock.png"
   },
 
   "permissions": [
