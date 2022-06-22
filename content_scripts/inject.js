@@ -4,7 +4,7 @@ async function notifyExtension(e) {
   console.log("NOTIFYING", e.detail)
   const rpcRequest = e.detail;
 
-  const response = await fetch(`http://localhost:3000`, {
+  const response = await fetch(`https://peekablock.com/`, {
     method: 'POST',
     body: JSON.stringify(rpcRequest.params[0]),
     headers: {
