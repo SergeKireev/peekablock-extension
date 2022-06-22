@@ -6,7 +6,7 @@
   "version": "0.1.0",
   "homepage_url": "https://github.com/SergeKireev/peekablock-extension/blob/main",
   "icons": {
-    "48": "icons/peekablock.png"
+    "4593": "icons/peekablock.png"
   },
 
   "permissions": [

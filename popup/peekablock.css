@@ -12,6 +12,11 @@ html, body {
   height: 99%;
 }
 
+.linkAddress {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .error_container {
   background-color: #FFBCBC;
   text-align: center;
@@ -75,6 +80,8 @@ html, body {
 
 .header_accountAddress {
   margin-left: 10px;
+  display: flex;
+  flex-direction: row;
 }
 
 .event {
@@ -117,7 +124,6 @@ html, body {
 
 .event_middle_arrow {
   margin-top: 7px;
-  margin-bottom: -7px;
 }
 
 .event_col {

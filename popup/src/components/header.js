@@ -14,8 +14,9 @@ function createAddressElement(address) {
     const addressText = document.createElement('div')
     addressText.classList.add('header_accountAddress')
     const _address = { label: shortenAddress(address.address), address: address.address }
-    addressText.innerHTML = `${address.label} : ${buildLinkFromAddress(_address)}`
+    addressText.textContent = `${address.label} :`
     addressElement.appendChild(addressText)
+    addressElement.appendChild(buildLinkFromAddress(_address))
     return addressElement
 }
 

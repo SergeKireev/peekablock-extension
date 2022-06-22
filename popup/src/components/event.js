@@ -1,18 +1,26 @@
 export function buildLinkFromAddress(address) {
-    return `<a href="https://etherscan.io/address/${address.address}">${address.label}</a>`
+    const linkEl = document.createElement('a')
+    linkEl.classList.add('linkAddress')
+    linkEl.href = `https://etherscan.io/address/${address.address}`
+    linkEl.textContent = address.label
+    return linkEl
 }
 
-function buildAmountLabel(evt) {
-    if (evt.type === 'erc20transfer') {
-        return `<b>${evt.amount}</b> ${buildLinkFromAddress(evt.token)}`
-    } else if (evt.type === 'erc721transfer') {
-        return `${buildLinkFromAddress(evt.token)}: #${evt.tokenId}`
-    } else if (evt.type === 'erc20approval') {
-        return `<b>${evt.amount}</b> ${buildLinkFromAddress(evt.token)}`
-    } else if (evt.type === 'erc721approval') {
-        return `${buildLinkFromAddress(evt.token)}: #${evt.tokenId}`
+function attachAmountLabel(evt, middleEl) {
+    const amountSpan = document.createElement('span')
+    const tokenLink = buildLinkFromAddress(evt.token)
+    if (evt.type === 'erc20transfer' || evt.type === 'erc20approval') {
+        amountSpan.textContent = `${evt.amount} `
+        middleEl.appendChild(amountSpan)
+        middleEl.appendChild(tokenLink)
+    } else if (evt.type === 'erc721transfer' || evt.type === 'erc721approval') {
+        amountSpan.textContent = `: #${evt.tokenId}`
+        middleEl.appendChild(tokenLink)
+        middleEl.appendChild(amountSpan)
     } else if (evt.type === 'erc721approvalForAll') {
-        return `${buildLinkFromAddress(evt.token)}: ALL`
+        amountSpan.textContent = `: ALL`
+        middleEl.appendChild(tokenLink)
+        middleEl.appendChild(amountSpan)
     }
 }
 
@@ -20,13 +28,10 @@ function buildEventMiddleSection(evt) {
     const middle = document.createElement('div')
     middle.classList.add('event_col', 'event_middle')
 
-    const amount = evt.amount
-    const amountSpan = document.createElement('span')
-    amountSpan.innerHTML = buildAmountLabel(evt)
-    middle.appendChild(amountSpan)
+    attachAmountLabel(evt, middle)
 
     const arrow = document.createElement('i')
-    amountSpan.classList.add('event_middle_arrow')
+    arrow.classList.add('event_middle_arrow')
     arrow.classList.add('fa', 'fa-arrow-right', 'header_arrow')
     middle.appendChild(arrow)
 
@@ -42,19 +47,15 @@ function buildEventMiddleSection(evt) {
 function displayEvent(eventElement, evt) {
     const fromElement = document.createElement('div')
     fromElement.classList.add('event_col')
-    fromElement.innerHTML = `${buildLinkFromAddress(evt.from)}`
-    let description = '';
-    
-    const descriptionElement = document.createElement('div')
-    descriptionElement.innerHTML = description
+    fromElement.appendChild(buildLinkFromAddress(evt.from))
     eventElement.appendChild(fromElement)
     
     eventElement.appendChild(buildEventMiddleSection(evt))
 
     const toElement = document.createElement('div')
     toElement.classList.add('event_col')
-    toElement.innerHTML = buildLinkFromAddress(evt.to)
-    
+    toElement.appendChild(buildLinkFromAddress(evt.to))
+
     eventElement.appendChild(toElement)
 }
 
@@ -66,11 +67,11 @@ function createPill(evt) {
             || evt.type === 'erc721approval'
             || evt.type === 'erc721approvalForAll')
     ) {
-        pillEl.innerHTML = 'APPROVE'
+        pillEl.textContent = 'APPROVE'
     } else if (evt.from.label === 'me') {
-        pillEl.innerHTML = 'OUT'
+        pillEl.textContent = 'OUT'
     } else if (evt.to.label === 'me') {
-        pillEl.innerHTML = 'IN'
+        pillEl.textContent = 'IN'
     } else {
         return undefined
     }

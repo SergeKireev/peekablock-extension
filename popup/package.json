@@ -1,10 +1,10 @@
 {
-  "name": "popup",
+  "name": "peekablock-popup",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "build-dev": "webpack --mode=development --watch",
-    "build": "webpack --mode=production --watch"
+    "build": "webpack --mode=production"
   },
   "keywords": [],
   "author": "",

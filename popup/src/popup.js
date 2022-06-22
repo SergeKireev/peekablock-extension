@@ -15,7 +15,7 @@ function transferListElement(metadata) {
 
     const transfersTitle = document.createElement('div')
     transfersTitle.classList.add('title')
-    transfersTitle.innerHTML = 'Transfers'
+    transfersTitle.textContent = 'Transfers'
     transfersElement.appendChild(transfersTitle)
 
     const transfers =
@@ -45,7 +45,7 @@ function otherTransferListElement(metadata) {
 
     const otherTransfersTitle = document.createElement('div')
     otherTransfersTitle.classList.add('title')
-    otherTransfersTitle.innerHTML = 'Other transfers'
+    otherTransfersTitle.textContent = 'Other transfers'
     otherElement.appendChild(otherTransfersTitle)
 
     const otherTransfers = metadata.erc20Transfers
@@ -69,7 +69,7 @@ function approvalListElement(metadata) {
 
     const approvalsTitle = document.createElement('div')
     approvalsTitle.classList.add('title')
-    approvalsTitle.innerHTML = 'Approvals'
+    approvalsTitle.textContent = 'Approvals'
     approvalsElement.appendChild(approvalsTitle)
 
     const approvals =
@@ -101,8 +101,14 @@ function displayEvents(metadata) {
 function displayError(metadata) {
     const errorEl = document.createElement('div')
     errorEl.classList.add('error_container')
-    const icon = `<i class="fa fa-times error_icon" aria-hidden="true"></i>`
-    errorEl.innerHTML = `${icon} ${metadata.msg}`
+    const icon = document.createElement('i')
+    icon.classList.add("fa", "fa-times", "error_icon")
+    errorEl.appendChild(icon)
+
+    const msgEl = document.createElement('span')
+    msgEl.textContent = metadata.msg
+    errorEl.appendChild(msgEl)
+    
     const containerEl = document.getElementById('container')
     containerEl.appendChild(errorEl)
 }
