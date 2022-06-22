@@ -3,7 +3,7 @@
   "description": "Peek at the execution of a transaction before signing it",
   "manifest_version": 2,
   "name": "peekablock",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/p33k",
   "icons": {
     "48": "icons/index.png"
