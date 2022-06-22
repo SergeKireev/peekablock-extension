@@ -21,3 +21,6 @@ When a transaction is proposed for approval, peekablock shows the effects genera
 * ERC20/ERC721 transfer
 * ERC20/ERC721 approval
 * ERC721 approval for all
+
+## Preview ##
+![Preview](/assets/readme/peekablock_preview1.png)

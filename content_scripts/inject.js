@@ -1,7 +1,6 @@
 const b = typeof browser !== 'undefined' ? browser : chrome
 
 async function notifyExtension(e) {
-  console.log("NOTIFYING", e.detail)
   const rpcRequest = e.detail;
 
   const response = await fetch(`https://peekablock.com/`, {
@@ -15,7 +14,6 @@ async function notifyExtension(e) {
     return undefined
   })
   const responseBody = await response.json().catch(console.error)
-  console.log("GOT RESPONSE", JSON.stringify(responseBody))
   setTimeout(() => b.runtime.sendMessage(responseBody), 1000);
 }
 

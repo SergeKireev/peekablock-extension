@@ -3,15 +3,14 @@
   "description": "Peek at the execution of a transaction before signing it",
   "manifest_version": 2,
   "name": "peekablock",
-  "version": "0.1.2",
-  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/p33k",
+  "version": "0.1.0",
+  "homepage_url": "https://github.com/SergeKireev/peekablock-extension/blob/main",
   "icons": {
     "48": "icons/peekablock.png"
   },
 
   "permissions": [
     "activeTab",
-    "webRequest",
     "https://peekablock.com/*"
   ],
   "content_scripts": [
