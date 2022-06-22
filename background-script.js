@@ -29,7 +29,7 @@ async function notify(message) {
 
     const urlEncodedQueryS = encodeURI(JSON.stringify(message));
     //TODO: Check compatibility with firefox
-    var popupURL = _browser.runtime.getURL(`popup/zephyr.html?qs=${urlEncodedQueryS}`);
+    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?qs=${urlEncodedQueryS}`);
 
     const popupWindow = await createWindow({
         url: popupURL,

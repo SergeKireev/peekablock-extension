@@ -23,7 +23,7 @@ function transferListElement(metadata) {
             .concat(metadata.erc721Transfers)
             .map(createEventElement)
 
-    if (metadata.valueDiff !== '0,00000') {
+    if (metadata.valueDiff !== '0,00000' && metadata.valueDiff !== '0') {
         const ethTransfer = adaptEthValueToTransferEvent(metadata.valueDiff, metadata.me, metadata.target)
         const ethTransferEl = createEventElement(ethTransfer)
         transfers.push(ethTransferEl)
