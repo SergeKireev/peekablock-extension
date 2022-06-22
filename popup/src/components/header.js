@@ -2,7 +2,7 @@ import { generateJazzIcon } from "../display"
 import { buildLinkFromAddress } from "./event"
 
 export function shortenAddress(addressStr) {
-    return `0x${addressStr.substring(0, 2)}...${addressStr.substring(addressStr.length-4)}`
+    return `${addressStr.substring(0, 4)}...${addressStr.substring(addressStr.length-4)}`
 }
 
 function createAddressElement(address) {
