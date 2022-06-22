@@ -1,5 +1,7 @@
 # Peekablock
 
+![Icon](/icons/peekablock_128x128.png)
+
 ## What it does ##
 
 The extension includes:
@@ -29,9 +31,17 @@ When a transaction is proposed for approval, peekablock shows the effects genera
 
 Please run the following commands:
 ```
-  cd popup
   npm i
   npm run build
-  cd ..
   web-ext build
 ```
+
+Then run
+```
+    npm run set-chrome
+```
+or
+```
+    npm run set-firefox
+```
+for setting respectively chrome or firefox version 

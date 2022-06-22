@@ -1,3 +1,2 @@
-popup/dist
-popup/node_modules
+node_modules
 web-ext-artifacts/

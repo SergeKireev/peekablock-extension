@@ -1,27 +1,35 @@
 {
 
   "description": "Peek at the execution of a transaction before signing it",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "peekablock",
   "version": "0.1.0",
   "homepage_url": "https://github.com/SergeKireev/peekablock-extension/blob/main",
   "icons": {
-    "4593": "icons/peekablock.png"
+    "48": "icons/peekablock.png"
   },
 
   "permissions": [
     "activeTab",
-    "https://peekablock.com/*"
+    "webRequest"
+  ],
+  "host_permissions": [
+      "https://peekablock.com/*"
   ],
   "content_scripts": [
     {
       "matches":["<all_urls>"],
       "js": [
-        "./content_scripts/inject.js"
+        "content_scripts/inject.js"
       ]
     }
   ],
+  
+  "web_accessible_resources": [{
+    "resources": ["inpage.js", "index.js"],
+    "matches": ["http://*/*", "https://*/*"]
+  }],
   "background": {
-    "scripts": ["background-script.js"]
+    "service_worker": "background-script.js"
   }
 }
