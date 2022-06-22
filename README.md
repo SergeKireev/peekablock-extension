@@ -24,3 +24,14 @@ When a transaction is proposed for approval, peekablock shows the effects genera
 
 ## Preview ##
 ![Preview](/assets/readme/peekablock_preview1.png)
+
+## Build || Contribute || Review ##
+
+Please run the following commands:
+```
+  cd popup
+  npm i
+  npm run build
+  cd ..
+  web-ext build
+```
