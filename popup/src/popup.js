@@ -11,7 +11,7 @@ function adaptEthValueToTransferEvent(value, me, target) {
         "amount": value
     }
 }
-function transferListElement(metadata) {
+function transferListElement(metadata, me, target) {
     const transfersElement = document.createElement('div')
 
     const transfersTitle = document.createElement('div')
@@ -22,10 +22,11 @@ function transferListElement(metadata) {
     const transfers =
         metadata.erc20Transfers
             .concat(metadata.erc721Transfers)
+            .filter(t => t.to.label === 'me' || t.from.label === 'me')
             .map(createEventElement)
 
     if (metadata.valueDiff !== '0,00000' && metadata.valueDiff !== '0') {
-        const ethTransfer = adaptEthValueToTransferEvent(metadata.valueDiff, metadata.me, metadata.target)
+        const ethTransfer = adaptEthValueToTransferEvent(metadata.valueDiff, me, target)
         const ethTransferEl = createEventElement(ethTransfer)
         transfers.push(ethTransferEl)
     }
@@ -87,8 +88,8 @@ function approvalListElement(metadata) {
     }
 }
 
-function displayEvents(metadata) {
-    const transferEl = transferListElement(metadata)
+function displayEvents(metadata, me, target) {
+    const transferEl = transferListElement(metadata, me, target)
     const approvalEl = approvalListElement(metadata)
     const otherTransferEl = otherTransferListElement(metadata)
 
@@ -96,7 +97,6 @@ function displayEvents(metadata) {
     transferEl && containerEl.appendChild(transferEl)
     approvalEl && containerEl.appendChild(approvalEl)
     otherTransferEl && containerEl.appendChild(otherTransferEl)
-
 }
 
 function displayError(metadata) {
@@ -127,13 +127,14 @@ export const setupTransactionData = async (transaction) => {
 
 export const setupUi = async () => {
     const transaction = decodeTransaction()
+    console.log("Transaction to simulate", transaction)
     displayHeader(transaction)
 
     const spinnerEl = document.getElementById('spinner')
     const metadata = await setupTransactionData(transaction)
     spinnerEl.classList.add('hidden')
     if (metadata.type === 'ok') {
-        displayEvents(metadata)
+        displayEvents(metadata, transaction.from, transaction.to)
     } else {
         displayError(metadata)
     }
