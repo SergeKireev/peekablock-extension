@@ -73,7 +73,7 @@ function createPill(evt) {
     } else if (evt.to.label === 'me') {
         pillEl.textContent = 'IN'
     } else {
-        return undefined
+        pillEl.textContent = 'INFO'
     }
     return pillEl
 }
