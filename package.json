@@ -7,7 +7,7 @@
     "build": "webpack --mode=production",
     "set-chrome": "copyfiles --flat manifest/chrome/manifest.json .",
     "set-firefox": "copyfiles --flat manifest/firefox/manifest.json .",
-    "package": "web-ext build --ignore-files ./assets/readme"
+    "package": "web-ext build --ignore-files ./assets/readme --overwrite-dest"
   },
   "keywords": [],
   "author": "",

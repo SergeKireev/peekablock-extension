@@ -128,13 +128,22 @@ export const setupTransactionData = async (transaction) => {
 export const setupUi = async () => {
     const transaction = decodeTransaction()
     console.log("Transaction to simulate", transaction)
-    displayHeader(transaction)
+    const me = {
+        label: 'me',
+        address: transaction.from
+    }
+    const target = {
+        label: 'target',
+        address: transaction.to
+    }
+
+    displayHeader(me, target)
 
     const spinnerEl = document.getElementById('spinner')
     const metadata = await setupTransactionData(transaction)
     spinnerEl.classList.add('hidden')
     if (metadata.type === 'ok') {
-        displayEvents(metadata, transaction.from, transaction.to)
+        displayEvents(metadata, me, target)
     } else {
         displayError(metadata)
     }

@@ -8,17 +8,18 @@ export function buildLinkFromAddress(address) {
 
 function attachAmountLabel(evt, middleEl) {
     const amountSpan = document.createElement('span')
+    amountSpan.classList.add('event_middle_amount')
     const tokenLink = buildLinkFromAddress(evt.token)
     if (evt.type === 'erc20transfer' || evt.type === 'erc20approval') {
-        amountSpan.textContent = `${evt.amount} `
+        amountSpan.textContent = evt.amount === '-1' ? 'UNLIMITED' : `${evt.amount}`
         middleEl.appendChild(amountSpan)
         middleEl.appendChild(tokenLink)
     } else if (evt.type === 'erc721transfer' || evt.type === 'erc721approval') {
-        amountSpan.textContent = `: #${evt.tokenId}`
+        amountSpan.textContent = `#${evt.tokenId}`
         middleEl.appendChild(tokenLink)
         middleEl.appendChild(amountSpan)
     } else if (evt.type === 'erc721approvalForAll') {
-        amountSpan.textContent = `: ALL`
+        amountSpan.textContent = `ALL`
         middleEl.appendChild(tokenLink)
         middleEl.appendChild(amountSpan)
     }
