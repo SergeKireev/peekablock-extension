@@ -2,19 +2,7 @@ const b = typeof browser !== 'undefined' ? browser : chrome
 
 async function notifyExtension(e) {
   const rpcRequest = e.detail;
-
-  const response = await fetch(`https://peekablock.com/`, {
-    method: 'POST',
-    body: JSON.stringify(rpcRequest.params[0]),
-    headers: {
-      'content-type': 'application/json'
-    }
-  }).catch(e => {
-    console.error(e)
-    return undefined
-  })
-  const responseBody = await response.json().catch(console.error)
-  setTimeout(() => b.runtime.sendMessage(responseBody), 1000);
+  setTimeout(() => b.runtime.sendMessage(rpcRequest.params[0]), 1000);
 }
 
 ; (function () {

@@ -1,5 +1,6 @@
 import { createEventElement } from './components/event';
 import { displayHeader } from './components/header';
+import { simulateTransaction } from './service/simulation_service';
 
 function adaptEthValueToTransferEvent(value, me, target) {
     return {
@@ -108,24 +109,29 @@ function displayError(metadata) {
     const msgEl = document.createElement('span')
     msgEl.textContent = metadata.msg
     errorEl.appendChild(msgEl)
-    
+
     const containerEl = document.getElementById('container')
     containerEl.appendChild(errorEl)
 }
 
-export const setupUi = () => {
+export const decodeTransaction = () => {
     const queryString = window.location.search;
-    console.log(queryString)
     const urlParams = new URLSearchParams(queryString);
-    console.log(urlParams)
     const qsJson = urlParams.get('qs')
-    console.log(decodeURI(qsJson))
-    const metadata = JSON.parse(decodeURI(qsJson))
+    return JSON.parse(decodeURI(qsJson))
+}
 
-    const me = metadata.me
-    const target = metadata.target
-    displayHeader(me, target)
+export const setupTransactionData = async (transaction) => {
+    return await simulateTransaction(transaction)
+}
 
+export const setupUi = async () => {
+    const transaction = decodeTransaction()
+    displayHeader(transaction)
+
+    const spinnerEl = document.getElementById('spinner')
+    const metadata = await setupTransactionData(transaction)
+    spinnerEl.classList.add('hidden')
     if (metadata.type === 'ok') {
         displayEvents(metadata)
     } else {

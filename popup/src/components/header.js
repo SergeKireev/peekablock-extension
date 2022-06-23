@@ -20,7 +20,16 @@ function createAddressElement(address) {
     return addressElement
 }
 
-export function displayHeader(me, target) {
+export function displayHeader(transaction) {
+    const me = {
+        label: 'me',
+        address: transaction.from
+    }
+    const target = {
+        label: 'target',
+        address: transaction.to
+    }
+
     const meElement = createAddressElement(me)
 
     const arrow = document.createElement('i')

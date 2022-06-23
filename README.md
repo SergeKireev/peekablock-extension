@@ -25,7 +25,7 @@ When a transaction is proposed for approval, peekablock shows the effects genera
 * ERC721 approval for all
 
 ## Preview ##
-![Preview](/assets/readme/peekablock_preview1.png)
+![Preview](/assets/readme/peekablock-demo1.gif)
 
 ## Build || Contribute || Review ##
 

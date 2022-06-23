@@ -21,8 +21,6 @@ function updateWindowDimensions(windowId, left) {
 }
 
 async function notify(message) {
-    console.log("background script received message", message);
-
     const lastFocused = await _browser.windows.getLastFocused()
     top = lastFocused.top;
     left = lastFocused.left + (lastFocused.width - 3 * NOTIFICATION_WIDTH);
