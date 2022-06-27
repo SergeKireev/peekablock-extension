@@ -2,7 +2,7 @@
   // your main code here
   const callRequest = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
-      console.log("Found metamasks window.ethereum, proxying it through peekablock")
+      console.log("Found metamask's window.ethereum, proxying it through peekablock")
       const prev = window.ethereum.request
       window.ethereum.request = async (rpcRequest) => {
         if (rpcRequest.method === 'eth_sendTransaction') {
