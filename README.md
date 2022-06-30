@@ -1,6 +1,6 @@
 # Peekablock
 
-![Icon](/icons/peekablock_128x128.png)
+![Icon](/icons/peekablock_128.png)
 
 ## What it does ##
 

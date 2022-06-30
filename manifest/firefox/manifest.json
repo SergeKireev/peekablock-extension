@@ -2,10 +2,17 @@
   "description": "Peek at the execution of a transaction before signing it",
   "manifest_version": 2,
   "name": "peekablock",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "homepage_url": "https://github.com/SergeKireev/peekablock-extension/blob/main",
   "icons": {
-    "48": "icons/peekablock.png"
+    "16": "icons/peekablock_16.png",
+    "19": "icons/peekablock_19.png",
+    "32": "icons/peekablock_32.png",
+    "38": "icons/peekablock_38.png",
+    "48": "icons/peekablock_48.png",
+    "64": "icons/peekablock_64.png",
+    "128": "icons/peekablock_128.png",
+    "512": "icons/peekablock_512.png"
   },
   "content_scripts": [
     {
