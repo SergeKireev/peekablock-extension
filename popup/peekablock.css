@@ -220,4 +220,13 @@ a:active {
 
 #scam-label {
   font-size: 10px;
+  margin-bottom: 5px;
+}
+
+#twitter-hashtag-button {
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-family: 'Poppins';
+  background-color: #1d9bF0;
+  color: #FFFFFF;
 }
