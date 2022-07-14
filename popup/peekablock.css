@@ -1,7 +1,7 @@
 html,
 body {
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-color: #FFFFFFAA;
 }
 
@@ -73,7 +73,6 @@ body {
 }
 
 .header_title {
-  font-weight: lighter;
   font-family: 'Poppins';
   color: white;
   font-size: 0.8em;
@@ -84,7 +83,6 @@ body {
 }
 
 .header {
-  font-weight: lighter;
   font-family: 'Poppins';
   color: white;
   display: flex;
@@ -118,7 +116,6 @@ body {
 .event {
   margin-bottom: 10px;
   padding: 4px;
-  font-weight: lighter;
   font-family: 'Poppins';
   font-size: 0.8em;
   border-radius: 5px;
@@ -130,8 +127,27 @@ body {
   color: #0000009f;
 }
 
+a:link {
+  color: #0000009f;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0000009f;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0000009f;
+  text-decoration: none;
+}
+
+a:active {
+  color: #0000009f;
+  text-decoration: none;
+}
+
 .event_pill {
-  font-weight: lighter;
   font-family: 'Poppins';
   color: white;
   font-size: 0.8em;
@@ -178,9 +194,30 @@ body {
 }
 
 .outbound {
-  background-color: #FFBCBC;
+  background-color: #FFE7E4;
 }
 
 .inbound {
-  background-color: #96FFB6;
+  background-color: #D1F5C7;
+}
+
+.twitter-report-scam-container {
+  font-family: 'Poppins';
+  margin-bottom: 20px; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.twitter-report-scam {
+  margin-bottom: 20px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+#scam-label {
+  font-size: 10px;
 }

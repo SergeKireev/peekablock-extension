@@ -1,2 +1,4 @@
 const { setupUi } = require('./popup')
-setupUi()
+document.addEventListener("DOMContentLoaded", function(event) {
+    setupUi()
+});

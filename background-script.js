@@ -25,9 +25,10 @@ async function notify(message) {
     top = lastFocused.top;
     left = lastFocused.left + (lastFocused.width - 3 * NOTIFICATION_WIDTH);
 
-    const urlEncodedQueryS = encodeURI(JSON.stringify(message));
+    const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
+    const referrer = encodeURI(message.referrer)
     //TODO: Check compatibility with firefox
-    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?qs=${urlEncodedQueryS}`);
+    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?transaction=${urlEncodedQueryS}&referrer=${referrer}`);
 
     const popupWindow = await createWindow({
         url: popupURL,

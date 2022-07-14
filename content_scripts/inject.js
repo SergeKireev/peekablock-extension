@@ -2,7 +2,12 @@ const b = typeof browser !== 'undefined' ? browser : chrome
 
 async function notifyExtension(e) {
   const rpcRequest = e.detail;
-  setTimeout(() => b.runtime.sendMessage(rpcRequest.params[0]), 1000);
+  const domain = (new URL(window.location)).hostname;
+  const message = {
+    transaction: rpcRequest.params[0],
+    referrer: domain
+  }
+  setTimeout(() => b.runtime.sendMessage(message), 1000);
 }
 
 ; (function () {

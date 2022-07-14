@@ -1,5 +1,6 @@
 import { createEventElement } from './components/event';
 import { displayHeader } from './components/header';
+import { displayTwitterButton } from './components/twitter'
 import { simulateTransaction } from './service/simulation_service';
 
 function adaptEthValueToTransferEvent(value, me, target) {
@@ -114,20 +115,25 @@ function displayError(metadata) {
     containerEl.appendChild(errorEl)
 }
 
-export const decodeTransaction = () => {
+
+export const decodeParam = (param, isJson) => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const qsJson = urlParams.get('qs')
-    return JSON.parse(decodeURI(qsJson))
+    const qsJson = urlParams.get(param)
+    let result = decodeURI(qsJson)
+    return isJson ? JSON.parse(result) : result
 }
 
 export const setupTransactionData = async (transaction) => {
     return await simulateTransaction(transaction)
 }
 
+
 export const setupUi = async () => {
-    const transaction = decodeTransaction()
+    const transaction = decodeParam('transaction', true)
+    const hostname = decodeParam('referrer', false)
     console.log("Transaction to simulate", transaction)
+    console.log("From referrer", hostname);
     const me = {
         label: 'me',
         address: transaction.from
@@ -138,6 +144,7 @@ export const setupUi = async () => {
     }
 
     displayHeader(me, target)
+    displayTwitterButton(target, hostname);
 
     const spinnerEl = document.getElementById('spinner')
     const metadata = await setupTransactionData(transaction)
