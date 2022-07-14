@@ -24,6 +24,7 @@
       ]
     }
   ],
+  "content_security_policy": "default-src 'self'; script-src 'self' https://platform.twitter.com; object-src 'self'; style-src 'self' https://platform.twitter.com https://cdnjs.cloudflare.com https://fonts.googleapis.com",
   "web_accessible_resources": [
     {
       "resources": [
