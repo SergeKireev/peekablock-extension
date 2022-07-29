@@ -1,5 +1,5 @@
 {
-  "description": "Peek at the execution of a transaction before signing it",
+  "description": "Peek at the execution of a transaction before signing",
   "manifest_version": 3,
   "name": "peekablock",
   "version": "0.1.8",
@@ -14,16 +14,7 @@
     "128": "icons/peekablock_128.png",
     "512": "icons/peekablock_512.png"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content_scripts/inject.js"
-      ]
-    }
-  ],
+  "key": "iiklhcpciinnbjodpdjjoecgkfokpijg",
   "web_accessible_resources": [
     {
       "resources": [
@@ -38,5 +29,9 @@
   ],
   "background": {
     "service_worker": "background-script.js"
-  }
+  },
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "permissions": [
+    "scripting"
+  ]
 }

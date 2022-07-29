@@ -6,10 +6,13 @@ const DUMMY_NOTIFICATION_WIDTH = 100;
 const MIN_TOP = 10
 
 let _browser = undefined
+let isChrome = undefined
 try {
     _browser = browser ? browser : chrome
+    isChrome = false
 } catch {
     _browser = chrome
+    isChrome = true
 }
 
 function createWindow(windowOpts) {
@@ -21,6 +24,47 @@ function updateWindowDimensions(windowId, left) {
         console.error(e)
     })
 }
+
+const chromeProperties = isChrome ? {
+    world: 'MAIN'
+} : {}
+const firefoxProperties = !isChrome ? {
+    persistAcrossSessions: false,
+} : {}
+
+async function attachScripts() {
+    let scripts = [
+        {
+            id: 'Peekablock Script',
+            matches: ['http://*/*', 'https://*/*'],
+            js: ['inpage.js'],
+            allFrames: true,
+            runAt: 'document_start',
+            ...chromeProperties,
+            ...firefoxProperties
+        }
+    ];
+
+    if (isChrome) {
+        await _browser.scripting.unregisterContentScripts()
+        scripts.push({
+            id: 'Peekablock Content Script',
+            matches: ['http://*/*', 'https://*/*'],
+            js: ['content_scripts/inject.js'],
+            allFrames: true,
+            runAt: 'document_start',
+        })
+    }
+
+    _browser.scripting.registerContentScripts(scripts, (err, data) => {
+        console.debug('Registered content scripts');
+    });
+}
+
+attachScripts().catch((err) => {
+    console.debug('Error during attaching scripts', err);
+});
+
 
 async function notify(message) {
     const lastFocused = await _browser.windows.getLastFocused()

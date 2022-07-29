@@ -1,6 +1,9 @@
+
+const isChrome = typeof chrome !== 'undefined'
 const b = typeof browser !== 'undefined' ? browser : chrome
 
 async function notifyExtension(e) {
+  console.debug("Notified")
   const rpcRequest = e.detail;
   const domain = (new URL(window.location)).hostname;
   const message = {
@@ -8,15 +11,9 @@ async function notifyExtension(e) {
     referrer: domain
   }
   b.runtime.sendMessage(message);
-}
+}; 
 
-; (function () {
-  const container = document.head || document.documentElement;
-  const scriptTag = document.createElement('script');
-  scriptTag.setAttribute('async', 'false');
-  // Inline scripts do not work in MV3 due to more strict security policy
-  scriptTag.setAttribute('src', b.runtime.getURL('inpage.js'));
-  container.insertBefore(scriptTag, container.children[0]);
+(function () {
+  console.debug("Content script loaded!")
   window.addEventListener("forward-rpc-request", notifyExtension)
-  container.removeChild(scriptTag);
 })()

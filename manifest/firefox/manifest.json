@@ -28,5 +28,10 @@
     "scripts": [
       "background-script.js"
     ]
-  }
+  },
+  "permissions": [
+    "scripting",
+    "https://*/**",
+    "http://*/**"
+  ]
 }

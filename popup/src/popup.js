@@ -143,8 +143,8 @@ export const setupUi = async () => {
     }
     const transaction = decodeParam('transaction', true)
     const hostname = decodeParam('referrer', false)
-    console.log("Transaction to simulate", transaction)
-    console.log("From referrer", hostname);
+    console.debug("Transaction to simulate", transaction)
+    console.debug("From referrer", hostname);
     const me = {
         label: 'me',
         address: transaction.from
@@ -161,7 +161,13 @@ export const setupUi = async () => {
     const metadata = await setupTransactionData(transaction)
     spinnerEl.classList.add('hidden')
     if (metadata.type === 'ok') {
-        displayEvents(metadata, me, target)
+        if (metadata.allEvents.length === 0) {
+            displayError({
+                msg: `Nothing to see here. Maybe the website is trying to drain an empty wallet?`
+            })
+        } else {
+            displayEvents(metadata, me, target)
+        }
     } else {
         displayError(metadata)
     }
