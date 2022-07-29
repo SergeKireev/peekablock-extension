@@ -8,9 +8,9 @@
         if (rpcRequest.method === 'eth_sendTransaction') {
           const event = new CustomEvent('forward-rpc-request', {
             detail: rpcRequest
-          })  
+          })
           window.dispatchEvent(event)
-        } 
+        }
         return prev(rpcRequest)
       }
     } else {

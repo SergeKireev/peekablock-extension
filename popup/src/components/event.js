@@ -7,22 +7,45 @@ export function buildLinkFromAddress(address) {
 }
 
 function attachAmountLabel(evt, middleEl) {
+    const middleRowEl = document.createElement('div')
+    middleRowEl.classList.add('event_row')
+    const middleSubColEl = document.createElement('div')
+    middleSubColEl.classList.add('event_sub_col')
+    
+    const imageEl = document.createElement('img')
+    imageEl.classList.add('event_picture')
+    imageEl.setAttribute('src', evt.token.pictureUrl)
+    
     const amountSpan = document.createElement('span')
     amountSpan.classList.add('event_middle_amount')
     const tokenLink = buildLinkFromAddress(evt.token)
+
+    const arrow = document.createElement('i')
+    arrow.classList.add('event_middle_arrow')
+    arrow.classList.add('fa', 'fa-arrow-right', 'header_arrow')
+
     if (evt.type === 'erc20transfer' || evt.type === 'erc20approval') {
         amountSpan.textContent = evt.amount === '-1' ? 'UNLIMITED' : `${evt.amount}`
-        middleEl.appendChild(amountSpan)
-        middleEl.appendChild(tokenLink)
+        middleSubColEl.appendChild(amountSpan)
+        middleSubColEl.appendChild(tokenLink)
+        middleSubColEl.appendChild(arrow)
+        middleRowEl.appendChild(imageEl)
+        middleRowEl.appendChild(middleSubColEl)
     } else if (evt.type === 'erc721transfer' || evt.type === 'erc721approval') {
         amountSpan.textContent = `#${evt.tokenId}`
-        middleEl.appendChild(tokenLink)
-        middleEl.appendChild(amountSpan)
+        middleSubColEl.appendChild(tokenLink)
+        middleSubColEl.appendChild(amountSpan)
+        middleSubColEl.appendChild(arrow)
+        middleRowEl.appendChild(imageEl)
+        middleRowEl.appendChild(middleSubColEl)
     } else if (evt.type === 'erc721approvalForAll') {
         amountSpan.textContent = `ALL`
-        middleEl.appendChild(tokenLink)
-        middleEl.appendChild(amountSpan)
+        middleSubColEl.appendChild(tokenLink)
+        middleSubColEl.appendChild(amountSpan)
+        middleSubColEl.appendChild(arrow)
+        middleRowEl.appendChild(middleSubColEl)
     }
+    middleEl.appendChild(middleRowEl)
 }
 
 function buildEventMiddleSection(evt) {
@@ -30,11 +53,6 @@ function buildEventMiddleSection(evt) {
     middle.classList.add('event_col', 'event_middle')
 
     attachAmountLabel(evt, middle)
-
-    const arrow = document.createElement('i')
-    arrow.classList.add('event_middle_arrow')
-    arrow.classList.add('fa', 'fa-arrow-right', 'header_arrow')
-    middle.appendChild(arrow)
 
     return middle
 }

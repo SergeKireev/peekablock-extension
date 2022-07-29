@@ -6,7 +6,11 @@ import { simulateTransaction } from './service/simulation_service';
 function adaptEthValueToTransferEvent(value, me, target) {
     return {
         "type": "erc20transfer",
-        "token": { "label": "Ethereum", "address": "0x0" },
+        "token": {
+            "label": "Ethereum",
+            "address": "0x0",
+            "pictureUrl": "https://ethereum.org/static/6b935ac0e6194247347855dc3d328e83/13c43/eth-diamond-black.png"
+        },
         "from": me,
         "to": target,
         "amount": value
@@ -130,6 +134,13 @@ export const setupTransactionData = async (transaction) => {
 
 
 export const setupUi = async () => {
+    const action = decodeParam('action', false)
+    if (action === 'close') {
+        setTimeout(() => {
+            window.close()
+        }, 1000);
+        return;
+    }
     const transaction = decodeParam('transaction', true)
     const hostname = decodeParam('referrer', false)
     console.log("Transaction to simulate", transaction)

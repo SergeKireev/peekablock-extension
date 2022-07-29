@@ -9,7 +9,7 @@ body {
   padding: 10px;
   margin-top: -8px;
   margin-left: -8px;
-  width: 720px;
+  width: 690px;
   height: 99%;
 }
 
@@ -99,7 +99,10 @@ body {
 }
 
 .header_arrow {
-  margin: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
   flex: 0.5;
 }
 
@@ -179,6 +182,26 @@ a:active {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.event_row {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.event_sub_col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event_picture {
+  height: 50px;
+  border-radius: 50px;
+  margin-right: 10px;
 }
 
 .event_middle {

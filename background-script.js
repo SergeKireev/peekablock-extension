@@ -1,6 +1,8 @@
 // Have the same dimensions as metamask extension 
 const NOTIFICATION_HEIGHT = 620;
-const NOTIFICATION_WIDTH = 360;
+const METAMASK_NOTIFICATION_WIDTH = 360;
+const NOTIFICATION_WIDTH = 720;
+const DUMMY_NOTIFICATION_WIDTH = 100;
 const MIN_TOP = 10
 
 let _browser = undefined
@@ -23,7 +25,8 @@ function updateWindowDimensions(windowId, left) {
 async function notify(message) {
     const lastFocused = await _browser.windows.getLastFocused()
     top = lastFocused.top;
-    left = lastFocused.left + (lastFocused.width - 3 * NOTIFICATION_WIDTH);
+    metamask_left = lastFocused.left + lastFocused.width - METAMASK_NOTIFICATION_WIDTH;
+    left = metamask_left - NOTIFICATION_WIDTH;
 
     const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
     const referrer = encodeURI(message.referrer)
@@ -34,13 +37,29 @@ async function notify(message) {
         url: popupURL,
         type: 'popup',
         left: left,
-        width: NOTIFICATION_WIDTH*2,
+        width: NOTIFICATION_WIDTH,
         height: NOTIFICATION_HEIGHT
     })
 
+    //Open a dummy window for metamask to take as a reference and open itself correctly
+    const popupWindow2 = await createWindow({
+        url: ``,
+        type: 'popup',
+        left: metamask_left,
+        width: METAMASK_NOTIFICATION_WIDTH,
+        height: NOTIFICATION_HEIGHT
+    })
+
+    if (popupWindow2.top !== top) {
+        await updateWindowDimensions(popupWindow2.id, metamask_left, top)
+    }
+    //Close the dummy window after a safety timeout
+    setTimeout(() => {
+        _browser.windows.remove(popupWindow2.id)
+    }, 1000)
+
     if (popupWindow.top !== top && popupWindow.state !== 'fullscreen') {
-        console.log("UPDATING POPUP ID", popupWindow.id)
-        await updateWindowDimensions(popupWindow.id, left, top)
+        updateWindowDimensions(popupWindow.id, left, top)
     }
 }
 

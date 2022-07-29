@@ -7,7 +7,7 @@ async function notifyExtension(e) {
     transaction: rpcRequest.params[0],
     referrer: domain
   }
-  setTimeout(() => b.runtime.sendMessage(message), 1000);
+  b.runtime.sendMessage(message);
 }
 
 ; (function () {
