@@ -98,6 +98,8 @@ export const Content = ({ metadata, me, target }) => {
                         uncheckedIcon={false}
                         checkedIcon={false}
                         onColor={"#8F82C2"}
+                        height={15}
+                        width={30}
                     />
                     <span className="content_switch_label">
                         Categorize events

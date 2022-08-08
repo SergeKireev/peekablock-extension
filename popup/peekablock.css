@@ -152,6 +152,7 @@ a:active {
 }
 
 .content_switch_container {
+  margin-left: 5px;
   margin-top: 10px;
   display: flex;
   flex-direction: row;
