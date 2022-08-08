@@ -1,18 +1,30 @@
 const path = require('path');
 
 module.exports = {
-  entry: './popup/src/index.js',
   output: {
-    filename: 'index.js',
+    filename: 'index.bundle.js',
     path: path.resolve(__dirname, 'popup/dist'),
   },
+  entry: './popup/src/index.tsx',
   module: {
     rules: [
       {
-        test: /\.js$/,
-        enforce: "pre",
-        use: ["source-map-loader"],
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(sa|sc|c)ss$/, // styles files
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, // to import images and fonts
+        loader: "url-loader",
+        options: { limit: false },
       },
     ],
-  }
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
 };
