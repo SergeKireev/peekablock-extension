@@ -13,7 +13,18 @@ async function notifyExtension(e) {
   b.runtime.sendMessage(message);
 }; 
 
+async function notifyTransactionFinished(e) {
+  console.debug("Notified finish")
+  const transactionSigned = e.detail;
+  const message = {
+    isFinished: true,
+    transactionSigned: transactionSigned
+  }
+  b.runtime.sendMessage(message);
+}
+
 (function () {
   console.debug("Content script loaded!")
-  window.addEventListener("forward-rpc-request", notifyExtension)
+  window.addEventListener("initiate-transaction", notifyExtension)
+  window.addEventListener("finished-transaction", notifyTransactionFinished)
 })()

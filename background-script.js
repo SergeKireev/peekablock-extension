@@ -15,6 +15,8 @@ try {
     isChrome = true
 }
 
+let currentWindowId = undefined;
+
 function createWindow(windowOpts) {
     return _browser.windows.create(windowOpts)
 }
@@ -67,6 +69,13 @@ attachScripts().catch((err) => {
 
 
 async function notify(message) {
+
+    if (message.isFinished && currentWindowId) {
+        _browser.windows.remove(currentWindowId);
+        currentWindowId = undefined;
+        return;
+    }
+
     const lastFocused = await _browser.windows.getLastFocused()
     top = lastFocused.top;
     metamask_left = lastFocused.left + lastFocused.width - METAMASK_NOTIFICATION_WIDTH;
@@ -84,6 +93,7 @@ async function notify(message) {
         width: NOTIFICATION_WIDTH,
         height: NOTIFICATION_HEIGHT
     })
+    currentWindowId = popupWindow.id;
 
     //Open a dummy window for metamask to take as a reference and open itself correctly
     const popupWindow2 = await createWindow({

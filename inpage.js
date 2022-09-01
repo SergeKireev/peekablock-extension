@@ -34,14 +34,33 @@
 
         const chainId = await target.request({ method: 'eth_chainId' })
         console.debug("Forwarding transaction")
-        const event = new CustomEvent('forward-rpc-request', {
+        const event = new CustomEvent('initiate-transaction', {
           detail: {
             chainId: chainId,
             ...args[0]
           }
         })
         window.dispatchEvent(event)
-        return originalCall(...args);
+
+        return originalCall(...args).then(x => {
+          const transactionFinishedEvent = new CustomEvent('finished-transaction', {
+            detail: {
+              transactionSigned: true
+            }
+          })
+          console.debug("Transaction signed")
+          window.dispatchEvent(transactionFinishedEvent);
+          return x;
+        }).catch(e => {
+          const transactionFinishedEvent = new CustomEvent('finished-transaction', {
+            detail: {
+              transactionSigned: false
+            }
+          })
+          console.debug("Transaction cancelled")
+          window.dispatchEvent(transactionFinishedEvent);
+          throw e;
+        });
       };
     },
   };
