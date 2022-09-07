@@ -1,7 +1,7 @@
 {
-    "compilerOptions": {
-        "lib": ["es2021", "dom"],
-        "jsx": "react"
-    },
-    "include": ["popup/src"]
+    "references": [
+        { "path": "./popup" },
+        { "path": "./background" },
+    ],
+    "files": []
 }

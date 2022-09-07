@@ -6,6 +6,7 @@ interface AvgPrice {
 export interface Address {
     label: string,
     address: string,
+    validated?: boolean,
     pictureUrl?: string,
     avgPrice?: AvgPrice
 }

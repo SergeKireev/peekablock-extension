@@ -1,3 +1,5 @@
 node_modules
 web-ext-artifacts/
 manifest.json
+popup/dist
+background/dist

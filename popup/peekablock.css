@@ -277,3 +277,8 @@ a:active {
   background-color: #1d9bF0;
   color: #FFFFFF;
 }
+
+.verified_badge {
+  width: 20px;
+  height: 20px;
+}

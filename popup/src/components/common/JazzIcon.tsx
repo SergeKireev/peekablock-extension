@@ -15,9 +15,10 @@ export const JazzIcon = ({ address, size = 32 }) => {
     useEffect(() => {
         const icon = generateJazzIcon(address.address, size)
         icon.classList.add('header_accountIcon')
-        if (ref.current.firstChild)
-            ref.current.removeChild(ref.current.lastChild);
-        ref.current.appendChild(icon)
+        const current: any = ref.current
+        if (current.firstChild)
+            current.removeChild(current.lastChild);
+        current.appendChild(icon)
     })
     return <div ref={ref} style={{height: size}}></div>
 }

@@ -1,3 +1,5 @@
+import { verifyWithContract } from './contract/registry';
+
 // Have the same dimensions as metamask extension 
 const NOTIFICATION_HEIGHT = 620;
 const METAMASK_NOTIFICATION_WIDTH = 360;
@@ -8,9 +10,11 @@ const MIN_TOP = 10
 let _browser = undefined
 let isChrome = undefined
 try {
+    //@ts-ignore
     _browser = browser ? browser : chrome
     isChrome = false
 } catch {
+    //@ts-ignore
     _browser = chrome
     isChrome = true
 }
@@ -68,18 +72,26 @@ attachScripts().catch((err) => {
 });
 
 
-async function notify(message) {
-
-    if (message.isFinished && currentWindowId) {
-        _browser.windows.remove(currentWindowId);
-        currentWindowId = undefined;
-        return;
+async function verifyContract(address) {
+    const response = await fetch(`https://peekablock.com/validate/contract?address=${address}`)
+    const data = await response.json();
+    if (data.status === 'ok') {
+        const result = data.data;
+        const verifiedWithCommitment = await verifyWithContract(result.address, result.org, result.name, result.proof); 
+        if (verifiedWithCommitment) {
+            return data.data;
+        }
+        return undefined;
     }
+    return undefined;
+}
 
+
+async function runSimulation(message) {
     const lastFocused = await _browser.windows.getLastFocused()
-    top = lastFocused.top;
-    metamask_left = lastFocused.left + lastFocused.width - METAMASK_NOTIFICATION_WIDTH;
-    left = metamask_left - NOTIFICATION_WIDTH;
+    let top = lastFocused.top;
+    let metamask_left = lastFocused.left + lastFocused.width - METAMASK_NOTIFICATION_WIDTH;
+    let left = metamask_left - NOTIFICATION_WIDTH;
 
     const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
     const referrer = encodeURI(message.referrer)
@@ -105,7 +117,7 @@ async function notify(message) {
     })
 
     if (popupWindow2.top !== top) {
-        await updateWindowDimensions(popupWindow2.id, metamask_left, top)
+        await updateWindowDimensions(popupWindow2.id, metamask_left)
     }
     //Close the dummy window after a safety timeout
     setTimeout(() => {
@@ -113,8 +125,26 @@ async function notify(message) {
     }, 1000)
 
     if (popupWindow.top !== top && popupWindow.state !== 'fullscreen') {
-        updateWindowDimensions(popupWindow.id, left, top)
+        updateWindowDimensions(popupWindow.id, left)
     }
+}
+function notify(message, sender, sendResponse) {
+
+    if (message.isFinished && currentWindowId) {
+        _browser.windows.remove(currentWindowId);
+        currentWindowId = undefined;
+        return;
+    }
+
+    if (message.validateContract) {
+        const address = message.validateContract.address;
+        verifyContract(address).then(response => {
+            sendResponse(response);
+        })
+        return true;
+    }
+
+    runSimulation(message);
 }
 
 /*

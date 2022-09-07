@@ -20,6 +20,11 @@ export const AddressDisplay = ({ address }) => {
         <JazzIcon address={address} />
         <AddressText address={address} />
         <LinkFromAddress address={_address} />
+        {
+            address.validated ?
+                <img className="verified_badge" src={'https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg'} /> :
+                undefined
+        }
     </div>
 }
 

@@ -7,7 +7,7 @@ interface ErrorProps {
 
 export const Error = ({ metadata }: ErrorProps) => {
     return <div className="error_container">
-        <icon className="fa fa-times error_icon" />
+        <i className="fa fa-times error_icon" />
         <span>
             {metadata.msg}
         </span>
