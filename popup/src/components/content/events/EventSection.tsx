@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Event } from "../../domain/event";
+import { Event } from "../../../domain/event";
 import { EventRow } from './EventMiddleSection';
 
 interface EventSectionProps {

@@ -21,10 +21,7 @@ export async function verifyWithContract(
     const adaptedHexProof = proof.map(x => {
         return `0x${x}`;
     })
-    console.log("Verifying contact", address,
-        org,
-        name,
-        proof)
+    console.log("Verifying contact", address, org, name, proof)
     const verified = await contract.verify(0, adaptedHexProof, address, org, name, []);
     return verified;
 }

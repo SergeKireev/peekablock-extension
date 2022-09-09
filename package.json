@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "build-dev": "webpack --mode=development --watch",
+    "build-watch": "webpack --watch",
     "build": "webpack --mode=production",
     "set-chrome": "copyfiles --flat manifest/chrome/manifest.json .",
     "set-firefox": "copyfiles --flat manifest/firefox/manifest.json .",
@@ -34,7 +35,10 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@metamask/jazzicon": "^2.0.0",
+    "@mui/material": "^5.10.4",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^5.7.0",
     "react": "^18.2.0",

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ErrorResult } from "../../domain/simulation"
+import { ErrorResult } from "../../../domain/simulation"
 
 interface ErrorProps {
     metadata: ErrorResult

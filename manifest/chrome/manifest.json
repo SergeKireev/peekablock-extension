@@ -14,6 +14,20 @@
     "128": "icons/peekablock_128.png",
     "512": "icons/peekablock_512.png"
   },
+  "action": {
+    "default_icon": {
+      "16": "icons/peekablock_16.png",
+      "19": "icons/peekablock_19.png",
+      "32": "icons/peekablock_32.png",
+      "38": "icons/peekablock_38.png",
+      "48": "icons/peekablock_48.png",
+      "64": "icons/peekablock_64.png",
+      "128": "icons/peekablock_128.png",
+      "512": "icons/peekablock_512.png"
+    },
+    "default_title": "Open peekablock",
+    "default_popup": "popup/peekablock.html"
+  },
   "web_accessible_resources": [
     {
       "resources": [
@@ -27,7 +41,7 @@
     }
   ],
   "background": {
-    "service_worker": "background-script.js"
+    "service_worker": "background/dist/background.bundle.js"
   },
   "host_permissions": ["http://*/*", "https://*/*"],
   "permissions": [

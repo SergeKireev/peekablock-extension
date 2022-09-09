@@ -4,8 +4,10 @@ import { Transaction } from './domain/transaction';
 import { simulateTransaction } from './service/simulation_service';
 import * as React from 'react';
 import { useEffect, useState } from "react";
-import { Content } from './components/events/Content';
+import { Content } from './components/content/events/Content';
 import { Address } from './domain/event';
+import { NewHeader } from './components/header/NewHeader';
+import { NewContent } from './components/content/NewContent';
 
 let _browser = undefined
 let isChrome = undefined
@@ -43,15 +45,7 @@ async function validateTarget(address) {
     return response;
 }
 
-const App = () => {
-    const action = decodeParam('action', false)
-    if (action === 'close') {
-        setTimeout(() => {
-            window.close()
-        }, 1000);
-        return;
-    }
-
+function handleSimulateTransaction() {
     const transaction = decodeParam('transaction', true)
     const hostname = decodeParam('referrer', false)
 
@@ -98,6 +92,22 @@ const App = () => {
             <Content metadata={simulationResult} me={me} target={targetHydrated} />
         }
     </div>);
+}
+
+function handleOpenPopup() {
+    return (<div className='new_container'>
+        <NewHeader />
+        <NewContent />
+    </div>);
+}
+
+const App = () => {
+    const transaction = decodeParam('transaction', true)
+    if (transaction) {
+        return handleSimulateTransaction();
+    } else {
+        return handleOpenPopup();
+    }
 };
 
 export default App;

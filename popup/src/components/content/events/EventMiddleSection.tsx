@@ -1,7 +1,7 @@
-import { ApprovalForAllEvent, Erc20Event, Erc721Event, Event } from "../../domain/event"
+import { ApprovalForAllEvent, Erc20Event, Erc721Event, Event } from "../../../domain/event"
 import * as React from 'react'
-import { LinkFromAddress } from "../common/LinkFromAddress"
-import { SimpleAddressDisplay } from "../common/AddressDisplay"
+import { LinkFromAddress } from "../../common/LinkFromAddress"
+import { SimpleAddressDisplay } from "../../common/AddressDisplay"
 
 function isErc20Event(event: Event): event is Erc20Event {
     return event.type === 'erc20transfer' || event.type === 'erc20approval'
