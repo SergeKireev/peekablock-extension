@@ -1,13 +1,9 @@
-import { Header } from './components/header/header';
-import { displayTwitterButton } from './components/footer/twitter'
-import { Transaction } from './domain/transaction';
-import { simulateTransaction } from './service/simulation_service';
 import * as React from 'react';
-import { useEffect, useState } from "react";
-import { Content } from './components/content/events/Content';
-import { Address } from './domain/event';
-import { NewHeader } from './components/header/NewHeader';
-import { NewContent } from './components/content/NewContent';
+import { TransactionPage } from './components/content/tx/TransactionPage';
+import { decodeParam } from './lib/utils/uri';
+import { Pages } from './lib/navigation/pages';
+import { HomePage, HomeProps } from './components/content/home/HomePage';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 let _browser = undefined
 let isChrome = undefined
@@ -21,93 +17,79 @@ try {
     isChrome = true
 }
 
+const theme = createTheme({
+    palette: {
+        success: {
+            // This is green
+            main: '#059669'
+        },
+        error: {
+            // This is red
+            main: '#E5483E'
+        },
+        secondary: {
+            // This is purple.
+            main: '#9460C8',
+        },
+    },
+});
 
-export const decodeParam = (param: any, isJson: boolean) => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const qsJson = urlParams.get(param)
-    let result = decodeURI(qsJson)
-    return isJson ? JSON.parse(result) : result
-}
-
-export const setupTransactionData = async (transaction: Transaction) => {
-    return await simulateTransaction(transaction)
-}
-
-async function validateTarget(address) {
-    const response = await _browser.runtime.sendMessage({
-        validateContract: {
-            address: address
-        }
-    }).catch((error => {
-        console.error("Received error", error);
-    }));
-    return response;
-}
-
-function handleSimulateTransaction() {
-    const transaction = decodeParam('transaction', true)
-    const hostname = decodeParam('referrer', false)
-
-    const me = {
-        label: 'me',
-        address: transaction.from
-    }
-    const target: Address = {
-        label: 'target',
-        address: transaction.to
-    }
-
-    //TODO: verify target
-    const [simulationResult, setSimulationResult] = useState(null)
-    const [targetHydrated, setTargetHydrated] = useState(target);
-
-    useEffect(() => {
-        (async () => {
-            displayTwitterButton(targetHydrated, hostname);
-            const targetMetadata = await validateTarget(targetHydrated.address);
-            if (targetMetadata) {
-                const newTarget = {
-                    ...targetHydrated,
-                    label: targetMetadata.name,
-                    validated: true
-                }
-                console.log("Setting new target", newTarget);
-                setTargetHydrated(newTarget);
-            }
-            const result = await simulateTransaction(transaction)
-            setSimulationResult(result)
-        })();
-    }, [])
-
-    return (<div className='container'>
-        <div className="header_container">
-            <span className="header_title">Transaction between :</span>
-            <Header me={me} target={targetHydrated} />
-        </div>
-        {simulationResult === null ?
-            <div className="spinner_container">
-                <div id="spinner" className="spinner"></div>
-            </div> :
-            <Content metadata={simulationResult} me={me} target={targetHydrated} />
-        }
-    </div>);
-}
 
 function handleOpenPopup() {
-    return (<div className='new_container'>
-        <NewHeader />
-        <NewContent />
-    </div>);
+    const [page, setPage] = React.useState(undefined)
+    const [transaction, setTransaction] = React.useState(undefined)
+    const [homeProps, setHomeProps] = React.useState(undefined)
+    const [referrer, setReferrer] = React.useState(undefined)
+
+    const _homeProps: HomeProps = {
+        back: () => setPage(Pages.TRANSACTION),
+        hideNavigation: true
+    }
+
+    React.useEffect(() => {
+        if (!referrer) {
+            const _referrer = decodeParam('referrer', false)
+            if (!_referrer || _referrer == 'null') {
+                _browser.tabs.query(
+                    { currentWindow: true, active: true },
+                    function (tabs) {
+                        const activeTab = tabs[0];
+                        const domain = new URL(activeTab.url).hostname
+                        setReferrer(domain);
+                    });
+            } else {
+                setReferrer(_referrer);
+            }
+        }
+        const _transaction = decodeParam('transaction', true)
+        console.log("Decoded tx", _transaction);
+        if (!page && _transaction) {
+            setHomeProps(_homeProps);
+            setTransaction(_transaction);
+            setPage(Pages.TRANSACTION)
+        }
+    })
+
+    const reportScam = () => setPage(Pages.SCAM_REPORT);
+    const reportBug = () => setPage(Pages.SUPPORT);
+    return <ThemeProvider theme={theme}>
+        {
+            page === Pages.TRANSACTION 
+                ?
+                <TransactionPage
+                    referrer={referrer}
+                    reportScam={reportScam}
+                    reportBug={reportBug}
+                    transaction={transaction} /> :
+                <HomePage {...homeProps}
+                    initPage={page}
+                    referrer={referrer} />
+        }
+    </ThemeProvider>
 }
 
 const App = () => {
-    const transaction = decodeParam('transaction', true)
-    if (transaction) {
-        return handleSimulateTransaction();
-    } else {
-        return handleOpenPopup();
-    }
+    return handleOpenPopup();
 };
 
 export default App;

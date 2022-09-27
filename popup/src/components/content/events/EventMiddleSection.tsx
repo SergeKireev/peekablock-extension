@@ -1,4 +1,4 @@
-import { ApprovalForAllEvent, Erc20Event, Erc721Event, Event } from "../../../domain/event"
+import { ApprovalForAllEvent, Erc20Event, Erc721Event, Event } from "../../../lib/domain/event"
 import * as React from 'react'
 import { LinkFromAddress } from "../../common/LinkFromAddress"
 import { SimpleAddressDisplay } from "../../common/AddressDisplay"
@@ -45,7 +45,7 @@ export const EventMiddleSection = ({ event }: EventProps) => {
                 isErc20Event(event) ?
                     <div className="event_sub_col">
                         <span className="event_middle_amount">
-                            {event.amount === '-1' ? 'UNLIMITED' : `${event.amount}`}
+                            {event.amount.mantissa === '-1' ? 'UNLIMITED' : `${event.amount}`}
                         </span>
                         {tokenLink}
                         {arrow}

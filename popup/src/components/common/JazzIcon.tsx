@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import * as React from 'react'
+import { Address } from '../../lib/domain/event';
 const jazzicon = require('@metamask/jazzicon')
 
 export function generateJazzIcon(address: string, size: number) {
@@ -10,15 +11,20 @@ export function generateJazzIcon(address: string, size: number) {
     return icon
 }
 
-export const JazzIcon = ({ address, size = 32 }) => {
+export interface JazzIconProps {
+    address: Address,
+    size: number
+}
+
+export const JazzIcon = (props: React.PropsWithChildren<JazzIconProps & React.HTMLProps<void>>) => {
     const ref = useRef();
     useEffect(() => {
-        const icon = generateJazzIcon(address.address, size)
+        const icon = generateJazzIcon(props.address.address, props.size)
         icon.classList.add('header_accountIcon')
         const current: any = ref.current
         if (current.firstChild)
             current.removeChild(current.lastChild);
         current.appendChild(icon)
     })
-    return <div ref={ref} style={{height: size}}></div>
+    return <div className={props.className} ref={ref} style={{height: props.size}}></div>
 }

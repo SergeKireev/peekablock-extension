@@ -8,6 +8,7 @@ async function notifyExtension(e) {
   const domain = (new URL(window.location)).hostname;
   const message = {
     transaction: rpcRequest.params[0],
+    chainId: rpcRequest.chainId,
     referrer: domain
   }
   b.runtime.sendMessage(message);

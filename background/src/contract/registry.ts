@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-const provider = ethers.getDefaultProvider('mainnet');
+const provider = ethers.getDefaultProvider('https://eth-mainnet.g.alchemy.com/v2/NMzqHkMm64GmdHuzjqiKaffvvqK4Sua4');
 
 let abi = [
     "function verify(uint256 rootIndex, bytes32[] calldata proof, address contractAddress, string calldata name, string calldata organisation, bytes calldata data) public view returns (bool)",

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useState } from 'react'
 import ReactSwitch from 'react-switch'
-import { Address } from '../../../domain/event'
-import { isNok, isOk, SimulationResult } from '../../../domain/simulation'
+import { Address } from '../../../lib/domain/event'
+import { isNok, isOk, SimulationResult } from '../../../lib/domain/simulation'
 import { Error } from './Error'
 import { EventSection } from './EventSection'
 

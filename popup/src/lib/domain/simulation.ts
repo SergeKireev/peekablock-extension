@@ -1,4 +1,4 @@
-import { Event } from "./event"
+import { ConsolidatedEvent, Event } from "./event"
 
 export function isOk(res: Result): res is SimulationResult {
     return res.type === 'ok';
@@ -17,9 +17,13 @@ export interface ErrorResult {
     msg: string
 }
 
+export type Category = 'SWAP' | 'STAKE' | 'MINT' | 'SEND'
+
 export interface SimulationResult {
     type: 'ok',
+    category: Category,
     valueDiff: string,
+    consolidated: ConsolidatedEvent[]
     erc20Transfers: Event[]
     erc721Transfers: Event[]
     erc20Approvals: Event[]

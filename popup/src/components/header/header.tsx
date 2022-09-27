@@ -1,4 +1,4 @@
-import { Address } from "../../domain/event"
+import { Address } from "../../lib/domain/event"
 import * as React from 'react';
 import { AddressDisplay } from "../common/AddressDisplay";
 

@@ -1,6 +1,14 @@
 import * as React from 'react'
-import { Address } from '../../domain/event'
+import { Address } from '../../lib/domain/event'
 
-export const LinkFromAddress = ({ address }: { address: Address }) => {
-    return <a href={`https://etherscan.io/address/${address.address}`} className="linkAddress">{address.label}</a>
+interface LinkFromAddressProps {
+    address: Address
+}
+
+export const LinkFromAddress = (props: React.HTMLProps<void> & LinkFromAddressProps) => {
+    return <a href={`https://etherscan.io/address/${props.address.address}`} className="linkAddress">
+        <span>
+            {props.address.label}
+        </span>
+    </a>
 }

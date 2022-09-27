@@ -48,19 +48,6 @@ body {
   }
 }
 
-.error_container {
-  font-family: 'Poppins';
-  color: #000000dd;
-  background-color: #FFBCBC;
-  text-align: center;
-  padding: 10px;
-  font-weight: normal;
-  border-radius: 5px;
-  font-size: 1em;
-  box-shadow: 2px 2px 5px #A0A0A0cc;
-  margin-top: 10px;
-}
-
 .error_icon {
   margin-right: 10px;
   font-size: 15px;

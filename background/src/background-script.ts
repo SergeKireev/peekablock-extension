@@ -86,6 +86,15 @@ async function verifyContract(address) {
     return undefined;
 }
 
+async function classifyAction(transactionData: string) {
+    const response = await fetch(`https://peekablock.com/action?method_sig=${transactionData}`)
+    const data = await response.json();
+    if (data.status === 'ok') {
+        const result = data.action;
+        return result;
+    }
+    return undefined;
+}
 
 async function runSimulation(message) {
     const lastFocused = await _browser.windows.getLastFocused()
@@ -95,8 +104,9 @@ async function runSimulation(message) {
 
     const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
     const referrer = encodeURI(message.referrer)
+    const chainId = encodeURI(message.chainId)
     //TODO: Check compatibility with firefox
-    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?transaction=${urlEncodedQueryS}&referrer=${referrer}`);
+    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?transaction=${urlEncodedQueryS}&referrer=${referrer}&chain_id=${chainId}`);
 
     const popupWindow = await createWindow({
         url: popupURL,
@@ -121,7 +131,7 @@ async function runSimulation(message) {
     }
     //Close the dummy window after a safety timeout
     setTimeout(() => {
-        _browser.windows.remove(popupWindow2.id)
+        _browser.windows.remove(popupWindow2.id).catch(e => {})
     }, 1000)
 
     if (popupWindow.top !== top && popupWindow.state !== 'fullscreen') {
@@ -131,7 +141,7 @@ async function runSimulation(message) {
 function notify(message, sender, sendResponse) {
 
     if (message.isFinished && currentWindowId) {
-        _browser.windows.remove(currentWindowId);
+        _browser.windows.remove(currentWindowId).catch(e => {});
         currentWindowId = undefined;
         return;
     }
@@ -139,6 +149,14 @@ function notify(message, sender, sendResponse) {
     if (message.validateContract) {
         const address = message.validateContract.address;
         verifyContract(address).then(response => {
+            sendResponse(response);
+        })
+        return true;
+    }
+
+    if (message.classifyAction) {
+        const methodSig = message.classifyAction.methodSig;
+        classifyAction(methodSig).then(response => {
             sendResponse(response);
         })
         return true;

@@ -1,6 +1,7 @@
 import { JazzIcon } from "../common/JazzIcon"
 import * as React from 'react';
 import { LinkFromAddress } from "../common/LinkFromAddress";
+import { Address } from "../../lib/domain/event";
 
 export function shortenAddress(addressStr: string) {
     if (addressStr.substring(0, 2) != '0x')
@@ -8,20 +9,25 @@ export function shortenAddress(addressStr: string) {
     return `${addressStr.substring(0, 4)}...${addressStr.substring(addressStr.length - 4)}`
 }
 
-const AddressText = ({ address }) => {
-    return <div className="header_accountAddress">
-        {`${address.label} :`}
-    </div>
+// const AddressText = ({ address }) => {
+//     return <div className="header_accountAddress">
+//         {`${address.label} :`}
+//     </div>
+// }
+
+export interface AddressDisplayProps {
+    address: Address
 }
 
-export const AddressDisplay = ({ address }) => {
-    const _address = { label: shortenAddress(address.address), address: address.address }
-    return <div className="header_addressItem">
-        <JazzIcon address={address} />
-        <AddressText address={address} />
-        <LinkFromAddress address={_address} />
+export type Props = React.PropsWithChildren<AddressDisplayProps & React.HTMLProps<void>>
+
+export const AddressDisplay = (props: Props) => {
+    const _address = { label: shortenAddress(props.address.address), address: props.address.address }
+    return <div className={props.className}>
+        <JazzIcon address={props.address} size={32} />
+        <LinkFromAddress address={props.address} />
         {
-            address.validated ?
+            props.address.validated ?
                 <img className="verified_badge" src={'https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg'} /> :
                 undefined
         }
