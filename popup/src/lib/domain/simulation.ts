@@ -1,4 +1,4 @@
-import { ConsolidatedEvent, Event } from "./event"
+import { Amount, ConsolidatedEvent, Event } from "./event"
 
 export function isOk(res: Result): res is SimulationResult {
     return res.type === 'ok';
@@ -23,6 +23,8 @@ export interface SimulationResult {
     type: 'ok',
     category: Category,
     valueDiff: string,
+    gasSpent: Amount,
+    ethereumPrice: number,
     consolidated: ConsolidatedEvent[]
     erc20Transfers: Event[]
     erc721Transfers: Event[]

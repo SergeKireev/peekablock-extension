@@ -11,11 +11,14 @@ export interface Address {
 
 export interface Token extends Address {
     pictureUrl?: string,
-    avgPrice?: AvgPrice
+    avgPrice?: AvgPrice,
+    usdPrice?: number
 }
 
+export type EventType = 'erc20transfer' | 'erc721transfer' | 'erc1155transfer' | 'erc20approval' | 'erc721approval' | 'erc721approvalForAll'
+
 export interface Event {
-    type: 'erc20transfer' | 'erc721transfer' | 'erc1155transfer' | 'erc20approval' | 'erc721approval' | 'erc721approvalForAll'
+    type: EventType, 
     token: Token,
     from: Address,
     to: Address

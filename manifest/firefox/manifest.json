@@ -11,8 +11,7 @@
     "38": "icons/peekablock_38.png",
     "48": "icons/peekablock_48.png",
     "64": "icons/peekablock_64.png",
-    "128": "icons/peekablock_128.png",
-    "512": "icons/peekablock_512.png"
+    "128": "icons/peekablock_128.png"
   },
   "content_scripts": [
     {

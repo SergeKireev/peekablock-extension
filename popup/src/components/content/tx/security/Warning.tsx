@@ -1,7 +1,7 @@
-import { ConsolidatedEvent } from "../../../lib/domain/event"
+import { ConsolidatedEvent } from "../../../../lib/domain/event"
 import React from "react"
-import { messages } from "../../../lib/messages/messages"
-import { isApprove, isOnlyOut } from "../../../lib/security/assessment"
+import { messages } from "../../../../lib/messages/messages"
+import { isApprove, isOnlyOut } from "../../../../lib/security/assessment"
 
 interface WarningContainerProps {
     events: ConsolidatedEvent[]

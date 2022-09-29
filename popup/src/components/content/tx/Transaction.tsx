@@ -4,8 +4,8 @@ import { ActionType } from '../../../lib/domain/actions'
 import { Address, ConsolidatedApprovalEvent, ConsolidatedEvent } from '../../../lib/domain/event'
 import { SimulationResult } from "../../../lib/domain/simulation"
 import { messages } from '../../../lib/messages/messages'
-import { ConsolidatedApprovalEventRow, ConsolidatedTransferEventRow } from './EventRow'
-import { WarningContainer } from './Warning'
+import { ConsolidatedApprovalEventRow, ConsolidatedTransferEventRow } from './event/EventRow'
+import { GasRow } from './event/GasRow'
 
 interface TransactionProps {
     action: ActionType,
@@ -19,7 +19,7 @@ const createPill = (category: ActionType) => {
     const className = `new_transaction_action_pill ${category.toString().toLowerCase()}`
     return <div className={className}>
         <div className='new_transaction_action_pill_col'>
-        {messages[category.toUpperCase()]}
+            {messages[category.toUpperCase()]}
         </div>
     </div>
 }
@@ -55,5 +55,12 @@ export const TransactionComponent = (props: TransactionProps) => {
                             return <ConsolidatedApprovalEventRow chainId={props.chainId} me={props.me} target={props.target} event={event} key={i} />;
                     })}
         </div>
+        {
+            loading ? undefined :
+                <GasRow
+                    gasSpent={props.simulationResult.gasSpent}
+                    ethereumPrice={props.simulationResult.ethereumPrice}
+                />
+        }
     </div>
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import { ConsolidatedEvent } from '../../../../lib/domain/event';
 import { SimulationResult } from '../../../../lib/domain/simulation';
 import { isApprove, isOnlyOut } from '../../../../lib/security/assessment';
-import { DyorDisclaimer, DyorDisclaimerProps } from '../DyorDisclaimer';
+import { DyorDisclaimer, DyorDisclaimerProps } from './DyorDisclaimer';
 
 interface SecurityAssessmentProps {
     simulationResult: SimulationResult | undefined

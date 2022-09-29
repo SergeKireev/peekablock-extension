@@ -4,7 +4,9 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/
 import React from "react"
 import { Address, Event } from "../../../../lib/domain/event"
 import { SimulationResult } from "../../../../lib/domain/simulation"
+import { USER_LABEL } from "../../../../lib/domain/user";
 import { messages } from "../../../../lib/messages/messages";
+import { reorder } from "../../../../lib/utils/event_order_util";
 import { EventRowDetails } from "./EventRowDetails";
 
 const ExpandMoreIcon = () => {
@@ -18,44 +20,70 @@ interface TransactionProps {
 }
 
 const isIn = (event: Event) => {
-    return event.to.label === 'me';
+    return event.to.label === USER_LABEL;
 }
 
 const isOut = (event: Event) => {
-    return event.from.label === 'me';
+    return event.from.label === USER_LABEL;
 }
 
-const buildTimelineItem = (event: Event, index: number, array: any[]) => {
-    const length = array.length
-    const color = isIn(event) ? 'success' :
-        isOut(event) ? 'error' :
-            'grey'
+const buildSendTimelineItem = (event: Event, index: number) => {
+    const color = isOut(event) ? 'error' : 'grey'
+
+    const dotImgUrl = color === 'error' ?
+        './assets/timeline_spot_red.svg' :
+        './assets/timeline_spot_grey.svg'
+
     return <TimelineItem key={index}>
         <TimelineSeparator>
             <TimelineDot hidden>
-                {
-                    color === 'success' ?
-                        <img className="timeline_dot" src='./assets/timeline_spot_green.svg' /> :
-                        color === 'error' ?
-                            <img className="timeline_dot" src='./assets/timeline_spot_red.svg' /> :
-                            <img className="timeline_dot" src='./assets/timeline_spot_grey.svg' />
-                }
+                <img className="timeline_dot" src={dotImgUrl} /> :
             </TimelineDot>
-            {
-                index === length - 1 ? undefined : <TimelineConnector />
-            }
+            <TimelineConnector> 
+                <div className='event_details_timeline_connector'>
+                <img src='./assets/divider.svg'/>
+                <img src='./assets/arrow_down.svg'/>
+                </div>
+            </TimelineConnector>
         </TimelineSeparator>
         <TimelineContent>
-            <EventRowDetails event={event} />
+            <EventRowDetails event={event} direction={'OUT'} actor={event.from} />
         </TimelineContent>
     </TimelineItem>
 }
 
+const buildReceiveTimelineItem = (event: Event, index: number) => {
+    const color = isIn(event) ? 'success' :
+        'grey'
+
+    const dotImgUrl = color === 'success' ?
+        './assets/timeline_spot_green.svg' :
+        './assets/timeline_spot_grey.svg'
+
+    return <TimelineItem key={index}>
+        <TimelineSeparator>
+            <TimelineDot hidden>
+                <img className="timeline_dot" src={dotImgUrl} /> :
+            </TimelineDot>
+        </TimelineSeparator>
+        <TimelineContent>
+            <EventRowDetails event={event} direction={'IN'} actor={event.to} />
+        </TimelineContent>
+    </TimelineItem>
+}
 
 export const TransactionDetails = (props: TransactionProps) => {
     //We are only interested in events which are a transfer in or out
-    const allEvents = props.simulationResult ? props.simulationResult.allEvents.filter(x => isOut(x) || isIn(x)) : [];
-    return <Accordion className="transaction_details_accordion">
+    let allEvents = []
+    if (props.simulationResult) {
+        allEvents = reorder(props.simulationResult.allEvents); 
+    }
+    const timelineEventsNested = allEvents.map((e, i) => [buildSendTimelineItem(e, i * 2), buildReceiveTimelineItem(e, i * 2 + 1)])
+    const timelineEvents = [].concat(...timelineEventsNested)
+
+    const disabled = !props.simulationResult
+
+    return <Accordion disabled={disabled} className="transaction_details_accordion">
         <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -73,7 +101,7 @@ export const TransactionDetails = (props: TransactionProps) => {
                 },
             }}>
                 {
-                    allEvents.map(buildTimelineItem)
+                    timelineEvents
                 }
             </Timeline>
         </AccordionDetails>
