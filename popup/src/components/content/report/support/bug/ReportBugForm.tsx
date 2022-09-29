@@ -154,7 +154,7 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
                 value={bugDescription}
                 onChange={handleBugDescriptionChange}
                 aria-label="minimum height"
-                minRows={3}
+                minRows={7}
                 placeholder="Describe the bug"
             />
             <LoadingButton

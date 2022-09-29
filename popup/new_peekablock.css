@@ -208,6 +208,7 @@ body {
     font-family: 'Roboto';
     font-size: 16px;
     min-height: 16px;
+    height: 153px;
     max-width: 632px !important;
     min-width: 632px !important;
     margin-right: 18px;
@@ -622,7 +623,7 @@ body {
 
     box-shadow: 4px 4px 4px 4px #00000020;
 
-    background-color: #FAFAFA;
+    background-color: white;
 
     /* Inside auto layout */
     flex: none;

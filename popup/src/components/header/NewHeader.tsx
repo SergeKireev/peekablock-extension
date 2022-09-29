@@ -18,7 +18,8 @@ export const NewHeader = (props: HeaderProps) => {
 
     return (<div className='new_header'>
         <div className='new_logo_container'>
-            <div className='new_peekablock_logo'>PaB</div>
+            <img className='new_peekablock_logo' src='./assets/peekablock_logo.svg'/>
+            <img className='new_peekablock_title' src='./assets/peekablock.svg'/>
             {/* <div className='new_header_running_container slow_blinking'>
                 <div className='new_header_running_indicator'>{messages.RUNNING}</div>
                 <img src="./assets/play.svg" style={{width: 15}} />
