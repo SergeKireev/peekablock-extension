@@ -13,23 +13,35 @@ export function isMaxNumish(x: string): boolean {
         x === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 }
 
-export function displayNumber(number: BigNumber, decimals: number, precision: number = PRECISION) {
-    if (decimals === 1) {
-        return number.toString();
+function mostSignificantDigitPosition(mantissa: string): number {
+    return (trimLeadingZeroes(mantissa).length - 1)
+}
+
+function trimLeadingZeroes(s: string) {
+    let i = 0;
+    while (s[i] === '0') {
+        i++
     }
-
-    const rounded = number.div(BigNumber.from(10).pow(decimals - precision)).toString()
-    let amount = leftPad(rounded, precision + 1, '0')
-
-    const amountLength = amount.length
-    amount = `${amount.substring(0, amountLength - precision)}.${amount.substring(amountLength - precision)}`
-    return amount;
+    return s.substring(i); 
 }
 
 export function displayAmount(amount: Amount) {
-    if (isMaxNumish(amount.mantissa))
-        return MAX_LABEL
-    return displayNumber(BigNumber.from(amount.mantissa), amount.exponent, PRECISION);
+    const pow_of_10 = mostSignificantDigitPosition(amount.mantissa)
+    const diff = pow_of_10 - amount.exponent
+    console.log(diff, pow_of_10, amount.exponent);
+    if (diff < -5) {
+        //Case when we want to display 2 sig digits
+        return `0.${leftPad(amount.mantissa.substring(0, 2), -diff+1, '0')}`
+    } else if (diff < 0) {
+        //Case when we display 5 digits and number < 1
+        return `0.${leftPad(amount.mantissa.substring(0, (PRECISION+diff)), PRECISION-1, '0')}`
+    } else if (diff < 2) {
+        //Case when we display 5 digits and number > 1
+        return `${amount.mantissa.substring(0, (diff+1))}.${amount.mantissa.substring((diff+1), PRECISION)}`
+    } else {
+        //Case when we display >5 digits
+        return `${amount.mantissa.substring(0, (diff+1))}.${amount.mantissa.substring(diff+1, diff+3)}`
+    }
 }
 
 export function displayUsdAmount(amount: Amount, usdPrice: number) {
@@ -50,7 +62,7 @@ export function displayUsdAmount(amount: Amount, usdPrice: number) {
 function bigNumberOr(n: BigNumberish, _default: BigNumberish) {
     try {
         return BigNumber.from(n)
-    } catch(e) {
+    } catch (e) {
         return BigNumber.from(_default)
     }
 }

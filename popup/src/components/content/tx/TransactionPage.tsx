@@ -12,10 +12,12 @@ import { ErrorContent } from '../common/ErrorContent';
 import { SecurityAssessment } from './security/SecurityAssessment';
 import { USER_LABEL } from '../../../lib/domain/user';
 import { shortenAddress } from '../../common/AddressDisplay';
+import { txMenuOptions } from '../../common/menu/MenuOptions';
 
 interface TransactionContainerProps {
     referrer: string
     transaction: Transaction
+    setCurrentPage: (pageName: string) => void
     reportScam: () => void
     reportBug: (message: string) => void
 }
@@ -141,7 +143,7 @@ export const TransactionPage = (props: TransactionContainerProps) => {
 
     return (
         <div className='new_container'>
-            <NewHeader />
+            <NewHeader menuOptions={txMenuOptions(props.setCurrentPage)} />
             <NewContent
                 titleIcon={
                     './assets/link.svg'
@@ -151,6 +153,7 @@ export const TransactionPage = (props: TransactionContainerProps) => {
                         props.referrer :
                         messages.TRANSACTION_TITLE
                 }
+
                 reportScam={props.reportScam}
                 hideTitle={simulationFailed !== undefined}>
                 <div className="new_content_body">

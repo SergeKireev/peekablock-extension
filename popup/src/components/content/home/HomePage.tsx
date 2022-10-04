@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Pages } from "../../../lib/navigation/pages"
 import { MenuOption } from "../../common/menu/Menu"
+import { homeMenuOptions } from "../../common/menu/MenuOptions"
 import { NewHeader } from "../../header/NewHeader"
 import { NewContent } from "../NewContent"
 import { ReportScamPage } from "../report/scam/ReportScamPage"
@@ -23,32 +24,16 @@ export interface HomeProps {
 export const HomePage = (props: HomeProps) => {
 
     const [currentPage, setCurrentPage] = useState(props.initPage || Pages.HOME);
-
-    const menuOptions: MenuOption[] = [
-        {
-            label: 'Home',
-            value: Pages.HOME,
-            callback: () => setCurrentPage(Pages.HOME)
-        },
-        {
-            label: 'Support',
-            value: Pages.SUPPORT,
-            callback: () => setCurrentPage(Pages.SUPPORT)
-        },
-        {
-            label: 'Report a scam',
-            value: Pages.SCAM_REPORT,
-            callback: () => setCurrentPage(Pages.SCAM_REPORT)
-        },
-    ]
-
+    const menuOptions = homeMenuOptions(setCurrentPage);
     const title = menuOptions.find(x => x.value === currentPage).label;
-
     const _menuOptions = props.hideNavigation ? undefined : menuOptions;
+    const hideTitle = currentPage === Pages.HOME
 
+    const reportBug = () => setCurrentPage(Pages.SUPPORT)
+    const reportScam = () => setCurrentPage(Pages.SCAM_REPORT)
     return <div className='new_container'>
         <NewHeader menuOptions={_menuOptions} />
-        <NewContent title={title} back={props.back}>
+        <NewContent title={title} back={props.back} hideTitle={hideTitle}>
             <div className='new_content_body'>
                 {
                     currentPage === Pages.SCAM_REPORT ?
@@ -57,7 +42,10 @@ export const HomePage = (props: HomeProps) => {
                                 <SupportPage
                                     errorContext={props.errorContext}
                                     referrer={props.referrer} /> :
-                                <HomeContent />
+                                <HomeContent
+                                    reportBug={reportBug}
+                                    reportScam={reportScam}
+                                />
                         )
                 }
             </div>

@@ -94,7 +94,9 @@ function handleOpenPopup() {
                     referrer={referrer}
                     reportScam={reportScam}
                     reportBug={reportBug}
-                    transaction={transaction} /> :
+                    transaction={transaction}
+                    setCurrentPage={setPage}
+                /> :
                 page === Pages.SIGN_TYPED ?
                     <SignTypedPage
                         referrer={referrer}
