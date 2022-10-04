@@ -2,6 +2,8 @@ import { MenuItem, TextField, Alert, AlertTitle, TextareaAutosize } from '@mui/m
 //@ts-ignore
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useState } from 'react'
+import { Form } from '../../../../common/form/Form';
+import { StyledLoadingButton } from '../../../../common/button/StyledLoadingButton';
 
 const bugTypes = [
     {
@@ -84,47 +86,42 @@ export const RequestFeatureForm = (props: RequestFeatureFormProps) => {
         }
         return hasError;
     }
-
-    return <div>
-        <div className='new_report_bug_header_container'>
-            <div>
-                <h3>Is there a feature missing?</h3>
-                <p>Help us improve Peekablock by advising new possible features.</p>
-            </div>
-        </div>
-        <div className="new_report_form_group">
-            <TextareaAutosize
-                className="report_form_text"
-                id="feature-description"
-                required
-                value={featureDescription}
-                onChange={handleFeatureDescriptionChange}
-                aria-label="minimum height"
-                minRows={10}
-                placeholder="Describe the feature"
-            />
-            <LoadingButton
-                loading={_loading}
-                variant="contained"
-                color="secondary"
-                className="report_form_submit"
-                onClick={() => {
-                    if (!validateForm())
-                        handleSubmit(featureDescription,
-                            setLoading,
-                            setGeneralError,
-                            props.onSubmitSuccessful)
-                }}
-            >
-                Click to submit
-            </LoadingButton>
-            {
-                generalError ?
-                    <Alert severity="error">
-                        <AlertTitle>Error</AlertTitle>
-                        {generalError}
-                    </Alert> : undefined
-            }
-        </div>
-    </div>
+    
+    return <Form
+        title={'Is there a feature missing?'}
+        paragraph={'Help us improve Peekablock by suggesting possible features.'}
+    >
+        <TextareaAutosize
+            className="report_form_text"
+            id="feature-description"
+            required
+            value={featureDescription}
+            onChange={handleFeatureDescriptionChange}
+            aria-label="minimum height"
+            minRows={10}
+            placeholder="Describe the feature"
+        />
+        <StyledLoadingButton
+            loading={_loading}
+            variant="contained"
+            color="secondary"
+            className="report_form_submit"
+            onClick={() => {
+                if (!validateForm())
+                    handleSubmit(featureDescription,
+                        setLoading,
+                        setGeneralError,
+                        props.onSubmitSuccessful)
+            }}
+        >
+            Click to submit
+        </StyledLoadingButton>
+        {
+            generalError ?
+                <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {generalError}
+                </Alert> : undefined
+        }
+    </Form>
 } 

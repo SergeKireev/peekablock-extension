@@ -1,7 +1,8 @@
 import { MenuItem, TextField, Alert, AlertTitle, TextareaAutosize } from '@mui/material'
-//@ts-ignore
-import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useState } from 'react'
+import { ErrorContext } from '../../../home/HomePage';
+import { Form } from '../../../../common/form/Form';
+import { StyledLoadingButton } from '../../../../common/button/StyledLoadingButton';
 
 const bugTypes = [
     {
@@ -22,11 +23,13 @@ interface ReportBug {
     type: number,
     description: string,
     domain: string,
+    message: string
 }
 
 const handleSubmit = async (bugType: number,
     bugDescription: string,
     projectUrl: string,
+    errorContext: ErrorContext,
     setLoading: (b: boolean) => void,
     setError: (msg: string) => void,
     onSubmitSuccessful: () => void,
@@ -35,7 +38,8 @@ const handleSubmit = async (bugType: number,
     const body: ReportBug = {
         description: bugDescription,
         domain: projectUrl,
-        type: bugType
+        type: bugType,
+        message: errorContext.message
     }
     setLoading(true);
     const response: any = await fetch(url, {
@@ -71,6 +75,7 @@ function createHandler<T extends WithValue>(setVariable: any, setError: any) {
 }
 
 interface ReportBugFormProps {
+    errorContext: ErrorContext
     onSubmitSuccessful: () => void
     referrer?: string
 }
@@ -104,83 +109,79 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
         return hasError;
     }
 
-    return <div>
-        <div className='new_report_bug_header_container'>
-            <div>
-                <h3>Report a bug to help us improve</h3>
-                <p>You have encountered a bug using peekablock, please help us resolve the issue</p>
-            </div>
-        </div>
-        <div className="new_report_form_group">
-            <TextField select
-                required
-                className="report_form_input"
-                id="type-of-bug"
-                label="Type of bug"
-                error={
-                    bugTypeError != undefined
-                }
-                helperText={
-                    bugTypeError
-                }
-                value={bugType}
-                onChange={handleBugTypeChange}
-            >
-                {
-                    bugTypes.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))
-                }
-            </TextField>
-            <TextField required
-                className="report_form_input"
-                id="url"
-                label="URL"
-                error={
-                    projectUrlError != undefined
-                }
-                helperText={
-                    projectUrlError
-                }
-                value={projectUrl}
-                onChange={handleProjectUrlChange}
-            />
-            <TextareaAutosize
-                className="report_form_text"
-                id="bug-description"
-                required
-                value={bugDescription}
-                onChange={handleBugDescriptionChange}
-                aria-label="minimum height"
-                minRows={7}
-                placeholder="Describe the bug"
-            />
-            <LoadingButton
-                loading={_loading}
-                variant="contained"
-                color="secondary"
-                className="report_form_submit"
-                onClick={() => {
-                    if (!validateForm())
-                        handleSubmit(bugType,
-                            bugDescription,
-                            projectUrl,
-                            setLoading,
-                            setGeneralError,
-                            props.onSubmitSuccessful)
-                }}
-            >
-                Click to report
-            </LoadingButton>
-            {
-                generalError ?
-                    <Alert severity="error">
-                        <AlertTitle>Error</AlertTitle>
-                        {generalError}
-                    </Alert> : undefined
+    return <Form
+        title='Report a bug to help us improve'
+        paragraph='You have encountered a bug using peekablock, please help us resolve the issue'
+    >
+        <TextField select
+            required
+            className="report_form_input"
+            id="type-of-bug"
+            label="Type of bug"
+            error={
+                bugTypeError != undefined
             }
-        </div>
-    </div>
+            helperText={
+                bugTypeError
+            }
+            value={bugType}
+            onChange={handleBugTypeChange}
+        >
+            {
+                bugTypes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))
+            }
+        </TextField>
+        <TextField required
+            className="report_form_input"
+            id="url"
+            label="URL"
+            error={
+                projectUrlError != undefined
+            }
+            helperText={
+                projectUrlError
+            }
+            value={projectUrl}
+            onChange={handleProjectUrlChange}
+        />
+        <TextareaAutosize
+            className="report_form_text"
+            id="bug-description"
+            required
+            value={bugDescription}
+            onChange={handleBugDescriptionChange}
+            aria-label="minimum height"
+            minRows={7}
+            placeholder="Describe the bug"
+        />
+        <StyledLoadingButton
+            loading={_loading}
+            variant="contained"
+            color="secondary"
+            className="report_form_submit"
+            onClick={() => {
+                if (!validateForm())
+                    handleSubmit(bugType,
+                        bugDescription,
+                        projectUrl,
+                        props.errorContext,
+                        setLoading,
+                        setGeneralError,
+                        props.onSubmitSuccessful)
+            }}
+        >
+            Click to report
+        </StyledLoadingButton>
+        {
+            generalError ?
+                <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {generalError}
+                </Alert> : undefined
+        }
+    </Form >
 } 

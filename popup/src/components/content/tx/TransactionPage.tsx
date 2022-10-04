@@ -10,12 +10,14 @@ import { messages } from '../../../lib/messages/messages';
 import { NewHeader } from '../../header/NewHeader';
 import { ErrorContent } from '../common/ErrorContent';
 import { SecurityAssessment } from './security/SecurityAssessment';
+import { USER_LABEL } from '../../../lib/domain/user';
+import { shortenAddress } from '../../common/AddressDisplay';
 
 interface TransactionContainerProps {
     referrer: string
     transaction: Transaction
     reportScam: () => void
-    reportBug: () => void
+    reportBug: (message: string) => void
 }
 
 let _browser = undefined
@@ -36,7 +38,10 @@ async function validateTarget(address) {
             address: address
         }
     }).catch((error => {
-        console.error("Received error", error);
+        return {
+            status: 'nok',
+            message: error.message
+        }
     }));
     return response;
 }
@@ -47,7 +52,10 @@ async function classifyAction(transactionData: string) {
             methodSig: transactionData
         }
     }).catch((error => {
-        console.error("Received error", error);
+        return {
+            status: 'nok',
+            message: error.message
+        }
     }));
     return response;
 }
@@ -58,12 +66,12 @@ export const TransactionPage = (props: TransactionContainerProps) => {
     //TODO: verify target
     const transaction = props.transaction
     const me = {
-        label: 'me',
+        label: USER_LABEL,
         address: transaction?.from
     }
     const target: Address = {
-        label: 'target',
-        address: transaction?.to
+        label: shortenAddress(transaction?.to),
+        address: transaction.to
     }
 
     const [targetHydrated, setTargetHydrated] = useState(target);
@@ -77,25 +85,9 @@ export const TransactionPage = (props: TransactionContainerProps) => {
     ) {
         useEffect(() => {
             (async () => {
-                const validateTargetPromise = validateTarget(targetHydrated.address).catch(e => {
-                    console.error(`Error when validating contract ${targetHydrated.address}`, e);
-                    return undefined;
-                })
-
-                const classifyActionPromise = classifyAction(transaction.data).catch(e => {
-                    if (transaction.data)
-                        console.error(`Error when classifying action ${transaction.data.substring(0, 10)}`, e);
-                    else {
-                        console.error(`Error when classifying action ${transaction.data}`, e);
-                    }
-                    return undefined;
-                })
-
-                const simulationPromise = simulateTransaction(transaction).catch(e => {
-                    console.error('Error when simulating transaction');
-                    setSimulationFailed(e.message);
-                    return undefined;
-                });
+                const validateTargetPromise = validateTarget(targetHydrated.address)
+                const classifyActionPromise = classifyAction(transaction.data)
+                const simulationPromise = simulateTransaction(transaction, chainId)
 
                 Promise.all([
                     validateTargetPromise,
@@ -106,13 +98,27 @@ export const TransactionPage = (props: TransactionContainerProps) => {
                     action,
                     result
                 ]) => {
+                    if ((targetMetadata && targetMetadata.status === 'nok') ||
+                        (action && action.status === 'nok') ||
+                        (result && result.status === 'nok')
+                    ) {
+                        const targetMetadataMessage = targetMetadata?.message
+                        const actionMessage = action?.message
+                        const resultMessage = result?.message
+                        const fullMessage = {
+                            targetMetadataMessage: targetMetadataMessage,
+                            actionMessage: actionMessage,
+                            resultMessage: resultMessage
+                        }
+                        setSimulationFailed(JSON.stringify(fullMessage))
+                    }
+
                     if (targetMetadata) {
                         const newTarget = {
                             ...targetHydrated,
                             label: targetMetadata.name,
                             validated: true
                         }
-                        console.log("Setting new target", newTarget);
                         setTargetHydrated(newTarget);
                     }
 
@@ -122,6 +128,8 @@ export const TransactionPage = (props: TransactionContainerProps) => {
 
                     if (result) {
                         setSimulationResult(result)
+                    } else {
+                        setSimulationFailed('Simulation result is undefined')
                     }
                 })
             })();
@@ -162,6 +170,7 @@ export const TransactionPage = (props: TransactionContainerProps) => {
                                 <TransactionDetails me={me}
                                     target={target}
                                     simulationResult={simulationResult}
+                                    chainId={chainId}
                                 />
                             </div>
                     }

@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { messages } from '../../lib/messages/messages'
+import { StyledButton } from '../common/button/StyledButton'
 
 interface NewContentProps {
     titleIcon?: string
@@ -39,14 +40,14 @@ export const NewContent = (props: React.PropsWithChildren<NewContentProps>) => {
                             {props.title}
                         </div>
                         {
-                            props.reportScam ? <Button
+                            props.reportScam ? <StyledButton
                                 className='report_scam_button'
                                 variant="contained"
                                 color="secondary"
                                 onClick={props.reportScam}>
                                 <img src='./assets/warning_triangle_white.svg' />
                                 {messages.REPORT_SCAM}
-                            </Button> :
+                            </StyledButton> :
                                 undefined
                         }
                     </div>

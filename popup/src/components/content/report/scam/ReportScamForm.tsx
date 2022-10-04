@@ -1,7 +1,7 @@
 import { MenuItem, TextField, Alert, AlertTitle } from '@mui/material'
-//@ts-ignore
-import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useState } from 'react'
+import { Form } from '../../../common/form/Form';
+import { StyledLoadingButton } from '../../../common/button/StyledLoadingButton';
 
 const scamTypes = [
     {
@@ -111,96 +111,91 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
         return hasError;
     }
 
-    return <div>
-        <div className='new_report_scam_header_container'>
-            <div>
-                <h3>Report a new scam to help the community</h3>
-                <p>If you suspect about a project or you confirm that is a scam, please notify the community to avoid other users getting affected.</p>
-            </div>
-        </div>
-        <div className="new_report_form_group">
-            <TextField required
-                className="report_form_input"
-                id="project-name"
-                label="Project name"
-                error={
-                    projectNameError != undefined
-                }
-                helperText={
-                    projectNameError
-                }
-                value={projectName}
-                onChange={handleProjectNameChange}
-            />
-            <TextField required
-                className="report_form_input"
-                id="url"
-                label="URL"
-                error={
-                    projectUrlError != undefined
-                }
-                helperText={
-                    projectUrlError
-                }
-                value={projectUrl}
-                onChange={handleProjectUrlChange}
-            />
-            <TextField select
-                required
-                className="report_form_input"
-                id="type-of-scam"
-                label="Type of scam"
-                error={
-                    scamTypeError != undefined
-                }
-                helperText={
-                    scamTypeError
-                }
-                value={scamType}
-                onChange={handleScamTypeChange}
-            >
-                {
-                    scamTypes.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))
-                }
-            </TextField>
-            <TextField
-                className="report_form_input"
-                id="contract-address"
-                label="Contract address (optional)"
-                value={projectContract}
-                onChange={handleProjectContractChange}
-            />
-            <LoadingButton
-                loading={_loading}
-                variant="contained"
-                color="secondary"
-                className="report_form_submit"
-                onClick={() => {
-                    if (!validateForm())
-                        handleSubmit(scamType,
-                            projectName,
-                            projectUrl,
-                            projectContract,
-                            setLoading,
-                            setGeneralError,
-                            props.onSubmitSuccessful,
-                            props.setSubmitted)
-                }}
-            >
-                <i className="fa fa-exclamation-triangle" aria-hidden="true" />&nbsp;
-                Click to report
-            </LoadingButton>
-            {
-                generalError ?
-                    <Alert severity="error">
-                        <AlertTitle>Error</AlertTitle>
-                        {generalError}
-                    </Alert> : undefined
+    return <Form
+        title='Report a new scam to help the community'
+        paragraph='If you suspect about a project or you confirm that is a scam, please notify the community to avoid other users getting affected.'
+    >
+        <TextField required
+            className="report_form_input"
+            id="project-name"
+            label="Project name"
+            error={
+                projectNameError != undefined
             }
-        </div>
-    </div>
+            helperText={
+                projectNameError
+            }
+            value={projectName}
+            onChange={handleProjectNameChange}
+        />
+        <TextField required
+            className="report_form_input"
+            id="url"
+            label="URL"
+            error={
+                projectUrlError != undefined
+            }
+            helperText={
+                projectUrlError
+            }
+            value={projectUrl}
+            onChange={handleProjectUrlChange}
+        />
+        <TextField select
+            required
+            className="report_form_input"
+            id="type-of-scam"
+            label="Type of scam"
+            error={
+                scamTypeError != undefined
+            }
+            helperText={
+                scamTypeError
+            }
+            value={scamType}
+            onChange={handleScamTypeChange}
+        >
+            {
+                scamTypes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))
+            }
+        </TextField>
+        <TextField
+            className="report_form_input"
+            id="contract-address"
+            label="Contract address (optional)"
+            value={projectContract}
+            onChange={handleProjectContractChange}
+        />
+        <StyledLoadingButton
+            loading={_loading}
+            variant="contained"
+            color="secondary"
+            className="report_form_submit"
+            onClick={() => {
+                if (!validateForm())
+                    handleSubmit(scamType,
+                        projectName,
+                        projectUrl,
+                        projectContract,
+                        setLoading,
+                        setGeneralError,
+                        props.onSubmitSuccessful,
+                        props.setSubmitted)
+            }}
+        >
+            <i className="fa fa-exclamation-triangle" aria-hidden="true" />&nbsp;
+            Click to report
+        </StyledLoadingButton>
+        {
+            generalError ?
+                <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {generalError}
+                </Alert> : undefined
+        }
+    </Form>
 } 

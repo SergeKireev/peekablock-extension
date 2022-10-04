@@ -1,18 +1,18 @@
 import { CircularProgress } from '@mui/material';
 import React from 'react'
-import { ConsolidatedEvent } from '../../../../lib/domain/event';
+import { Address, ConsolidatedEvent } from '../../../../lib/domain/event';
 import { SimulationResult } from '../../../../lib/domain/simulation';
-import { isApprove, isOnlyOut } from '../../../../lib/security/assessment';
+import { findApprove, isApprove, isOnlyOut } from '../../../../lib/security/assessment';
 import { DyorDisclaimer, DyorDisclaimerProps } from './DyorDisclaimer';
 
 interface SecurityAssessmentProps {
     simulationResult: SimulationResult | undefined
 }
 
-const approveOnlyDisclaimerProps = (): DyorDisclaimerProps => {
+const approveOnlyDisclaimerProps = (counterparty: Address): DyorDisclaimerProps => {
     return {
         title: 'Warning, suspicious transaction',
-        message: 'You are about to give approval to part of your assets.',
+        message: `You are about to give approval to part of your assets. Please make sure you trust the address ${counterparty.label}`,
         style: 'error'
     }
 }
@@ -33,13 +33,17 @@ const normalDisclaimerProps = (): DyorDisclaimerProps => {
     }
 }
 
-const dyorDisclaimer = (events: ConsolidatedEvent[]) => {
+const dyorDisclaimer = (events: ConsolidatedEvent[], reverted: boolean) => {
     const _isApprove = isApprove(events);
     const _isOnlyOut = isOnlyOut(events);
 
-    const warningProps = _isApprove ? approveOnlyDisclaimerProps() :
+    let warningProps = _isApprove ? approveOnlyDisclaimerProps(findApprove(events).to) :
         _isOnlyOut ? onlyOutDisclaimerProps() :
             normalDisclaimerProps()
+
+    if (reverted || events.length === 0) {
+        warningProps = normalDisclaimerProps()
+    }
 
     return <DyorDisclaimer
         {...warningProps}
@@ -54,9 +58,10 @@ export const SecurityAssessment = (props: SecurityAssessmentProps) => {
             Security assessment
         </div>
         <div className='security_assessment'>
-            {isLoading ?
-                <CircularProgress color='secondary' /> :
-                dyorDisclaimer(props.simulationResult.consolidated)
+            {
+                isLoading ?
+                    <CircularProgress color='secondary' /> :
+                    dyorDisclaimer(props.simulationResult.consolidated, props.simulationResult.reverted)
             }
         </div>
         <div className='security_assessment_reported_message'>

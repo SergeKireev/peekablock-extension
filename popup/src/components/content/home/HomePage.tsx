@@ -8,11 +8,16 @@ import { SupportPage } from "../report/support/SupportPage"
 import { HomeContent } from "./HomeContent"
 
 
+export interface ErrorContext {
+    message?: string
+}
+
 export interface HomeProps {
     back?: () => void,
     initPage?: string;
     hideNavigation: boolean
     referrer?: string
+    errorContext: ErrorContext
 }
 
 export const HomePage = (props: HomeProps) => {
@@ -49,7 +54,9 @@ export const HomePage = (props: HomeProps) => {
                     currentPage === Pages.SCAM_REPORT ?
                         <ReportScamPage referrer={props.referrer} /> : (
                             currentPage === Pages.SUPPORT ?
-                                <SupportPage referrer={props.referrer} /> :
+                                <SupportPage
+                                    errorContext={props.errorContext}
+                                    referrer={props.referrer} /> :
                                 <HomeContent />
                         )
                 }

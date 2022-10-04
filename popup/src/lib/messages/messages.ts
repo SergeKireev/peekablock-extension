@@ -3,6 +3,7 @@ export const messages = {
     'REPORT_PROBLEM_TITLE': 'Report a problem',
     'REPORT_SCAM': 'Report',
     'TRANSACTION_TITLE': 'Transaction',
+    'SIGN': 'Sign',
     'TRANSACTION_DETAILS': 'Transaction details',
     'SWAP': 'Swap',
     'APPROVE': 'Approve',

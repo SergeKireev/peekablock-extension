@@ -16,7 +16,8 @@ const ExpandMoreIcon = () => {
 interface TransactionProps {
     simulationResult: SimulationResult,
     me: Address,
-    target: Address
+    target: Address,
+    chainId: number
 }
 
 const isIn = (event: Event) => {
@@ -27,7 +28,7 @@ const isOut = (event: Event) => {
     return event.from.label === USER_LABEL;
 }
 
-const buildSendTimelineItem = (event: Event, index: number) => {
+const buildSendTimelineItem = (event: Event, index: number, chainId: number) => {
     const color = isOut(event) ? 'error' : 'grey'
 
     const dotImgUrl = color === 'error' ?
@@ -39,20 +40,25 @@ const buildSendTimelineItem = (event: Event, index: number) => {
             <TimelineDot hidden>
                 <img className="timeline_dot" src={dotImgUrl} /> :
             </TimelineDot>
-            <TimelineConnector> 
+            <TimelineConnector>
                 <div className='event_details_timeline_connector'>
-                <img src='./assets/divider.svg'/>
-                <img src='./assets/arrow_down.svg'/>
+                    <img src='./assets/divider.svg' />
+                    <img src='./assets/arrow_down.svg' />
                 </div>
             </TimelineConnector>
         </TimelineSeparator>
         <TimelineContent>
-            <EventRowDetails event={event} direction={'OUT'} actor={event.from} />
+            <EventRowDetails
+                event={event}
+                direction={'OUT'}
+                actor={event.from}
+                chainId={chainId}
+            />
         </TimelineContent>
     </TimelineItem>
 }
 
-const buildReceiveTimelineItem = (event: Event, index: number) => {
+const buildReceiveTimelineItem = (event: Event, index: number, chainId: number) => {
     const color = isIn(event) ? 'success' :
         'grey'
 
@@ -67,7 +73,11 @@ const buildReceiveTimelineItem = (event: Event, index: number) => {
             </TimelineDot>
         </TimelineSeparator>
         <TimelineContent>
-            <EventRowDetails event={event} direction={'IN'} actor={event.to} />
+            <EventRowDetails
+                event={event}
+                direction={'IN'}
+                actor={event.to}
+                chainId={chainId} />
         </TimelineContent>
     </TimelineItem>
 }
@@ -76,12 +86,15 @@ export const TransactionDetails = (props: TransactionProps) => {
     //We are only interested in events which are a transfer in or out
     let allEvents = []
     if (props.simulationResult) {
-        allEvents = reorder(props.simulationResult.allEvents); 
+        allEvents = reorder(props.simulationResult.allEvents);
     }
-    const timelineEventsNested = allEvents.map((e, i) => [buildSendTimelineItem(e, i * 2), buildReceiveTimelineItem(e, i * 2 + 1)])
-    const timelineEvents = [].concat(...timelineEventsNested)
 
-    const disabled = !props.simulationResult
+    const disabled = !props.simulationResult || props.simulationResult.allEvents.length === 0 || props.simulationResult.reverted
+    const timelineEventsNested = allEvents.map((e, i) => [
+        buildSendTimelineItem(e, i * 2, props.chainId),
+        buildReceiveTimelineItem(e, i * 2 + 1, props.chainId)
+    ])
+    const timelineEvents = [].concat(...timelineEventsNested)
 
     return <Accordion disabled={disabled} className="transaction_details_accordion">
         <AccordionSummary

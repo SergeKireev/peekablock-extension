@@ -73,11 +73,28 @@ attachScripts().catch((err) => {
 
 
 async function verifyContract(address) {
-    const response = await fetch(`https://peekablock.com/validate/contract?address=${address}`)
+    const response = await fetch(`https://peekablock.com/validate/contract?address=${address}`).catch(e => {
+        return e.message;
+    })
+
+    if (typeof (response) === 'string') {
+        return {
+            status: 'nok',
+            message: response
+        }
+    }
+    if (response.status != 200) {
+        const message = await (response.text().catch(e => response.statusText))
+        return {
+            status: 'nok',
+            message: message
+        }
+    }
+
     const data = await response.json();
     if (data.status === 'ok') {
         const result = data.data;
-        const verifiedWithCommitment = await verifyWithContract(result.address, result.org, result.name, result.proof); 
+        const verifiedWithCommitment = await verifyWithContract(result.address, result.org, result.name, result.proof);
         if (verifiedWithCommitment) {
             return data.data;
         }
@@ -87,7 +104,26 @@ async function verifyContract(address) {
 }
 
 async function classifyAction(transactionData: string) {
-    const response = await fetch(`https://peekablock.com/action?method_sig=${transactionData}`)
+    const method4bytes = transactionData.substring(0, 12);
+    const response = await fetch(`https://peekablock.com/action?method_sig=${method4bytes}`).catch(e => {
+        return e.message;
+    })
+
+    if (typeof (response) === 'string') {
+        return {
+            status: 'nok',
+            message: response
+        }
+    }
+
+    if (response.status != 200) {
+        const message = await (response.text().catch(e => response.statusText))
+        return {
+            status: 'nok',
+            message: message
+        }
+    }
+
     const data = await response.json();
     if (data.status === 'ok') {
         const result = data.action;
@@ -96,17 +132,13 @@ async function classifyAction(transactionData: string) {
     return undefined;
 }
 
-async function runSimulation(message) {
+async function showPopupAtUrl(url: string) {
     const lastFocused = await _browser.windows.getLastFocused()
     let top = lastFocused.top;
     let metamask_left = lastFocused.left + lastFocused.width - METAMASK_NOTIFICATION_WIDTH;
     let left = metamask_left - NOTIFICATION_WIDTH;
 
-    const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
-    const referrer = encodeURI(message.referrer)
-    const chainId = encodeURI(message.chainId)
-    //TODO: Check compatibility with firefox
-    var popupURL = _browser.runtime.getURL(`popup/peekablock.html?transaction=${urlEncodedQueryS}&referrer=${referrer}&chain_id=${chainId}`);
+    var popupURL = _browser.runtime.getURL(url);
 
     const popupWindow = await createWindow({
         url: popupURL,
@@ -131,17 +163,34 @@ async function runSimulation(message) {
     }
     //Close the dummy window after a safety timeout
     setTimeout(() => {
-        _browser.windows.remove(popupWindow2.id).catch(e => {})
+        _browser.windows.remove(popupWindow2.id).catch(e => { })
     }, 1000)
 
     if (popupWindow.top !== top && popupWindow.state !== 'fullscreen') {
         updateWindowDimensions(popupWindow.id, left)
     }
 }
+
+async function showSimulationPopup(message) {
+    const urlEncodedQueryS = encodeURI(JSON.stringify(message.transaction));
+    const referrer = encodeURI(message.referrer)
+    const chainId = encodeURI(message.chainId)
+    //TODO: Check compatibility with firefox
+    const url = `popup/peekablock.html?transaction=${urlEncodedQueryS}&referrer=${referrer}&chain_id=${chainId}`
+    await showPopupAtUrl(url)
+}
+
+async function showSignTypedPopup(message) {
+    const urlEncodedQueryS = encodeURI(message.signTypedData)
+    const referrer = encodeURI(message.referrer)
+    const url = `popup/peekablock.html?sign_typed=${urlEncodedQueryS}&referrer=${referrer}`
+    await showPopupAtUrl(url)
+}
+
 function notify(message, sender, sendResponse) {
 
     if (message.isFinished && currentWindowId) {
-        _browser.windows.remove(currentWindowId).catch(e => {});
+        _browser.windows.remove(currentWindowId).catch(e => { });
         currentWindowId = undefined;
         return;
     }
@@ -162,7 +211,10 @@ function notify(message, sender, sendResponse) {
         return true;
     }
 
-    runSimulation(message);
+    if (message.transaction)
+        showSimulationPopup(message);
+    else if (message.signTypedData)
+        showSignTypedPopup(message);
 }
 
 /*

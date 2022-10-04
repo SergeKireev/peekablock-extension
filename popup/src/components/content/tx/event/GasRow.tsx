@@ -1,11 +1,13 @@
 import React from 'react'
 import { EthereumInfo } from '../../../../lib/domain/ethereum'
 import { Amount, ConsolidatedErc20Event } from '../../../../lib/domain/event'
+import { USER_LABEL } from '../../../../lib/domain/user'
 import { AssetComponent } from './asset/Asset'
 
 export interface GasRowProps {
     gasSpent: Amount,
     ethereumPrice: number
+    chainId: number
 }
 
 function buildEvent(gasSpent: Amount, ethereumPrice: number): ConsolidatedErc20Event {
@@ -29,7 +31,14 @@ export const GasRow = (props: GasRowProps) => {
                 Simulated gas fees:
             </div>
             <div>
-                <AssetComponent event={buildEvent(props.gasSpent, props.ethereumPrice)} />
+                <AssetComponent
+                    event={buildEvent(props.gasSpent, props.ethereumPrice)}
+                    chainId={props.chainId}
+                    actor={{
+                        address: '0x0',
+                        label: USER_LABEL
+                    }}
+                />
             </div>
         </div>
     </div>

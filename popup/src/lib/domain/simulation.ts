@@ -25,6 +25,7 @@ export interface SimulationResult {
     valueDiff: string,
     gasSpent: Amount,
     ethereumPrice: number,
+    reverted: boolean,
     consolidated: ConsolidatedEvent[]
     erc20Transfers: Event[]
     erc721Transfers: Event[]

@@ -3,7 +3,7 @@ import React from 'react'
 
 interface ErrorProps {
     message: string
-    reportBug: () => void
+    reportBug: (msg: string) => void
 }
 
 //TODO: Change all texts to message variable
@@ -13,12 +13,12 @@ export const ErrorContent = (props: ErrorProps) => {
             <img className='error_image' src='./assets/cone.png'></img>
             <div className='error_title'>Sorry it seems we have run into a problem</div>
             <p className='error_message'>
-                We were not able to emulate this transaction please click below to try again. If the error persist please report this as a bug.
+                We were not able to emulate this transaction. Please click below to report this as a bug.
             </p>
             <Button
                 variant='outlined'
                 color='secondary'
-                onClick={props.reportBug}
+                onClick={() => props.reportBug(props.message)}
             >
                 <img src='./assets/bug.svg' style={{ height: 20, marginRight: 8 }}></img>
                 Submit bug

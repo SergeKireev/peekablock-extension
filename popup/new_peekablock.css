@@ -4,6 +4,10 @@ body {
     font-size: 100% !important;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .new_container {
     width: 720px;
     font-family: 'Roboto';
@@ -180,6 +184,7 @@ body {
 
 
 .report_form_submit {
+    width: 100%;
     flex: 1;
 }
 
@@ -190,7 +195,8 @@ body {
     padding: 12px 24px;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    margin-top: 28px;
+    gap: 16px;
     width: 100%;
 }
 
@@ -288,18 +294,44 @@ body {
     font-size: 12px;
     width: 100%;
     align-items: center;
+}
+
+.new_form_header_container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    padding: 0px 24px;
+    width: 100%;
+    align-items: center;
+}
+
+.with_bottom_border {
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #00000030;
 }
 
-.new_report_bug_header_container {
-    display: flex;
-    flex-direction: row;
-    padding: 0px 24px;
-    font-size: 12px;
-    width: 631px;
-    align-items: center;
+.new_form_message {
+    margin-top: 24px;
+}
+
+.new_form_message_title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 32px;
+}
+
+.new_form_message_paragraph {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .new_transaction_action_pill {
@@ -527,6 +559,7 @@ body {
     font-size: 16px;
     font-family: 'Roboto';
     font-weight: 500;
+    gap: 5px;
 }
 
 .new_transaction_event_middle_section {
@@ -540,8 +573,6 @@ body {
     align-items: center;
     height: 35px;
     padding: 8px 16px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
     gap: 8px;
 
     font-family: 'Roboto';
@@ -572,7 +603,17 @@ body {
 .erc20_usd_price_label {
     font-weight: 400;
     font-size: 14px;
-    color:rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.asset_border {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.tooltippable {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .tooltippable:hover {
@@ -584,7 +625,9 @@ body {
 .tooltippable-selected {
     border-radius: 8px;
     cursor: pointer;
-    background-color: #FAFAFA;
+    background-color: #FCFCFC;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .new_asset_logo_frame {
@@ -613,9 +656,9 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding: 16px;
-    gap: 16px;
+    gap: 4px;
 
-    width: 632px;
+    min-width: 350px;
 
     /* Hierarchy/Dividers 12% */
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -834,7 +877,20 @@ body {
     font-size: 16px;
     font-family: 'Roboto';
     font-weight: 500;
-    width: 100px;
+    width: 250px;
+}
+
+.standard_address_label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tooltipped_address_label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
 }
 
 .event_row_details_middle_col {
@@ -894,8 +950,8 @@ body {
 .MuiTimelineDot-root {
     background-color: white !important;
     margin: 0px !important;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     box-shadow: none !important;
 }
 
@@ -904,8 +960,9 @@ body {
 }
 
 .timeline_dot {
-    width: 20px;
-    height: 20px;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
 }
 
 .event_details_timeline_connector {
@@ -915,36 +972,12 @@ body {
     align-items: center;
 }
 
-.new_asset_details_component {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 30px;
-    padding: 8px 16px;
-    gap: 8px;
-
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-
-    /* identical to box height, or 150% */
-
-    display: flex;
-    align-items: center;
-    text-align: right;
-    letter-spacing: 0.15px;
-
-    overflow: hidden;
-    white-space: nowrap;
-    /* Don't forget this one */
-    text-overflow: ellipsis;
-}
-
 /* REPORT */
 .report_page_tab_header {
-    width: 100%;
+    box-sizing: border-box;
+    width: 638px;
+    margin: 0px 24px;
+    margin-top: 32px;
 }
 
 
@@ -980,4 +1013,32 @@ body {
     font-size: 16px;
     font-weight: 500;
     text-align: center;
+}
+
+/* SIGN TYPED */
+
+.new_sign_typed_container {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    color:rgba(0, 0, 0, 0.6);
+
+    margin: 0px 20px;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    width: 646px;
+    gap: 10px;
+    align-items: center;
+}
+
+.new_sign_typed_address_display {
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    padding: 10px 20px;
 }

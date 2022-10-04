@@ -24,43 +24,55 @@
       return async (...args) => {
         const requestArg = args[0];
 
-        if (requestArg.method !== 'eth_sendTransaction') {
-          return originalCall(...args);
+        if (requestArg.method != 'eth_sendTransaction') {
+          console.log(requestArg.method)
         }
-
-        if (requestArg.params.length !== 1) {
+  
+        if (requestArg.method === 'eth_signTypedData_v4') {
+          const event = new CustomEvent('initiate-sign-typed', {
+            detail: {
+              ...requestArg
+            }
+          })
+          window.dispatchEvent(event)
           return originalCall(...args);
-        }
-
-        const chainId = await target.request({ method: 'eth_chainId' })
-        console.debug("Forwarding transaction")
-        const event = new CustomEvent('initiate-transaction', {
-          detail: {
-            chainId: chainId,
-            ...args[0]
+        } else if (requestArg.method === 'eth_sendTransaction') {
+          if (requestArg.params.length !== 1) {
+            return originalCall(...args);
           }
-        })
-        window.dispatchEvent(event)
 
-        return originalCall(...args).then(x => {
-          const transactionFinishedEvent = new CustomEvent('finished-transaction', {
+          const chainId = await target.request({ method: 'eth_chainId' })
+          console.debug("Forwarding transaction")
+          const event = new CustomEvent('initiate-transaction', {
             detail: {
-              transactionSigned: true
+              chainId: chainId,
+              ...requestArg
             }
           })
-          console.debug("Transaction signed")
-          window.dispatchEvent(transactionFinishedEvent);
-          return x;
-        }).catch(e => {
-          const transactionFinishedEvent = new CustomEvent('finished-transaction', {
-            detail: {
-              transactionSigned: false
-            }
-          })
-          console.debug("Transaction cancelled")
-          window.dispatchEvent(transactionFinishedEvent);
-          throw e;
-        });
+          window.dispatchEvent(event)
+
+          return originalCall(...args).then(x => {
+            const transactionFinishedEvent = new CustomEvent('finished-transaction', {
+              detail: {
+                transactionSigned: true
+              }
+            })
+            console.debug("Transaction signed")
+            window.dispatchEvent(transactionFinishedEvent);
+            return x;
+          }).catch(e => {
+            const transactionFinishedEvent = new CustomEvent('finished-transaction', {
+              detail: {
+                transactionSigned: false
+              }
+            })
+            console.debug("Transaction cancelled")
+            window.dispatchEvent(transactionFinishedEvent);
+            throw e;
+          });
+        } else {
+          return originalCall(...args);
+        }
       };
     },
   };

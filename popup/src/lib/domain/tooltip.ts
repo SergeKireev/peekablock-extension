@@ -1,0 +1,1 @@
+export type TooltipType = 'inward' | 'outward' | 'none'

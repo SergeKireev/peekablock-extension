@@ -57,6 +57,19 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
                             <i className="fa fa-share-alt" />&nbsp;
                             Share
                         </Button>
+                        <Button
+                            variant="outlined"
+                            color="secondary"
+                            className="new_report_success_share_button"
+                            id='share-button'
+                            onClick={() => {
+                                window.open(link, '_blank');
+                            }}
+                        >
+                            <i className="fa fa-clone" />&nbsp;
+                            Copy
+                        </Button>
+
                     </div> : undefined
             }
             {

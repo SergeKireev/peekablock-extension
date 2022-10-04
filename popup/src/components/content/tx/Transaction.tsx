@@ -1,11 +1,13 @@
 import { CircularProgress } from '@mui/material'
 import React from 'react'
 import { ActionType } from '../../../lib/domain/actions'
-import { Address, ConsolidatedApprovalEvent, ConsolidatedEvent } from '../../../lib/domain/event'
+import { Address } from '../../../lib/domain/event'
 import { SimulationResult } from "../../../lib/domain/simulation"
 import { messages } from '../../../lib/messages/messages'
-import { ConsolidatedApprovalEventRow, ConsolidatedTransferEventRow } from './event/EventRow'
+import { ConsolidatedEventRow } from './event/EventRow'
 import { GasRow } from './event/GasRow'
+import { EmptyEventsPlaceholder } from './placeholder/EmptyEventsPlaceholder'
+import { TransactionRevertedPlaceholder } from './placeholder/TransactionRevertedPlaceholder'
 
 interface TransactionProps {
     action: ActionType,
@@ -24,17 +26,12 @@ const createPill = (category: ActionType) => {
     </div>
 }
 
-function isTransferEvent(event: ConsolidatedEvent): boolean {
-    return event.type === 'erc20transfer' || event.type === 'erc721transfer'
-}
-
-function isApprovalEvent(event: ConsolidatedEvent): event is ConsolidatedApprovalEvent {
-    return event.type === 'erc20approval' || event.type === 'erc721approval' || event.type === 'erc721approvalForAll'
-}
-
 export const TransactionComponent = (props: TransactionProps) => {
     const loading = !props.simulationResult
     const actionLoading = !props.action
+    const transactionReverted = props.simulationResult?.reverted
+    const emptyEvents = (props.simulationResult?.allEvents || []).length === 0
+
     return <div className='new_content_box'>
         <div className='new_transaction_header_container'>
             {messages.YOU_ARE_ABOUT}: &nbsp;
@@ -48,18 +45,18 @@ export const TransactionComponent = (props: TransactionProps) => {
             {
                 loading ?
                     <CircularProgress color="secondary" /> :
-                    props.simulationResult.consolidated.map((event, i) => {
-                        if (isTransferEvent(event))
-                            return <ConsolidatedTransferEventRow chainId={props.chainId} me={props.me} target={props.target} event={event} key={i} />;
-                        if (isApprovalEvent(event))
-                            return <ConsolidatedApprovalEventRow chainId={props.chainId} me={props.me} target={props.target} event={event} key={i} />;
-                    })}
+                    transactionReverted ? <TransactionRevertedPlaceholder /> :
+                        emptyEvents ? <EmptyEventsPlaceholder /> :
+                        props.simulationResult.consolidated.map((event, i) => {
+                            return <ConsolidatedEventRow chainId={props.chainId} me={props.me} target={props.target} event={event} key={i} />;
+                        })}
         </div>
         {
             loading ? undefined :
                 <GasRow
                     gasSpent={props.simulationResult.gasSpent}
                     ethereumPrice={props.simulationResult.ethereumPrice}
+                    chainId={props.chainId}
                 />
         }
     </div>

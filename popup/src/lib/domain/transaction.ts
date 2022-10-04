@@ -6,4 +6,5 @@ export interface Transaction {
     gas: string
     maxPriorityFeePerGas: string
     maxFeePerGas: string
+    chainId?: number
 }

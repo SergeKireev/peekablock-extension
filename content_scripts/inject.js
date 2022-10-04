@@ -2,8 +2,7 @@
 const isChrome = typeof chrome !== 'undefined'
 const b = typeof browser !== 'undefined' ? browser : chrome
 
-async function notifyExtension(e) {
-  console.debug("Notified")
+async function notifyInitiateTransaction(e) {
   const rpcRequest = e.detail;
   const domain = (new URL(window.location)).hostname;
   const message = {
@@ -12,10 +11,20 @@ async function notifyExtension(e) {
     referrer: domain
   }
   b.runtime.sendMessage(message);
-}; 
+};
+
+async function notifyInitiateSignTyped(e) {
+  const rpcRequest = e.detail;
+  const domain = (new URL(window.location)).hostname;
+  const message = {
+    address: rpcRequest.params[0],
+    signTypedData: rpcRequest.params[1],
+    referrer: domain
+  }
+  b.runtime.sendMessage(message);
+};
 
 async function notifyTransactionFinished(e) {
-  console.debug("Notified finish")
   const transactionSigned = e.detail;
   const message = {
     isFinished: true,
@@ -26,6 +35,7 @@ async function notifyTransactionFinished(e) {
 
 (function () {
   console.debug("Content script loaded!")
-  window.addEventListener("initiate-transaction", notifyExtension)
+  window.addEventListener("initiate-transaction", notifyInitiateTransaction)
+  window.addEventListener("initiate-sign-typed", notifyInitiateSignTyped)
   window.addEventListener("finished-transaction", notifyTransactionFinished)
 })()
