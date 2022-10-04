@@ -263,10 +263,31 @@ body::-webkit-scrollbar {
     gap: 20px;
 }
 
+.new_report_success_title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.copy_to_clipboard_snack {
+    width: 150px !important;
+    background-color: #9460C8 !important;
+    color: white;
+    font-family: 'Roboto';
+    padding: 7px 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
 .new_report_success_message {
     width: 510px;
     font-size: 16px;
-    font-weight: lighter;
+    font-weight: 400;
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .new_report_success_share_button {}
@@ -1021,7 +1042,7 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 16px;
-    color:rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
 
     margin: 0px 20px;
     padding: 20px 0px;

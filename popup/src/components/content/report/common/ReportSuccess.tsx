@@ -1,5 +1,6 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import { CopyToClipboardButton } from '../../../common/button/CopyToClipboardButton'
 
 let _browser = undefined
 let isChrome = undefined
@@ -26,9 +27,10 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
     let tweetText;
     if (props.share) {
         const domain = props.submitted.url;
+        const submittedContract = props.submitted.contract
         const safeDomain = domain.replaceAll('.', '[.]')
         tweetText = encodeURI(
-            `@p33kablock\ndomain:${safeDomain}\ncontract:${props.submitted.contract}\n`
+            `@p33kablock\ndomain:${safeDomain}\ncontract:${submittedContract}\n`
         );
         link = `https://twitter.com/intent/tweet?text=${tweetText}&hashtags=ScamReport`
     }
@@ -36,9 +38,9 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
     return <div className='new_report_form_group'>
         <div className='new_report_success_container'>
             <img src="./assets/checkmark.svg" className='report_success_checkmark' />
-            <h2>
+            <div className='new_report_success_title'>
                 {title}
-            </h2>
+            </div>
             <p className='new_report_success_message'>
                 {props.message}
             </p>
@@ -57,19 +59,7 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
                             <i className="fa fa-share-alt" />&nbsp;
                             Share
                         </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            className="new_report_success_share_button"
-                            id='share-button'
-                            onClick={() => {
-                                window.open(link, '_blank');
-                            }}
-                        >
-                            <i className="fa fa-clone" />&nbsp;
-                            Copy
-                        </Button>
-
+                        <CopyToClipboardButton text={tweetText}/>
                     </div> : undefined
             }
             {
