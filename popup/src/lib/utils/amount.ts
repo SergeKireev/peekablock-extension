@@ -29,7 +29,7 @@ export function displayAmount(amount: Amount) {
     const pow_of_10 = mostSignificantDigitPosition(amount.mantissa)
     const diff = pow_of_10 - amount.exponent
     console.log(diff, pow_of_10, amount.exponent);
-    if (diff < -5) {
+    if (diff <= -5) {
         //Case when we want to display 2 sig digits
         return `0.${leftPad(amount.mantissa.substring(0, 2), -diff+1, '0')}`
     } else if (diff < 0) {
