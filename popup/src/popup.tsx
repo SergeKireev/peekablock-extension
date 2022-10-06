@@ -31,7 +31,7 @@ const theme = createTheme({
         secondary: {
             // This is purple.
             main: '#9460C8',
-        },
+        }
     },
 });
 
@@ -109,7 +109,9 @@ function handleOpenPopup() {
                             message: errorMessage
                         }}
                         initPage={page}
-                        referrer={referrer} />
+                        referrer={referrer}
+                        contract={transaction ? transaction.to : '0x0'}
+                        />
         }
     </ThemeProvider>
 }

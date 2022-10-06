@@ -18,6 +18,7 @@ export interface HomeProps {
     initPage?: string;
     hideNavigation: boolean
     referrer?: string
+    contract?: string
     errorContext: ErrorContext
 }
 
@@ -37,11 +38,18 @@ export const HomePage = (props: HomeProps) => {
             <div className='new_content_body'>
                 {
                     currentPage === Pages.SCAM_REPORT ?
-                        <ReportScamPage referrer={props.referrer} /> : (
+                        <ReportScamPage
+                            referrer={props.referrer}
+                            contract={props.contract}
+                        /> : (
                             currentPage === Pages.SUPPORT ?
                                 <SupportPage
                                     errorContext={props.errorContext}
-                                    referrer={props.referrer} /> :
+                                    referrer={props.referrer}
+                                    back={() => {
+                                        setCurrentPage(Pages.HOME)
+                                    }}
+                                    /> :
                                 <HomeContent
                                     reportBug={reportBug}
                                     reportScam={reportScam}

@@ -1,6 +1,8 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { CopyToClipboardButton } from '../../../common/button/CopyToClipboardButton'
+import { StyledButton } from '../../../common/button/StyledButton'
+import { StyledLinkButton } from '../../../common/button/StyledLinkButton'
 
 let _browser = undefined
 let isChrome = undefined
@@ -47,7 +49,7 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
             {
                 props.share ?
                     <div className='share_button_row'>
-                        <Button
+                        <StyledButton
                             variant="contained"
                             color="secondary"
                             className="new_report_success_share_button"
@@ -58,18 +60,24 @@ export const ReportSuccess = (props: ReportSuccessProps) => {
                         >
                             <i className="fa fa-share-alt" />&nbsp;
                             Share
-                        </Button>
-                        <CopyToClipboardButton text={tweetText}/>
+                        </StyledButton>
+                        <CopyToClipboardButton text={tweetText} />
                     </div> : undefined
             }
             {
                 props.share ?
-                    <Button
+                    <StyledLinkButton
                         color="secondary"
-                        className="new_report_success_share_button"
+                        fontWeight={'bold'}
+                        enableRipple
+                        enableHover
+                        paddingHorizontal={15}
+                        paddingVertical={5}
+                        onClick={() => { }}
+                        link='https://github.com/SergeKireev/peekablock-extension'
                     >
                         Contribute
-                    </Button> : undefined
+                    </StyledLinkButton> : undefined
             }
         </div>
     </div>

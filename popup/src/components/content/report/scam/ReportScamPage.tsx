@@ -4,6 +4,7 @@ import { ReportSuccess } from '../common/ReportSuccess';
 
 interface ReportScamPageProps {
     referrer?: string
+    contract?: string
 }
 
 export const ReportScamPage = (props: ReportScamPageProps) => {
@@ -14,9 +15,7 @@ export const ReportScamPage = (props: ReportScamPageProps) => {
         setSubmitSuccessful(true);
     }
 
-    const reportScamSuccessMessage = `Now the crypto community is safer.
-You have reported 28 scams this month, good job!
-You can keep helping the community by making a contribution.`
+    const reportScamSuccessMessage = `You have successfully reported a warning! Thanks to you the community is safer`
     const reportScamSuccessTitle = 'Thank you for your report!'
 
     return <div className='new_content_box'>
@@ -31,7 +30,9 @@ You can keep helping the community by making a contribution.`
                 <ReportScamForm
                     onSubmitSuccessful={onSubmitSuccessful}
                     setSubmitted={setSubmitted}
-                    referrer={props.referrer} />
+                    referrer={props.referrer}
+                    contract={props.contract}
+                />
         }
     </div>
 } 

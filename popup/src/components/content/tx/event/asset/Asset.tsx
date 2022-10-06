@@ -92,7 +92,8 @@ export const AssetComponent = (props: AssetProps) => {
         />
         return <WithTooltip
             placement="bottom-end"
-            tooltip={tooltipComponent}>
+            tooltip={tooltipComponent}
+            >
             {component}
         </WithTooltip>
     } else {

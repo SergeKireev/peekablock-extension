@@ -4,6 +4,7 @@ import { ContractAbstract, ContractMetadata } from '../../../../../lib/domain/co
 import { Token } from '../../../../../lib/domain/event'
 import { fetchContractAbstract } from '../../../../../lib/service/contract_abstract_service'
 import { displayRelativeDate } from '../../../../../lib/utils/date'
+import { StyledLinkButton } from '../../../../common/button/StyledLinkButton'
 
 interface AssetTooltipProps {
     token: Token
@@ -32,18 +33,19 @@ export const ManagedAssetTooltip = (props: ManagedAssetTooltipProps) => {
                     <div className='asset_tooltip_value'>{displayRelativeDate(props.contractAbstract.creationDate)}</div>
                 </div>
                 <div className='asset_tooltip_row'>
-                    <div className='asset_tooltip_key'>Avg number of txs per day:</div>
+                    <div className='asset_tooltip_key'>Approx. number of tx in last 24h:</div>
                     <div className='asset_tooltip_value'>{props.contractAbstract.nbOfTransactions}</div>
                 </div>
                 <div className='asset_tooltip_row'>
                     <div className='asset_tooltip_key'>View block explorer:</div>
                     <div className='asset_tooltip_value'>
-                        <a href={`https://etherscan.io/address/${props.contractAbstract.address}`}>
+                        <StyledLinkButton
+                            link={`https://etherscan.io/address/${props.contractAbstract.address}`}>
                             <div className='asset_tooltip_row'>
-                                <div>etherscan.io</div>
                                 <img className='asset_tooltip_link_icon' src='./assets/link.svg' />
+                                <div>etherscan.io</div>
                             </div>
-                        </a>
+                        </StyledLinkButton>
                     </div>
                 </div>
             </div> :

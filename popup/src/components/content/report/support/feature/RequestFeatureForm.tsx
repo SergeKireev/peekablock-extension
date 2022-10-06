@@ -81,15 +81,15 @@ export const RequestFeatureForm = (props: RequestFeatureFormProps) => {
     const validateForm = () => {
         let hasError = false;
         if (featureDescription === undefined) {
-            setGeneralError('Bug description cannot be empty')
+            setGeneralError('Feature description cannot be empty')
             hasError = true;
         }
         return hasError;
     }
     
     return <Form
-        title={'Is there a feature missing?'}
-        paragraph={'Help us improve Peekablock by suggesting possible features.'}
+        title={'Is there a feature you would like to have?'}
+        paragraph={'Help us improve Peekablock by suggesting possible features'}
     >
         <TextareaAutosize
             className="report_form_text"

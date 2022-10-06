@@ -16,6 +16,10 @@ const bugTypes = [
     {
         value: 2,
         label: 'Peekablock shows wrong result',
+    },
+    {
+        value: 3,
+        label: 'Other',
     }
 ];
 
@@ -98,14 +102,14 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
 
     const validateForm = () => {
         let hasError = false;
-        if (bugDescription === undefined) {
-            setGeneralError('Bug description cannot be empty')
-            hasError = true;
-        }
-        if (projectUrl === undefined) {
-            setProjectUrlError('Project url cannot be empty')
-            hasError = true;
-        }
+        // if (bugDescription === undefined) {
+        //     setGeneralError('Bug description cannot be empty')
+        //     hasError = true;
+        // }
+        // if (projectUrl === undefined) {
+        //     setProjectUrlError('Project url cannot be empty')
+        //     hasError = true;
+        // }
         return hasError;
     }
 
@@ -151,7 +155,6 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
         <TextareaAutosize
             className="report_form_text"
             id="bug-description"
-            required
             value={bugDescription}
             onChange={handleBugDescriptionChange}
             aria-label="minimum height"

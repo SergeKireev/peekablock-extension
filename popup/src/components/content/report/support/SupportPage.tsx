@@ -15,7 +15,7 @@ interface SupportPageProps {
 
 function createSuccessMessage() {
     const title = 'Thank you for your report!'
-    const message = `We are working hard to reply and solve your problem as soon as possible. You are going to receive an answer during the next 48 hours.`
+    const message = `Thanks for sharing your feedback and for helping us improve Peekablock a little more every day`
     return <ReportSuccess title={title} message={message} submitted={undefined} />
 }
 
@@ -27,8 +27,8 @@ export const SupportPage = (props: SupportPageProps) => {
     const onSubmitSuccessful = () => {
         setSubmitSuccessful(true);
         setTimeout(() => {
-            console.log('Back to report page');
             if (props.back) {
+                console.log('Going back')
                 props.back();
                 setSubmitSuccessful(false);
             } else {

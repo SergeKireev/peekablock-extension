@@ -5,7 +5,6 @@ import { Amount } from "../domain/event";
 const PRECISION = 5
 const MIN_SIGNIFICANT_DIGITS = 2
 const UINT256MAX = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
-
 const MAX_LABEL = 'ALL'
 
 export function isMaxNumish(x: string): boolean {
@@ -23,26 +22,40 @@ function trimLeadingZeroes(s: string) {
     while (s[i] === '0') {
         i++
     }
-    return s.substring(i); 
+    return s.substring(i);
+}
+
+function interleaveCommas(s: string) {
+    if (s.length > 3) {
+        const res = interleaveCommas(s.substring(0, s.length-3))
+        const remainder = s.substring(s.length-3)
+        return `${res},${remainder}`
+    } else {
+        return s
+    }
 }
 
 export function displayAmount(amount: Amount) {
+    if (isMaxNumish(amount.mantissa)) {
+        return 'All'
+    }
     const pow_of_10 = mostSignificantDigitPosition(amount.mantissa)
     const diff = pow_of_10 - amount.exponent
-    if (diff <= -(PRECISION-1)) {
+    if (diff <= -(PRECISION - 1)) {
         //Case when we want to display 2 sig digits
-        return `0.${leftPad(amount.mantissa.substring(0, MIN_SIGNIFICANT_DIGITS), (-diff)+(MIN_SIGNIFICANT_DIGITS-1), '0')}`
+        return `0.${leftPad(amount.mantissa.substring(0, MIN_SIGNIFICANT_DIGITS), (-diff) + (MIN_SIGNIFICANT_DIGITS - 1), '0')}`
     } else if (diff < 0) {
         //Case when we display 5 digits and number < 1
-        return `0.${leftPad(amount.mantissa.substring(0, (PRECISION+diff)), PRECISION-1, '0')}`
-    } else if (diff < (PRECISION-MIN_SIGNIFICANT_DIGITS-1)) {
+        return `0.${leftPad(amount.mantissa.substring(0, (PRECISION + diff)), PRECISION - 1, '0')}`
+    } else if (diff < (PRECISION - MIN_SIGNIFICANT_DIGITS - 1)) {
         //Case when we display 5 digits and number > 1
-        const separatorPosition = diff+1
+        const separatorPosition = diff + 1
         return `${amount.mantissa.substring(0, separatorPosition)}.${amount.mantissa.substring(separatorPosition, PRECISION)}`
     } else {
         //Case when we display >5 digits
-        const separatorPosition = diff+1
-        return `${amount.mantissa.substring(0, separatorPosition)}.${amount.mantissa.substring(separatorPosition, separatorPosition+MIN_SIGNIFICANT_DIGITS)}`
+        const separatorPosition = diff + 1
+        const withCommas = interleaveCommas(amount.mantissa.substring(0, separatorPosition))
+        return `${withCommas}.${amount.mantissa.substring(separatorPosition, separatorPosition + MIN_SIGNIFICANT_DIGITS)}`
     }
 }
 

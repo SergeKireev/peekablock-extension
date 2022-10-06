@@ -13,10 +13,6 @@ body {
   height: 99%;
 }
 
-.linkAddress {
-  margin-left: 5px;
-  margin-right: 5px;
-}
 
 .hidden {
   display: none;
@@ -73,14 +69,6 @@ body {
 .header {
   font-family: 'Poppins';
   color: white;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.header_addressItem {
-  margin: 10px;
-  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;

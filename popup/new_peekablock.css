@@ -2,10 +2,38 @@ body {
     margin: -8px;
     padding: 8px;
     font-size: 100% !important;
+    zoom: 0.80;
 }
 
 body::-webkit-scrollbar {
     display: none;
+}
+
+.linkAddress {
+    line-height: 1.2 !important;
+    color: rgba(0, 0, 0, 0.6);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.linkAddress:hover {
+    color: rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.header_addressItem {
+    margin: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.new_link_button:hover {
+    background-color: #00000000 !important;
 }
 
 .new_container {
@@ -214,10 +242,11 @@ body::-webkit-scrollbar {
     font-size: 16px;
     min-height: 16px;
     height: 153px;
-    max-width: 632px !important;
-    min-width: 632px !important;
+    max-width: 604px !important;
+    min-width: 604px !important;
     margin-right: 18px;
     margin-left: 18px;
+    padding: 16.5px 14px
 }
 
 .report_page_panel {
@@ -287,6 +316,7 @@ body::-webkit-scrollbar {
     font-weight: 400;
     letter-spacing: 0.15px;
     color: rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
 .new_report_success_share_button {}
@@ -519,6 +549,7 @@ body::-webkit-scrollbar {
     width: 100%;
     flex-direction: row;
     align-items: center;
+    gap: 16px;
 }
 
 .new_transaction_event_pill {
@@ -570,7 +601,7 @@ body::-webkit-scrollbar {
 }
 
 .new_transaction_event_address_display {
-    margin-left: -16px !important;
+    margin-left: -32px !important;
     z-index: 10;
     width: 150px;
     display: flex;
@@ -634,12 +665,16 @@ body::-webkit-scrollbar {
 .tooltippable {
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.12);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .tooltippable:hover {
     border-radius: 8px;
-    background-color: #00000020;
+    background-color: rgba(0, 0, 0, 0.12);
     cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .tooltippable-selected {
@@ -647,7 +682,9 @@ body::-webkit-scrollbar {
     cursor: pointer;
     background-color: #FCFCFC;
     border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .new_asset_logo_frame {
@@ -667,11 +704,15 @@ body::-webkit-scrollbar {
 }
 
 /* ASSET TOOLTIP */
-.asset_tooltip {
-    /* Details 1 */
-    box-sizing: border-box;
 
+.tooltip_width_adjusted {
+    height: 2px;
+    max-width: 50px;
+}
+
+.asset_tooltip {
     /* Auto layout */
+    margin-left: -20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -705,6 +746,7 @@ body::-webkit-scrollbar {
     align-items: center;
     height: 30px;
     gap: 8px;
+    margin-bottom: 10px;
 }
 
 .asset_tooltip_title_icon {
@@ -730,7 +772,7 @@ body::-webkit-scrollbar {
     width: 100%;
     height: 24px;
 
-    gap: 8px;
+    gap: 4px;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -745,8 +787,8 @@ body::-webkit-scrollbar {
 }
 
 .asset_tooltip_link_icon {
-    height: 24px;
-    width: 24px;
+    height: 16px;
+    width: 16px;
 }
 
 .asset_tooltip_value {
@@ -897,6 +939,7 @@ body::-webkit-scrollbar {
     font-size: 16px;
     font-family: 'Roboto';
     font-weight: 500;
+    gap: 8px;
     width: 250px;
 }
 
@@ -904,6 +947,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 4px;
 }
 
 .tooltipped_address_label {
@@ -1020,8 +1064,9 @@ body::-webkit-scrollbar {
 }
 
 .new_home_logo {
-    height: 120px;
-    width: 120px;
+    height: 90px;
+    width: 90px;
+    margin-bottom: 24px;
 }
 
 .new_home_motto {
@@ -1033,12 +1078,23 @@ body::-webkit-scrollbar {
     color: #383F52;
 }
 
+.new_home_text {
+    box-sizing: border-box;
+    padding: 0px 48px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 16px;
+}
+
 .new_home_title {
     font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 40px;
-    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 45px;
+    text-justify: auto;
     color: rgba(0, 0, 0, 0.87);
 }
 
@@ -1046,13 +1102,12 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 24px;
 
     /* or 133% */
-    text-align: center;
     letter-spacing: 0.15px;
-    color: #383F52;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .new_home_action_row {

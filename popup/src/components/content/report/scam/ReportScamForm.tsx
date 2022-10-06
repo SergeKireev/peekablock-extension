@@ -76,6 +76,7 @@ interface ReportScamFormProps {
     onSubmitSuccessful: () => void
     setSubmitted: (sub: any) => void
     referrer?: string
+    contract?: string
 }
 
 export const ReportScamForm = (props: ReportScamFormProps) => {
@@ -93,17 +94,17 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
     const [projectUrlError, setProjectUrlError] = useState(undefined)
     const handleProjectUrlChange = createHandler(setProjectUrl, setProjectUrlError);
 
-    const [projectContract, setProjectContract] = useState(undefined)
+    const [projectContract, setProjectContract] = useState(props.contract)
     const handleProjectContractChange = createHandler(setProjectContract, () => { });
 
     const [generalError, setGeneralError] = useState(undefined);
 
     const validateForm = () => {
         let hasError = false;
-        if (projectName === undefined) {
-            setProjectNameError('Project name cannot be empty')
-            hasError = true;
-        }
+        // if (projectName === undefined) {
+        //     setProjectNameError('Project name cannot be empty')
+        //     hasError = true;
+        // }
         if (projectUrl === undefined) {
             setProjectUrlError('Project url cannot be empty')
             hasError = true;
@@ -112,10 +113,10 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
     }
 
     return <Form
-        title='Report a new scam to help the community'
-        paragraph='If you suspect about a project or you confirm that is a scam, please notify the community to avoid other users getting affected.'
+        title='Report a scam to help the community!'
+        paragraph='You can contribute to the safety of the ecosystem by reporting something suspicious on Peekablock'
     >
-        <TextField required
+        <TextField
             className="report_form_input"
             id="project-name"
             label="Project name"
@@ -166,7 +167,7 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
         <TextField
             className="report_form_input"
             id="contract-address"
-            label="Contract address (optional)"
+            label="Contract address"
             value={projectContract}
             onChange={handleProjectContractChange}
         />

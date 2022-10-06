@@ -60,10 +60,10 @@ describe('Display amounts', () => {
 
     it('Many display digits', () => {
         const amount: Amount = {
-            mantissa: '12345500000000000000000',
+            mantissa: '123123456500000000000000000',
             exponent: 18
         }
         const display = displayAmount(amount)
-        expect(display).to.be.equals('12345.50');
+        expect(display).to.be.equals('123,123,456.50');
     })
 })

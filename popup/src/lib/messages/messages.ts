@@ -2,6 +2,7 @@ export const messages = {
     'RUNNING': 'RUNNING',
     'REPORT_PROBLEM_TITLE': 'Report a problem',
     'REPORT_SCAM': 'Report',
+    'REPORT_SCAM_HOME': 'Report scam',
     'TRANSACTION_TITLE': 'Transaction',
     'SIGN': 'Sign',
     'TRANSACTION_DETAILS': 'Transaction details',
