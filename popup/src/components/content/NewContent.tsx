@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { messages } from '../../lib/messages/messages'
+import { SCALING_FACTOR } from '../common/body/global'
 import { StyledButton } from '../common/button/StyledButton'
 
 interface NewContentProps {
@@ -19,9 +20,8 @@ export const NewContent = (props: React.PropsWithChildren<NewContentProps>) => {
                     <div className='new_content_title_row'>
                         {
                             props.titleIcon ?
-                                <div>
-                                    <img src={props.titleIcon} style={{ height: 20 }} />
-                                </div> :
+                                <img src={props.titleIcon} style={{ height: 20 * SCALING_FACTOR }} />
+                                :
                                 undefined
                         }
                         {

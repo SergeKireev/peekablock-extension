@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { ErrorContext } from '../../../home/HomePage';
 import { Form } from '../../../../common/form/Form';
 import { StyledLoadingButton } from '../../../../common/button/StyledLoadingButton';
+import { ScaledTextField } from '../../../../common/input/ScaledTextField';
+import { ScaledMenuItem } from '../../../../common/menu/ScaledMenuItem';
 
 const bugTypes = [
     {
@@ -117,9 +119,10 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
         title='Report a bug to help us improve'
         paragraph='You have encountered a bug using peekablock, please help us resolve the issue'
     >
-        <TextField select
+        <ScaledTextField select
             required
             className="report_form_input"
+            color='secondary'
             id="type-of-bug"
             label="Type of bug"
             error={
@@ -133,16 +136,18 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
         >
             {
                 bugTypes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <ScaledMenuItem key={option.value} value={option.value}>
                         {option.label}
-                    </MenuItem>
+                    </ScaledMenuItem>
                 ))
             }
-        </TextField>
-        <TextField required
+        </ScaledTextField>
+        <ScaledTextField
+            required
             className="report_form_input"
             id="url"
             label="URL"
+            color='secondary'
             error={
                 projectUrlError != undefined
             }
@@ -152,14 +157,18 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
             value={projectUrl}
             onChange={handleProjectUrlChange}
         />
-        <TextareaAutosize
-            className="report_form_text"
+        <ScaledTextField
+            multiline
+            rows={4}
+            minRows={3}
+            maxRows={30}
+            className="report_form_input"
             id="bug-description"
+            label="Bug description"
+            color='secondary'
             value={bugDescription}
+            placeholder={"Describe the bug"}
             onChange={handleBugDescriptionChange}
-            aria-label="minimum height"
-            minRows={7}
-            placeholder="Describe the bug"
         />
         <StyledLoadingButton
             loading={_loading}

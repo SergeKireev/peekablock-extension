@@ -4,6 +4,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useState } from 'react'
 import { Form } from '../../../../common/form/Form';
 import { StyledLoadingButton } from '../../../../common/button/StyledLoadingButton';
+import { ScaledTextField } from '../../../../common/input/ScaledTextField';
 
 const bugTypes = [
     {
@@ -75,31 +76,43 @@ export const RequestFeatureForm = (props: RequestFeatureFormProps) => {
     const [_loading, setLoading] = useState(false);
 
     const [featureDescription, setFeatureDescription] = useState(undefined)
+    const [featureDescriptionError, setFeatureDescriptionError] = useState(undefined)
     const [generalError, setGeneralError] = useState(undefined);
-    const handleFeatureDescriptionChange = createHandler(setFeatureDescription, setGeneralError);
+    const handleFeatureDescriptionChange = createHandler(setFeatureDescription, setFeatureDescriptionError);
 
     const validateForm = () => {
         let hasError = false;
         if (featureDescription === undefined) {
-            setGeneralError('Feature description cannot be empty')
+            setFeatureDescriptionError('Feature description cannot be empty')
             hasError = true;
         }
         return hasError;
     }
-    
+
     return <Form
         title={'Is there a feature you would like to have?'}
         paragraph={'Help us improve Peekablock by suggesting possible features'}
     >
-        <TextareaAutosize
-            className="report_form_text"
+        <ScaledTextField
+            multiline
+            rows={4}
+            minRows={3}
+            maxRows={30}
+            className="report_form_input"
+            label="Feature description"
+            color='secondary'
             id="feature-description"
             required
             value={featureDescription}
             onChange={handleFeatureDescriptionChange}
             aria-label="minimum height"
-            minRows={10}
             placeholder="Describe the feature"
+            error={
+                featureDescriptionError != undefined
+            }
+            helperText={
+                featureDescriptionError
+            }
         />
         <StyledLoadingButton
             loading={_loading}

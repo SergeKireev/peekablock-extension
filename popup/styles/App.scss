@@ -1,12 +1,43 @@
+@use "sass:math";
+
+$scale: 0.9;
+
 body {
-    margin: -8px;
-    padding: 8px;
-    font-size: 100% !important;
-    zoom: 0.80;
+    background-color: #FFFFFFAA;
+    width: 720px*$scale;
+}
+
+.hidden {
+    display: none;
+}
+
+a:link {
+    color: #0000009f;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0000009f;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0000009f;
+    text-decoration: none;
+}
+
+a:active {
+    color: #0000009f;
+    text-decoration: none;
 }
 
 body::-webkit-scrollbar {
     display: none;
+}
+
+.verified_badge {
+    width: 20px*$scale;
+    height: 20px*$scale;
 }
 
 .linkAddress {
@@ -24,12 +55,12 @@ body::-webkit-scrollbar {
 }
 
 .header_addressItem {
-    margin: 10px;
+    margin: 10px*$scale;
     flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 8px*$scale;
 }
 
 .new_link_button:hover {
@@ -37,7 +68,7 @@ body::-webkit-scrollbar {
 }
 
 .new_container {
-    width: 720px;
+    width: 720px*$scale;
     font-family: 'Roboto';
 }
 
@@ -47,12 +78,12 @@ body::-webkit-scrollbar {
     flex-direction: row;
     align-items: center;
     padding: 0px;
-    gap: 8px;
+    gap: 8px*$scale;
 
-    width: 84px;
-    height: 16px;
+    width: 84px*$scale;
+    height: 16px*$scale;
 
-    border-radius: 8px;
+    border-radius: 8px*$scale;
 }
 
 .new_header {
@@ -62,10 +93,10 @@ body::-webkit-scrollbar {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px;
-    gap: 331px;
+    padding: 16px*$scale 20px*$scale;
+    gap: 331px*$scale;
 
-    height: 72px;
+    height: 72px*$scale;
     width: 100%;
     left: 0px;
     top: 0px;
@@ -75,31 +106,31 @@ body::-webkit-scrollbar {
 }
 
 .new_peekablock_logo {
-    height: 32px;
-    max-height: 32px;
+    height: 32px*$scale;
+    max-height: 32px*$scale;
 }
 
 .new_peekablock_title {
-    height: 16px;
-    max-height: 16px;
+    height: 16px*$scale;
+    max-height: 16px*$scale;
 }
 
 .new_header_running_container {
     flex-direction: row;
     display: flex;
-    width: 100px;
+    width: 100px*$scale;
     align-items: center;
-    gap: 4px;
+    gap: 4px*$scale;
 }
 
 .new_header_running_indicator {
-    height: 16px;
+    height: 16px*$scale;
 
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 12px*$scale;
+    line-height: 16px*$scale;
 
     /* identical to box height, or 114% */
     display: flex;
@@ -117,11 +148,11 @@ body::-webkit-scrollbar {
 }
 
 .new_header_icon_play {
-    width: 14px;
-    height: 14px;
-    padding: 4px;
-    border-radius: 4px;
-    margin-left: 4px;
+    width: 14px*$scale;
+    height: 14px*$scale;
+    padding: 4px*$scale;
+    border-radius: 4px*$scale;
+    margin-left: 4px*$scale;
     background: white;
     color: #059669;
     margin-top: 1px;
@@ -129,8 +160,8 @@ body::-webkit-scrollbar {
 
 .new_header_menu {
     color: #9460C8;
-    width: 25px;
-    height: 20px;
+    width: 25px*$scale;
+    height: 20px*$scale;
 }
 
 .new_content {
@@ -138,30 +169,30 @@ body::-webkit-scrollbar {
     height: 100%;
     width: 100%;
     padding: 0px;
-    padding-top: 24px;
-    padding-bottom: 20px;
+    padding-top: 20px*$scale;
+    padding-bottom: 20px*$scale;
 }
 
 .new_content_body {
-    padding: 0px 16px;
+    padding: 0px 16px*$scale;
 }
 
 .new_content_title_row {
     box-sizing: border-box;
 
-    margin-bottom: 44px;
-    padding-left: 16px;
-    padding-right: 16px;
+    margin-bottom: 25px*$scale;
+    padding-left: 16px*$scale;
+    padding-right: 16px*$scale;
     width: 100%;
-    height: 32px;
+    height: 32px*$scale;
 
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 24px*$scale;
+    line-height: 32px*$scale;
 
-    gap: 10px;
+    gap: 10px*$scale;
 
     /* identical to box height, or 133% */
     display: flex;
@@ -178,7 +209,7 @@ body::-webkit-scrollbar {
 .report_scam_button {
     font-family: 'Roboto';
     font-weight: 700;
-    gap: 10px;
+    gap: 10px*$scale;
 }
 
 .new_content_box {
@@ -195,7 +226,7 @@ body::-webkit-scrollbar {
     width: 100%;
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 16px;
+    border-radius: 16px*$scale;
 
     /* Inside auto layout */
     flex: none;
@@ -205,7 +236,7 @@ body::-webkit-scrollbar {
 }
 
 .new_content_box:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 20px*$scale;
 }
 
 
@@ -218,18 +249,18 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
 
     display: flex;
-    padding: 12px 24px;
-    padding-bottom: 32px;
+    padding: 12px*$scale 24px*$scale;
+    padding-bottom: 32px*$scale;
     flex-direction: column;
     align-items: center;
-    margin-top: 28px;
-    gap: 16px;
+    margin-top: 28px*$scale;
+    gap: 16px*$scale;
     width: 100%;
 }
 
 .new_chevron_back {
-    min-width: 25px !important;
-    height: 31px;
+    min-width: 25px*$scale !important;
+    height: 31px*$scale;
     padding: 0px;
 }
 
@@ -239,14 +270,16 @@ body::-webkit-scrollbar {
 
 .report_form_text {
     font-family: 'Roboto';
-    font-size: 16px;
-    min-height: 16px;
-    height: 153px;
-    max-width: 604px !important;
-    min-width: 604px !important;
-    margin-right: 18px;
-    margin-left: 18px;
-    padding: 16.5px 14px
+    font-size: 16px*$scale;
+    min-height: 16px*$scale;
+    height: 153px*$scale;
+    max-width: 604px*$scale !important;
+    min-width: 604px*$scale !important;
+    margin-right: 18px*$scale;
+    margin-left: 18px*$scale;
+    padding: 16.5px*$scale 14px*$scale;
+    border-radius: 4px*$scale;
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .report_page_panel {
@@ -259,7 +292,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
+    gap: 5px*$scale;
 }
 
 .slow_blinking {
@@ -278,8 +311,8 @@ body::-webkit-scrollbar {
 }
 
 .report_success_checkmark {
-    width: 50px;
-    height: 50px;
+    width: 50px*$scale;
+    height: 50px*$scale;
 }
 
 .new_report_success_container {
@@ -288,33 +321,33 @@ body::-webkit-scrollbar {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 20px;
+    gap: 20px*$scale;
 }
 
 .new_report_success_title {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 32px*$scale;
+    line-height: 40px*$scale;
     color: rgba(0, 0, 0, 0.87);
 }
 
 .copy_to_clipboard_snack {
-    width: 150px !important;
+    width: 150px*$scale !important;
     background-color: #9460C8 !important;
     color: white;
     font-family: 'Roboto';
-    padding: 7px 12px;
-    border-radius: 8px;
+    padding: 7px*$scale 12px*$scale;
+    border-radius: 8px*$scale;
     text-align: center;
 }
 
 .new_report_success_message {
-    width: 510px;
-    font-size: 16px;
+    width: 510px*$scale;
+    font-size: 16px*$scale;
     font-weight: 400;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15px*$scale;
     color: rgba(0, 0, 0, 0.6);
     text-align: center;
 }
@@ -326,8 +359,8 @@ body::-webkit-scrollbar {
 
     display: flex;
     flex-direction: row;
-    padding: 12px 24px;
-    font-size: 20px;
+    padding: 12px*$scale 24px*$scale;
+    font-size: 20px*$scale;
     width: 100%;
     align-items: center;
     border-bottom-style: solid;
@@ -340,8 +373,8 @@ body::-webkit-scrollbar {
 
     display: flex;
     flex-direction: row;
-    padding: 12px 24px;
-    font-size: 12px;
+    padding: 12px*$scale 24px*$scale;
+    font-size: 12px*$scale;
     width: 100%;
     align-items: center;
 }
@@ -350,7 +383,7 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    padding: 0px 24px;
+    padding: 0px 24px*$scale;
     width: 100%;
     align-items: center;
 }
@@ -362,25 +395,25 @@ body::-webkit-scrollbar {
 }
 
 .new_form_message {
-    margin-top: 24px;
+    margin-top: 24px*$scale;
 }
 
 .new_form_message_title {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 20px*$scale;
+    line-height: 32px*$scale;
 }
 
 .new_form_message_paragraph {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 16px*$scale;
+    line-height: 24px*$scale;
 
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15px*$scale;
     color: rgba(0, 0, 0, 0.6);
 }
 
@@ -388,12 +421,12 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-radius: 10px;
-    height: 20px;
-    width: 66px;
-    font-size: 15px;
+    border-radius: 10px*$scale;
+    height: 28px*$scale;
+    width: 66px*$scale;
+    font-size: 15px*$scale;
     text-align: center;
-    padding: 4px;
+    padding: 4px*$scale;
     font-weight: 700;
 }
 
@@ -483,12 +516,12 @@ body::-webkit-scrollbar {
 /**/
 
 .new_event_container {
-    margin: 0px 20px;
-    padding: 20px 0px;
+    margin: 0px 20px*$scale;
+    padding: 20px*$scale 0px*$scale;
     display: flex;
     flex-direction: column;
-    width: 646px;
-    gap: 10px;
+    width: 646px*$scale;
+    gap: 10px*$scale;
     align-items: center;
 
     border-bottom-style: solid;
@@ -499,7 +532,7 @@ body::-webkit-scrollbar {
 .new_gas_row_container {
     box-sizing: border-box;
     margin: 0px;
-    padding: 20px;
+    padding: 20px*$scale;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -519,28 +552,28 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 16px*$scale;
+    line-height: 24px*$scale;
 
     /* identical to box height, or 150% */
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15px*$scale;
     flex: 1;
 }
 
 .events_warning {
     font-family: 'Roboto';
-    font-size: 14px;
+    font-size: 14px*$scale;
     color: white;
     background-color: #B91C1CCC;
     font-weight: 500;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    border-radius: 10px*$scale;
+    padding: 10px*$scale;
+    margin-top: -10px*$scale;
+    margin-bottom: 10px*$scale;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 10px*$scale;
 }
 
 .new_transaction_event_row {
@@ -549,15 +582,16 @@ body::-webkit-scrollbar {
     width: 100%;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    gap: 16px*$scale;
 }
 
 .new_transaction_event_pill {
-    padding: 16px 65px 18px 18px;
+    padding: 16px*$scale 65px*$scale 18px*$scale 18px*$scale;
 
-    width: 80px;
-    border-radius: 8px;
-    font-size: 16px;
+    width: math.ceil(120*$scale)+px;
+    min-width: math.ceil(80*$scale)+px;
+    border-radius: 8px*$scale;
+    font-size: 16px*$scale;
     font-weight: 500;
 }
 
@@ -601,42 +635,47 @@ body::-webkit-scrollbar {
 }
 
 .new_transaction_event_address_display {
-    margin-left: -32px !important;
+    margin-left: -32px*$scale !important;
     z-index: 10;
-    width: 150px;
+    width: 150px*$scale;
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 16px*$scale;
     font-family: 'Roboto';
     font-weight: 500;
-    gap: 5px;
+    gap: 5px*$scale;
 }
 
 .new_transaction_event_middle_section {
-    height: 30px;
+    height: 30px*$scale;
     flex: 1;
+}
+
+.new_transaction_event_middle_section_icon {
+    height: 30px*$scale;
+    width: 30px*$scale;
 }
 
 .new_asset_component {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 35px;
-    padding: 8px 16px;
-    gap: 8px;
+    height: math.ceil(50*$scale)+px;
+    padding: 8px*$scale 16px*$scale;
+    gap: 8px*$scale;
 
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 16px*$scale;
 
     /* identical to box height, or 150% */
 
     display: flex;
     align-items: center;
     text-align: right;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15px*$scale;
 
     overflow: hidden;
     white-space: nowrap;
@@ -648,29 +687,32 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 2px;
+    font-size: 16px*$scale;
+    font-weight: 500;
+    line-height: math.floor(20*$scale)+px;
+    gap: 2px*$scale;
 }
 
 .erc20_usd_price_label {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 14px*$scale;
     color: rgba(0, 0, 0, 0.6);
 }
 
 .asset_border {
-    border-radius: 8px;
+    border-radius: 8px*$scale;
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .tooltippable {
-    border-radius: 8px;
+    border-radius: 8px*$scale;
     border: 1px solid rgba(0, 0, 0, 0.12);
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
 .tooltippable:hover {
-    border-radius: 8px;
+    border-radius: 8px*$scale;
     background-color: rgba(0, 0, 0, 0.12);
     cursor: pointer;
     -webkit-transition: all 0.2s ease;
@@ -678,10 +720,10 @@ body::-webkit-scrollbar {
 }
 
 .tooltippable-selected {
-    border-radius: 8px;
+    border-radius: 8px*$scale;
     cursor: pointer;
     background-color: #FCFCFC;
-    border-radius: 8px;
+    border-radius: 8px*$scale;
     border: 1px solid rgba(0, 0, 0, 0.09);
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -690,42 +732,37 @@ body::-webkit-scrollbar {
 .new_asset_logo_frame {
     margin-top: -1px;
     background-color: #00000030;
-    border-radius: 15px;
-    height: 30px;
-    width: 30px;
+    border-radius: 15px*$scale;
+    height: 30px*$scale;
+    width: 30px*$scale;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .new_asset_logo {
-    height: 30px;
-    border-radius: 15px;
+    height: 30px*$scale;
+    border-radius: 15px*$scale;
 }
 
 /* ASSET TOOLTIP */
-
-.tooltip_width_adjusted {
-    height: 2px;
-    max-width: 50px;
-}
-
 .asset_tooltip {
     /* Auto layout */
-    margin-left: -20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 16px;
-    gap: 4px;
+    padding: 16px*$scale;
+    gap: 4px*$scale;
 
-    min-width: 350px;
+    margin: 0px -8px*$scale;
+
+    min-width: 350px*$scale;
 
     /* Hierarchy/Dividers 12% */
     border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 12px;
+    border-radius: 12px*$scale;
 
-    box-shadow: 4px 4px 4px 4px #00000020;
+    box-shadow: 4px*$scale 4px*$scale 4px*$scale 4px*$scale #00000020;
 
     background-color: white;
 
@@ -744,14 +781,14 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 30px;
-    gap: 8px;
-    margin-bottom: 10px;
+    height: 30px*$scale;
+    gap: 8px*$scale;
+    margin-bottom: 10px*$scale;
 }
 
 .asset_tooltip_title_icon {
-    height: 30px;
-    border-radius: 15px;
+    height: 30px*$scale;
+    border-radius: 15px*$scale;
     background-color: #00000030;
 }
 
@@ -759,9 +796,9 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.15px;
+    font-size: 16px*$scale;
+    line-height: 24px*$scale;
+    letter-spacing: 0.15px*$scale;
 }
 
 .asset_tooltip_row {
@@ -770,16 +807,16 @@ body::-webkit-scrollbar {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 24px;
+    height: 24px*$scale;
 
-    gap: 4px;
+    gap: 4px*$scale;
 
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.15px;
+    font-size: 16px*$scale;
+    line-height: 24px*$scale;
+    letter-spacing: 0.15px*$scale;
 }
 
 .asset_tooltip_key {
@@ -787,8 +824,8 @@ body::-webkit-scrollbar {
 }
 
 .asset_tooltip_link_icon {
-    height: 16px;
-    width: 16px;
+    height: 16px*$scale;
+    width: 16px*$scale;
 }
 
 .asset_tooltip_value {
@@ -797,7 +834,7 @@ body::-webkit-scrollbar {
 }
 
 .MuiTooltip-tooltip {
-    max-width: 632px !important;
+    max-width: 632px*$scale !important;
 }
 
 /**/
@@ -806,36 +843,36 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 631px;
-    padding: 24px;
+    width: 631px*$scale;
+    padding: 24px*$scale;
 }
 
 .new_tx_footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 639px;
-    padding: 20px;
+    width: 639px*$scale;
+    padding: 20px*$scale;
 }
 
 .new_website_container {
-    height: 40px;
+    height: 40px*$scale;
     visibility: hidden;
 }
 
 /* Security assessment*/
 
 .security_assessment_header {
-    margin-top: 20px;
-    padding: 0px 24px;
-    font-size: 20px;
+    margin-top: 20px*$scale;
+    padding: 0px 24px*$scale;
+    font-size: 20px*$scale;
     font-weight: 500;
 }
 
 .security_assessment {
     box-sizing: border-box;
-    margin-top: 8px;
-    padding: 8px 24px;
+    margin-top: 8px*$scale;
+    padding: 8px*$scale 24px*$scale;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -845,18 +882,18 @@ body::-webkit-scrollbar {
 .new_dyor_disclaimer {
     box-sizing: border-box;
     width: 100%;
-    gap: 4px;
+    gap: 4px*$scale;
 
-    padding: 8px 16px;
+    padding: 8px*$scale 16px*$scale;
     /* yellow/100 */
-    border-radius: 8px;
+    border-radius: 8px*$scale;
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
-    letter-spacing: 0.15px;
-    line-height: 24px;
+    letter-spacing: 0.15px*$scale;
+    line-height: 24px*$scale;
 }
 
 .security_assessment_reported_message {
@@ -864,12 +901,12 @@ body::-webkit-scrollbar {
 
     text-align: center;
     width: 100%;
-    padding: 0px 24px;
+    padding: 0px 24px*$scale;
 
-    font-size: 14px;
+    font-size: 14px*$scale;
     font-weight: 400;
     font-family: 'Roboto';
-    margin-bottom: 20px;
+    margin-bottom: 20px*$scale;
 
     color: rgba(0, 0, 0, 0.6);
 }
@@ -895,40 +932,40 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 16px*$scale;
+    line-height: 24px*$scale;
     flex: 1;
 }
 
 .new_dyor_alert {
-    width: 24px;
-    height: 24px;
-    margin-top: 2px;
+    width: 24px*$scale;
+    height: 24px*$scale;
+    margin-top: 2px*$scale;
 }
 
 .new_dyor_text {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 15px;
+    font-size: 15px*$scale;
     flex: 1;
 }
 
 /* Transaction details */
 
 .MuiAccordionSummary-root {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: 24px*$scale !important;
+    padding-right: 24px*$scale !important;
 }
 
 .transaction_details_accordion {
     font-family: 'Roboto';
-    margin-top: 20px;
+    margin-top: 20px*$scale;
     box-shadow: none !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    border-radius: 16px !important;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    border-radius: 16px*$scale !important;
+    padding-top: 8px*$scale;
+    padding-bottom: 8px*$scale;
 }
 
 .new_transaction_details_event_address_display {
@@ -936,25 +973,25 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 16px*$scale;
     font-family: 'Roboto';
     font-weight: 500;
-    gap: 8px;
-    width: 250px;
+    gap: 8px*$scale;
+    width: 250px*$scale;
 }
 
 .standard_address_label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 4px;
+    gap: 4px*$scale;
 }
 
 .tooltipped_address_label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 4px 8px;
+    padding: 4px*$scale 8px*$scale;
 }
 
 .event_row_details_middle_col {
@@ -962,22 +999,22 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: -8px;
+    margin-top: -8px*$scale;
 }
 
 .event_row_details_middle_row {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 10px*$scale;
 }
 
 .event_row_details {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 32px;
+    height: 32px*$scale;
     width: 100%;
-    margin-left: 10px;
+    margin-left: 10px*$scale;
 }
 
 .css-67l5gl::before {
@@ -986,7 +1023,7 @@ body::-webkit-scrollbar {
 
 .MuiAccordionDetails-root {
     padding: 0px !important;
-    margin: 16px;
+    margin: 16px*$scale;
 }
 
 /* TIMELINE */
@@ -994,29 +1031,34 @@ body::-webkit-scrollbar {
 .MuiTimeline-root {
     padding: 0px !important;
     margin: 0px !important;
-    margin-bottom: -30px;
+    margin-bottom: -30px*$scale;
 }
 
 .MuiTimelineItem-root {
-    max-height: 60px !important;
-    min-height: 60px !important;
+    max-height: 60px*$scale !important;
+    min-height: 60px*$scale !important;
 }
 
 .MuiTimelineContent-root {
-    height: 32px;
-    margin-top: -6px !important;
+    height: 32px*$scale;
+    margin-top: -6px*$scale !important;
 }
 
 .MuiTimelineConnector-root {
+    margin-top: math.ceil(-2*$scale)+px;
     background-color: #00000000 !important;
 }
 
 .MuiTimelineDot-root {
     background-color: white !important;
     margin: 0px !important;
-    width: 20px;
-    height: 20px;
+    width: math.ceil(32*$scale) +px;
+    height: math.ceil(32*$scale) +px;
     box-shadow: none !important;
+}
+
+.MuiTimelineSeparator-root {
+    height: 54px*$scale;
 }
 
 .transaction_details_accordion_details {
@@ -1024,32 +1066,41 @@ body::-webkit-scrollbar {
 }
 
 .timeline_dot {
-    padding: 2px;
-    width: 16px;
-    height: 16px;
+    margin: -(math.floor(8*$scale))+px;
+    padding: math.floor(8*$scale)+px;
+    width: math.ceil(32*$scale)+px;
+    height: math.ceil(32*$scale)+px;
 }
 
 .event_details_timeline_connector {
-    margin-top: 2px;
+    margin-top: 2px*$scale;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.event_details_timeline_connector_line {
+    height: 14px*$scale;
+}
+.event_details_timeline_connector_arrow {
+    width: 16px*$scale;
+    height: 12px*$scale
+}
+
 /* REPORT */
 .report_page_tab_header {
     box-sizing: border-box;
-    width: 638px;
-    margin: 0px 24px;
-    margin-top: 32px;
+    width: 638px*$scale;
+    margin: 0px 24px*$scale;
+    margin-top: 12px*$scale;
 }
 
 
 /* HOME */
 .new_home_analysis_list {
-    padding: 16px 24px;
+    padding: 16px*$scale 24px*$scale;
     font-family: 'Roboto';
-    font-size: 15px;
+    font-size: 15px*$scale;
 }
 
 .new_home_content_container {
@@ -1058,42 +1109,42 @@ body::-webkit-scrollbar {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 24px;
-    margin-top: 32px;
-    margin-bottom: 20px;
+    gap: 24px*$scale;
+    margin-top: 32px*$scale;
+    margin-bottom: 20px*$scale;
 }
 
 .new_home_logo {
-    height: 90px;
-    width: 90px;
-    margin-bottom: 24px;
+    height: 90px*$scale;
+    width: 90px*$scale;
+    margin-bottom: 24px*$scale;
 }
 
 .new_home_motto {
     font-family: 'Roboto';
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: 0.15px;
+    font-size: 18px*$scale;
+    line-height: 24px*$scale;
+    letter-spacing: 0.15px*$scale;
     color: #383F52;
 }
 
 .new_home_text {
     box-sizing: border-box;
-    padding: 0px 48px;
-    margin-bottom: 32px;
+    padding: 0px 48px*$scale;
+    margin-bottom: 32px*$scale;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 16px;
+    gap: 16px*$scale;
 }
 
 .new_home_title {
     font-family: 'Roboto';
     font-weight: 500;
-    font-size: 40px;
-    line-height: 45px;
+    font-size: 40px*$scale;
+    line-height: 45px*$scale;
     text-justify: auto;
     color: rgba(0, 0, 0, 0.87);
 }
@@ -1102,11 +1153,11 @@ body::-webkit-scrollbar {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 20px*$scale;
+    line-height: 24px*$scale;
 
     /* or 133% */
-    letter-spacing: 0.15px;
+    letter-spacing: 0.15px*$scale;
     color: rgba(0, 0, 0, 0.5);
 }
 
@@ -1114,32 +1165,32 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 20px;
+    gap: 20px*$scale;
 }
 
 /* ERROR SCREEN */
 .error_image {
-    width: 162px;
-    height: 152px;
+    width: 162px*$scale;
+    height: 152px*$scale;
 }
 
 .error_container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 8px*$scale;
     font-family: 'Roboto';
-    padding: 32px 24px;
+    padding: 32px*$scale 24px*$scale;
 }
 
 .error_title {
-    margin-top: 24px;
-    font-size: 32px;
+    margin-top: 24px*$scale;
+    font-size: 32px*$scale;
     font-weight: 700;
 }
 
 .error_message {
-    font-size: 16px;
+    font-size: 16px*$scale;
     font-weight: 500;
     text-align: center;
 }
@@ -1149,15 +1200,15 @@ body::-webkit-scrollbar {
 .new_sign_typed_container {
     font-family: 'Roboto';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 16px*$scale;
     color: rgba(0, 0, 0, 0.6);
 
-    margin: 0px 20px;
-    padding: 20px 0px;
+    margin: 0px 20px*$scale;
+    padding: 20px*$scale 0px*$scale;
     display: flex;
     flex-direction: column;
-    width: 646px;
-    gap: 10px;
+    width: 646px*$scale;
+    gap: 10px*$scale;
     align-items: center;
 }
 
@@ -1166,8 +1217,8 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 16px*$scale;
     font-family: 'Roboto';
     font-weight: 500;
-    padding: 10px 20px;
+    padding: 10px*$scale 20px*$scale;
 }

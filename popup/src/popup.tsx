@@ -3,8 +3,9 @@ import { TransactionPage } from './components/content/tx/TransactionPage';
 import { decodeParam } from './lib/utils/uri';
 import { Pages } from './lib/navigation/pages';
 import { HomePage } from './components/content/home/HomePage';
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { SignTypedPage } from './components/content/sign_typed/SignTypedPage';
+import { SCALING_FACTOR } from './components/common/body/global';
 
 let _browser = undefined
 let isChrome = undefined
@@ -32,6 +33,23 @@ const theme = createTheme({
             // This is purple.
             main: '#9460C8',
         }
+    },
+    components: {
+        MuiCssBaseline: {
+            styleOverrides: (themeParam) => `
+            .MuiInputBase-input {
+                font-size: ${16*SCALING_FACTOR}px !important;
+                padding: ${Math.round((16.5*SCALING_FACTOR))}px ${Math.round((14*SCALING_FACTOR))}px !important;
+            }
+            textarea.MuiInputBase-input {
+                font-size: ${16*SCALING_FACTOR}px !important;
+                padding: 0px !important;
+            }
+            .MuiInputLabel-root {
+                font-size: ${16*SCALING_FACTOR}px !important;
+            }
+          `,
+        },
     },
 });
 
@@ -87,6 +105,7 @@ function handleOpenPopup() {
         setErrorMessage(message)
     };
     return <ThemeProvider theme={theme}>
+        <CssBaseline />
         {
             page === Pages.TRANSACTION
                 ?
@@ -111,7 +130,7 @@ function handleOpenPopup() {
                         initPage={page}
                         referrer={referrer}
                         contract={transaction ? transaction.to : '0x0'}
-                        />
+                    />
         }
     </ThemeProvider>
 }

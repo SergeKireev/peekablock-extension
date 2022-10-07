@@ -1,7 +1,8 @@
-import { Button, useThemeProps } from "@mui/material";
+import { Button } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { HTMLProps } from "react";
 import { Property } from 'csstype'
+import { SCALING_FACTOR } from "../body/global";
 
 interface StyledButtonProps {
     variant: 'text' | 'outlined' | 'contained'
@@ -47,7 +48,7 @@ export const StyledButton = styled((props: Props) => (
         fontFamily: 'Roboto',
         fontStyle: fontStyle || 'normal',
         fontWeight: fontWeight || '700',
-        fontSize: fontSize || 16,
+        fontSize: Math.round((fontSize || 16)*SCALING_FACTOR),
         textTransform: textTransform || 'none',
         ..._padding,
         ..._paddingVertical,

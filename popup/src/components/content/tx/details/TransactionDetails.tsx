@@ -7,6 +7,7 @@ import { SimulationResult } from "../../../../lib/domain/simulation"
 import { USER_LABEL } from "../../../../lib/domain/user";
 import { messages } from "../../../../lib/messages/messages";
 import { reorder } from "../../../../lib/utils/event_order_util";
+import { SCALING_FACTOR } from "../../../common/body/global";
 import { EventRowDetails } from "./EventRowDetails";
 
 const ExpandMoreIcon = () => {
@@ -42,8 +43,8 @@ const buildSendTimelineItem = (event: Event, index: number, chainId: number) => 
             </TimelineDot>
             <TimelineConnector>
                 <div className='event_details_timeline_connector'>
-                    <img src='./assets/divider.svg' />
-                    <img src='./assets/arrow_down.svg' />
+                    <img className={'event_details_timeline_connector_line'} src='./assets/divider.svg' />
+                    <img className={'event_details_timeline_connector_arrow'} src='./assets/arrow_down.svg' />
                 </div>
             </TimelineConnector>
         </TimelineSeparator>
@@ -102,7 +103,7 @@ export const TransactionDetails = (props: TransactionProps) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
         >
-            <Typography fontSize={20}
+            <Typography fontSize={20*SCALING_FACTOR}
                 fontWeight={500}
             >{messages.TRANSACTION_DETAILS}</Typography>
         </AccordionSummary>

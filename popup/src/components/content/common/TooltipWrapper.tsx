@@ -22,13 +22,11 @@ export interface WithTooltipProps {
 }
 type Props = HTMLProps<void> & WithTooltipProps
 
-type HtmlTooltipProps = TooltipProps & { dimensions: any }
+type HtmlTooltipProps = TooltipProps
 
 const HtmlTooltip = styled(({ className, ...props }: HtmlTooltipProps) => {
     //Use this key to reload the component when dimensions of anchor element have changed
-    const key = `${props.dimensions.width}_${props.dimensions.x}`
     return <Tooltip {...props}
-        key={key}
         classes={{ popper: className }} />
 }
 )(({ theme }) => ({
@@ -69,9 +67,6 @@ export const WithTooltip = (props: Props) => {
         onClickAway={handleTooltipClose}
     >
         <div className={className}>
-            <div onClick={handleTooltipToggle} className={props.className} ref={anchorElRef}>
-                {props.children}
-            </div>
             <HtmlTooltip
                 disableHoverListener
                 disableFocusListener
@@ -79,12 +74,13 @@ export const WithTooltip = (props: Props) => {
                 open={open}
                 onClose={handleTooltipClose}
                 placement={props.placement}
-                dimensions={dimensions}
                 title={
                     props.tooltip
                 }
             >
-                <div className='tooltip_width_adjusted' />
+                <div onClick={handleTooltipToggle} className={props.className} ref={anchorElRef}>
+                    {props.children}
+                </div>
             </HtmlTooltip>
         </div>
     </ClickAwayListener>

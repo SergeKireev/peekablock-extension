@@ -43,7 +43,7 @@ const ConsolidatedEventRowHelper = (props: ConsolidatedEventProps) => {
             chainId={props.chainId}
         />
         <div className="new_transaction_event_middle_section">
-            <img src={props.middleIcon} />
+            <img className="new_transaction_event_middle_section_icon" src={props.middleIcon} />
         </div>
         {
             <AssetComponent

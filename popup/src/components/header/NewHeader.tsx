@@ -1,6 +1,7 @@
 import { Button, ClickAwayListener, Menu, MenuItem } from '@mui/material';
 import React from 'react'
 import { MenuOption } from '../common/menu/Menu'
+import { ScaledMenuItem } from '../common/menu/ScaledMenuItem';
 
 interface HeaderProps {
     menuOptions?: MenuOption[]
@@ -18,8 +19,8 @@ export const NewHeader = (props: HeaderProps) => {
 
     return (<div className='new_header'>
         <div className='new_logo_container'>
-            <img className='new_peekablock_logo' src='./assets/peekablock_logo.svg'/>
-            <img className='new_peekablock_title' src='./assets/peekablock.svg'/>
+            <img className='new_peekablock_logo' src='./assets/peekablock_logo.svg' />
+            <img className='new_peekablock_title' src='./assets/peekablock.svg' />
             {/* <div className='new_header_running_container slow_blinking'>
                 <div className='new_header_running_indicator'>{messages.RUNNING}</div>
                 <img src="./assets/play.svg" style={{width: 15}} />
@@ -55,14 +56,14 @@ export const NewHeader = (props: HeaderProps) => {
                         >
                             {
                                 props.menuOptions.map(el => {
-                                    return <MenuItem onClick={() => {
+                                    return <ScaledMenuItem onClick={() => {
                                         handleClose()
                                         el.callback()
                                     }}>
                                         {
                                             el.label
                                         }
-                                    </MenuItem>
+                                    </ScaledMenuItem>
                                 })
                             }
                         </Menu>

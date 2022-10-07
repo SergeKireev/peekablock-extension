@@ -6,6 +6,7 @@ import { USER_LABEL } from "../../lib/domain/user";
 import { WithTooltip } from "../content/common/TooltipWrapper";
 import { CounterpartyTooltip } from "../content/tx/event/counterparty/CounterpartyTooltip";
 import { TooltipType } from "../../lib/domain/tooltip";
+import { SCALING_FACTOR } from "./body/global";
 
 export function shortenAddress(addressStr: string) {
     if (addressStr.substring(0, 2) != '0x')
@@ -84,16 +85,4 @@ export const AddressDisplay = (props: Props) => {
             }
         </div>
     }
-}
-
-export const SimpleAddressDisplay = ({ address, size }) => {
-    const _address = (
-        address.label !== USER_LABEL && address.label !== 'target' ?
-            { label: shortenAddress(address.address), address: address.address } :
-            address
-    )
-    return <div className="header_addressItem">
-        <JazzIcon address={address} size={size} />
-        <LinkFromAddress address={_address} />
-    </div>
 }

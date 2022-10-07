@@ -2,6 +2,9 @@ import { MenuItem, TextField, Alert, AlertTitle } from '@mui/material'
 import React, { useState } from 'react'
 import { Form } from '../../../common/form/Form';
 import { StyledLoadingButton } from '../../../common/button/StyledLoadingButton';
+import { SCALING_FACTOR } from '../../../common/body/global';
+import { ScaledTextField } from '../../../common/input/ScaledTextField';
+import { ScaledMenuItem } from '../../../common/menu/ScaledMenuItem';
 
 const scamTypes = [
     {
@@ -116,10 +119,11 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
         title='Report a scam to help the community!'
         paragraph='You can contribute to the safety of the ecosystem by reporting something suspicious on Peekablock'
     >
-        <TextField
+        <ScaledTextField
             className="report_form_input"
             id="project-name"
             label="Project name"
+            color='secondary'
             error={
                 projectNameError != undefined
             }
@@ -129,10 +133,11 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
             value={projectName}
             onChange={handleProjectNameChange}
         />
-        <TextField required
+        <ScaledTextField required
             className="report_form_input"
             id="url"
             label="URL"
+            color='secondary'
             error={
                 projectUrlError != undefined
             }
@@ -142,11 +147,12 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
             value={projectUrl}
             onChange={handleProjectUrlChange}
         />
-        <TextField select
+        <ScaledTextField select
             required
             className="report_form_input"
             id="type-of-scam"
             label="Type of scam"
+            color='secondary'
             error={
                 scamTypeError != undefined
             }
@@ -158,13 +164,15 @@ export const ReportScamForm = (props: ReportScamFormProps) => {
         >
             {
                 scamTypes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <ScaledMenuItem
+                        key={option.value}
+                        value={option.value}>
                         {option.label}
-                    </MenuItem>
+                    </ScaledMenuItem>
                 ))
             }
-        </TextField>
-        <TextField
+        </ScaledTextField>
+        <ScaledTextField
             className="report_form_input"
             id="contract-address"
             label="Contract address"

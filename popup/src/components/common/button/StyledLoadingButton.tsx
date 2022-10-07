@@ -1,6 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { styled } from "@mui/system";
 import React, { HTMLProps } from "react";
+import { SCALING_FACTOR } from "../body/global";
 
 interface StyledButtonProps {
     loading: boolean
@@ -25,6 +26,6 @@ export const StyledLoadingButton = styled((props: Props) => (
     fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: Math.round(16 * SCALING_FACTOR),
     textTransform: 'none'
 }));

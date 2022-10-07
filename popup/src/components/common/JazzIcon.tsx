@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import * as React from 'react'
 import { Address } from '../../lib/domain/event';
+import { SCALING_FACTOR } from './body/global';
 const jazzicon = require('@metamask/jazzicon')
 
 export function generateJazzIcon(address: string, size: number) {
@@ -18,13 +19,14 @@ export interface JazzIconProps {
 
 export const JazzIcon = (props: React.PropsWithChildren<JazzIconProps & React.HTMLProps<void>>) => {
     const ref = useRef();
+    const scaledSize = Math.ceil(props.size*SCALING_FACTOR)
     useEffect(() => {
-        const icon = generateJazzIcon(props.address.address, props.size)
+        const icon = generateJazzIcon(props.address.address, scaledSize)
         icon.classList.add('header_accountIcon')
         const current: any = ref.current
         if (current.firstChild)
             current.removeChild(current.lastChild);
         current.appendChild(icon)
     })
-    return <div className={props.className} ref={ref} style={{height: props.size}}></div>
+    return <div className={props.className} ref={ref} style={{height: scaledSize}}></div>
 }
