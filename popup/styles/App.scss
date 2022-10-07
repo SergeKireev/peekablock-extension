@@ -1014,7 +1014,7 @@ body::-webkit-scrollbar {
     align-items: center;
     height: 32px*$scale;
     width: 100%;
-    margin-left: 10px*$scale;
+    margin-top: math.floor(-5*$scale)+px;
 }
 
 .css-67l5gl::before {

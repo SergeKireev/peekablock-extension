@@ -27,7 +27,7 @@ export const HomeContent = (props: HomeContentProps) => {
                     paddingVertical={5}
                     link='https://github.com/SergeKireev/peekablock-extension'
                 >
-                    How to contribute
+                    Contribute
                 </StyledLinkButton>
                 <StyledButton
                     variant='outlined'

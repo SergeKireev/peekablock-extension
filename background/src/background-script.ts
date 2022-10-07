@@ -1,9 +1,11 @@
 import { verifyWithContract } from './contract/registry';
 
+const SCALING_FACTOR = 0.9;
+
 // Have the same dimensions as metamask extension 
-const NOTIFICATION_HEIGHT = 720;
+const NOTIFICATION_HEIGHT = 620;
 const METAMASK_NOTIFICATION_WIDTH = 360;
-const NOTIFICATION_WIDTH = 576;
+const NOTIFICATION_WIDTH = Math.ceil(720*SCALING_FACTOR);
 
 let _browser = undefined
 let isChrome = undefined

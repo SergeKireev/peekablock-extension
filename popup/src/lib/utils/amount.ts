@@ -25,9 +25,9 @@ function trimLeadingZeroes(s: string) {
     return s.substring(i);
 }
 
-function interleaveCommas(s: string) {
+export function displayInteger(s: string) {
     if (s.length > 3) {
-        const res = interleaveCommas(s.substring(0, s.length-3))
+        const res = displayInteger(s.substring(0, s.length-3))
         const remainder = s.substring(s.length-3)
         return `${res},${remainder}`
     } else {
@@ -54,7 +54,7 @@ export function displayAmount(amount: Amount) {
     } else {
         //Case when we display >5 digits
         const separatorPosition = diff + 1
-        const withCommas = interleaveCommas(amount.mantissa.substring(0, separatorPosition))
+        const withCommas = displayInteger(amount.mantissa.substring(0, separatorPosition))
         return `${withCommas}.${amount.mantissa.substring(separatorPosition, separatorPosition + MIN_SIGNIFICANT_DIGITS)}`
     }
 }
@@ -71,7 +71,8 @@ export function displayUsdAmount(amount: Amount, usdPrice: number) {
     let fixedDisplay = totalUsdPrice.toString()
     fixedDisplay = leftPad(fixedDisplay, precision + 1, '0')
     const fixedDisplayLength = fixedDisplay.length
-    return `${fixedDisplay.substring(0, fixedDisplayLength - precision)}.${fixedDisplay.substring(fixedDisplayLength - precision)}`
+    const integerPart = displayInteger(fixedDisplay.substring(0, fixedDisplayLength - precision))
+    return `${integerPart}.${fixedDisplay.substring(fixedDisplayLength - precision)}`
 }
 
 function bigNumberOr(n: BigNumberish, _default: BigNumberish) {

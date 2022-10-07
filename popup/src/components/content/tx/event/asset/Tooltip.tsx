@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ContractAbstract, ContractMetadata } from '../../../../../lib/domain/contract'
 import { Token } from '../../../../../lib/domain/event'
 import { fetchContractAbstract } from '../../../../../lib/service/contract_abstract_service'
+import { displayAmount, displayInteger } from '../../../../../lib/utils/amount'
 import { displayRelativeDate } from '../../../../../lib/utils/date'
 import { StyledLinkButton } from '../../../../common/button/StyledLinkButton'
 
@@ -34,7 +35,7 @@ export const ManagedAssetTooltip = (props: ManagedAssetTooltipProps) => {
                 </div>
                 <div className='asset_tooltip_row'>
                     <div className='asset_tooltip_key'>Approx. number of tx in last 24h:</div>
-                    <div className='asset_tooltip_value'>{props.contractAbstract.nbOfTransactions}</div>
+                    <div className='asset_tooltip_value'>{displayInteger(props.contractAbstract.nbOfTransactions.toString())}</div>
                 </div>
                 <div className='asset_tooltip_row'>
                     <div className='asset_tooltip_key'>View block explorer:</div>

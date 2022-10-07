@@ -117,7 +117,7 @@ export const ReportBugForm = (props: ReportBugFormProps) => {
 
     return <Form
         title='Report a bug to help us improve'
-        paragraph='You have encountered a bug using peekablock, please help us resolve the issue'
+        paragraph='You have encountered a bug using Peekablock, please help us resolve the issue'
     >
         <ScaledTextField select
             required
