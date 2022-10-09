@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ContractAbstract, ContractMetadata } from '../../../../../lib/domain/contract'
 import { Token } from '../../../../../lib/domain/event'
 import { fetchContractAbstract } from '../../../../../lib/service/contract_abstract_service'
-import { displayAmount, displayInteger } from '../../../../../lib/utils/amount'
+import { displayInteger } from '../../../../../lib/utils/amount'
 import { displayRelativeDate } from '../../../../../lib/utils/date'
 import { StyledLinkButton } from '../../../../common/button/StyledLinkButton'
 

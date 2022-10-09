@@ -3,9 +3,9 @@ import { SignTypedData } from '../../../../lib/domain/sign_typed'
 import { DyorDisclaimer } from '../../tx/security/DyorDisclaimer'
 
 function dyorDisclaimer(signTyped: SignTypedData) {
-    const title = `You are signing a valid message on the ${signTyped?.domain?.name} contract`
+    const title = `You are signing a message compatible with the ${signTyped?.domain?.name} contract`
     const message = `This signature can be used against you in the ${signTyped?.domain?.name} ecosystem`
-    return <DyorDisclaimer title={title} message={message} style={'warning'}/>
+    return <DyorDisclaimer title={title} message={message} style={'error'}/>
 }
 
 interface SignTypedSecurityAssessmentProps {
